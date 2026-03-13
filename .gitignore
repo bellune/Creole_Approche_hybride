@@ -1,0 +1,36 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# environments
+.env
+.venv
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints
+
+# HuggingFace / training outputs
+mt5_baseline/
+nllb200_baseline/
+runs/
+outputs/
+
+# datasets
+data/
+datasets/kreyol-mt-hat-eng
+
+# logs
+*.log
+
+# Mac
+.DS_Store
+
+# VSCode
+.vscode/
+
+# checkpoints
+checkpoint-*/

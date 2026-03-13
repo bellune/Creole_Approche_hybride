@@ -1,0 +1,151 @@
+from transformers import DataCollatorForSeq2Seq, Seq2SeqTrainingArguments, Seq2SeqTrainer
+import evaluate
+import numpy as np
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+
+import reload as r
+
+# -------------------------------
+# Chargement du modèle et du tokenizer
+# -------------------------------
+
+model_name = "facebook/nllb-200-distilled-600M"
+
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
+
+tokenizer.src_lang = "hat_Latn"
+model.config.forced_bos_token_id = None
+model.generation_config.forced_bos_token_id = tokenizer.convert_tokens_to_ids("eng_Latn")
+
+
+
+
+# --------------------------------
+# Traitement des données
+# --------------------------------
+
+def keep_hat_en(example):
+    t = example["translation"]
+    return (t["src_lang"] == "hat") and (t["tgt_lang"] == "eng")
+
+train_f = r.train_ds.filter(keep_hat_en)
+val_f   = r.val_ds.filter(keep_hat_en)
+test_f  = r.test_ds.filter(keep_hat_en)
+
+print("Train:", len(train_f), "Val:", len(val_f), "Test:", len(test_f))
+print(train_f)
+
+MAX_LEN = 128
+
+tokenizer.src_lang = "hat_Latn"
+
+def preprocess(examples):
+    src_texts = [item["src_text"] for item in examples["translation"]]
+    tgt_texts = [item["tgt_text"] for item in examples["translation"]]
+
+    model_inputs = tokenizer(
+        src_texts,
+        max_length=MAX_LEN,
+        truncation=True,
+        padding="max_length"
+    )
+
+    labels = tokenizer(
+        text_target=tgt_texts,
+        max_length=MAX_LEN,
+        truncation=True,
+        padding="max_length"
+    )["input_ids"]
+
+    pad = tokenizer.pad_token_id
+    labels = [[tok if tok != pad else -100 for tok in seq] for seq in labels]
+
+    model_inputs["labels"] = labels
+    return model_inputs
+
+tok_train = train_f.map(preprocess, batched=True, remove_columns=["translation"])
+tok_val   = val_f.map(preprocess, batched=True, remove_columns=["translation"])
+tok_test  = test_f.map(preprocess, batched=True, remove_columns=["translation"])
+
+
+
+
+
+
+
+
+# -------------------------------
+# Training et evaluation
+# -------------------------------
+
+data_collator = DataCollatorForSeq2Seq(tokenizer=tokenizer, model=model)
+
+bleu = evaluate.load("sacrebleu")
+chrf = evaluate.load("chrf")
+
+def compute_metrics(eval_preds):
+    preds, labels = eval_preds
+
+    if isinstance(preds, tuple):
+        preds = preds[0]
+
+    decoded_preds = tokenizer.batch_decode(preds, skip_special_tokens=True)
+
+    labels = np.where(labels != -100, labels, tokenizer.pad_token_id)
+    decoded_labels = tokenizer.batch_decode(labels, skip_special_tokens=True)
+
+    # Pour SacreBLEU : liste de listes
+    bleu_labels = [[label] for label in decoded_labels]
+
+    bleu_result = bleu.compute(
+        predictions=decoded_preds,
+        references=bleu_labels
+    )
+
+    # Pour chrF : liste simple
+    chrf_result = chrf.compute(
+        predictions=decoded_preds,
+        references=decoded_labels
+    )
+
+    return {
+        "bleu": bleu_result["score"],
+        "chrf": chrf_result["score"]
+    }
+
+
+training_args = Seq2SeqTrainingArguments(
+    output_dir="nllb200_baseline",
+    eval_strategy="steps",
+    eval_steps=1000,
+    save_strategy="steps",
+    save_steps=1000,
+    logging_steps=200,
+    learning_rate=2e-5,
+    per_device_train_batch_size=4,
+    per_device_eval_batch_size=4,
+    weight_decay=0.01,
+    num_train_epochs=1,
+    predict_with_generate=True,
+    generation_max_length=128,
+    fp16=True,
+    save_total_limit=2,
+    load_best_model_at_end=True,
+    metric_for_best_model="bleu",
+    greater_is_better=True,
+    report_to="none",
+    generation_num_beams=4
+)
+
+trainer = Seq2SeqTrainer(
+    model=model,
+    args=training_args,
+    train_dataset=tok_train,
+    eval_dataset=tok_val,
+     processing_class=tokenizer,
+    data_collator=data_collator,
+    compute_metrics=compute_metrics,
+)
+
+trainer.train()

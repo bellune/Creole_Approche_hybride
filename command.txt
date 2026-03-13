@@ -1,0 +1,2 @@
+!pip install -q datasets
+!pip -q install transformers datasets evaluate sacrebleu sentencepiece accelerate
