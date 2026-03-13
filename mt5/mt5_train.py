@@ -5,6 +5,25 @@ import evaluate
 import torch, numpy as np, random
 from transformers import MT5ForConditionalGeneration, AutoTokenizer
 
+from datasets import load_from_disk
+import config as cfg
+
+path_data = "datasets"
+save_path = path_data + "/kreyol-mt-hat-eng"
+
+# -------------------------------
+# Chargement des données
+# -------------------------------
+
+
+ds = load_from_disk(save_path)
+print(ds)
+
+train_ds = ds["train"]
+val_ds   = ds["validation"]
+test_ds  = ds["test"]
+
+print(train_ds[0])
 
 
 # -------------------------------

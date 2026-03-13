@@ -1,2 +1,4 @@
 !pip install -q datasets
 !pip -q install transformers datasets evaluate sacrebleu sentencepiece accelerate
+
+nllb200/nllb200_train.py
