@@ -5,7 +5,7 @@ from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 
 
 from datasets import load_from_disk
-import config as cfg
+
 
 path_data = "datasets"
 save_path = path_data + "/kreyol-mt-hat-eng"
@@ -49,9 +49,9 @@ def keep_hat_en(example):
     t = example["translation"]
     return (t["src_lang"] == "hat") and (t["tgt_lang"] == "eng")
 
-train_f = r.train_ds.filter(keep_hat_en)
-val_f   = r.val_ds.filter(keep_hat_en)
-test_f  = r.test_ds.filter(keep_hat_en)
+train_f = train_ds.filter(keep_hat_en)
+val_f   = val_ds.filter(keep_hat_en)
+test_f  = test_ds.filter(keep_hat_en)
 
 print("Train:", len(train_f), "Val:", len(val_f), "Test:", len(test_f))
 print(train_f)
