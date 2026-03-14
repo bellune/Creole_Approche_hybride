@@ -31,15 +31,15 @@ print(train_ds[0])
 
 model_name = "facebook/nllb-200-distilled-600M"
 
-tokenizer = AutoTokenizer.from_pretrained(model_name)
+tokenizer = AutoTokenizer.from_pretrained(
+    model_name,
+    src_lang="hat_Latn",
+    tgt_lang="eng_Latn",
+    use_fast=False
+)
+
 model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
-
-tokenizer.src_lang = "hat_Latn"
 model.generation_config.forced_bos_token_id = tokenizer.convert_tokens_to_ids("eng_Latn")
-
-print(tokenizer.convert_tokens_to_ids("hat_Latn"))
-print(tokenizer.convert_tokens_to_ids("eng_Latn"))
-print(tokenizer.src_lang, tokenizer.tgt_lang)
 
 
 # --------------------------------
@@ -57,9 +57,8 @@ test_f  = test_ds.filter(keep_hat_en)
 print("Train:", len(train_f), "Val:", len(val_f), "Test:", len(test_f))
 print(train_f)
 
-MAX_LEN = 128
 
-tokenizer.src_lang = "hat_Latn"
+MAX_LEN = 128
 
 def preprocess(examples):
     src_texts = [item["src_text"] for item in examples["translation"]]
@@ -90,10 +89,10 @@ tok_val   = val_f.map(preprocess, batched=True, remove_columns=["translation"])
 tok_test  = test_f.map(preprocess, batched=True, remove_columns=["translation"])
 
 
-
-
-
-
+print("src_lang:", tokenizer.src_lang)
+print("tgt_lang:", tokenizer.tgt_lang)
+print("hat_Latn:", tokenizer.convert_tokens_to_ids("hat_Latn"))
+print("eng_Latn:", tokenizer.convert_tokens_to_ids("eng_Latn"))
 
 
 # -------------------------------
