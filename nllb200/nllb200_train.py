@@ -163,7 +163,7 @@ trainer = Seq2SeqTrainer(
     args=training_args,
     train_dataset=tok_train,
     eval_dataset=tok_val,
-     processing_class=tokenizer,
+    tokenizer=tokenizer,
     data_collator=data_collator,
     compute_metrics=compute_metrics,
 )
