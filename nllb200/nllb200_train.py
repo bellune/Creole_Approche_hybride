@@ -35,10 +35,11 @@ tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
 
 tokenizer.src_lang = "hat_Latn"
-model.config.forced_bos_token_id = None
 model.generation_config.forced_bos_token_id = tokenizer.convert_tokens_to_ids("eng_Latn")
 
-
+print(tokenizer.convert_tokens_to_ids("hat_Latn"))
+print(tokenizer.convert_tokens_to_ids("eng_Latn"))
+print(tokenizer.src_lang, tokenizer.tgt_lang)
 
 
 # --------------------------------
