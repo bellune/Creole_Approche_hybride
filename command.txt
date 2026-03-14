@@ -2,3 +2,8 @@
 !pip -q install transformers datasets evaluate sacrebleu sentencepiece accelerate
 
 nllb200/nllb200_train.py
+
+
+python -c "import sys; print(sys.executable)"
+python -m pip uninstall -y transformers accelerate torch torchvision
+python -m pip install transformers accelerate datasets evaluate sentencepiece sacrebleu
