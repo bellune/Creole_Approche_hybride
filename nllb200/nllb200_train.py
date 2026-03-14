@@ -1,7 +1,7 @@
 from transformers import DataCollatorForSeq2Seq, Seq2SeqTrainingArguments, Seq2SeqTrainer
 import evaluate
 import numpy as np
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, NllbTokenizer
 
 
 from datasets import load_from_disk
@@ -31,11 +31,10 @@ print(train_ds[0])
 
 model_name = "facebook/nllb-200-distilled-600M"
 
-tokenizer = AutoTokenizer.from_pretrained(
+tokenizer = NllbTokenizer.from_pretrained(
     model_name,
     src_lang="hat_Latn",
     tgt_lang="eng_Latn",
-    use_fast=False
 )
 
 model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
