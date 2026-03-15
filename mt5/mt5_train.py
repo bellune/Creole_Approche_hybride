@@ -3,7 +3,7 @@ import torch
 import evaluate
 
 import torch, numpy as np, random
-from transformers import MT5ForConditionalGeneration, AutoTokenizer
+from transformers import MT5ForConditionalGeneration, AutoTokenizer, EarlyStoppingCallback
 
 from datasets import load_from_disk
 
@@ -109,13 +109,13 @@ args = Seq2SeqTrainingArguments(
     eval_steps=1000,
     save_steps=1000,
     logging_steps=200,
-    learning_rate=1e-4,
+    learning_rate=3e-5,
     max_grad_norm=1.0,
     warmup_steps=500,
     per_device_train_batch_size=8,
     per_device_eval_batch_size=8,
-    num_train_epochs=1,
-    predict_with_generate=False,
+    num_train_epochs=3,
+    predict_with_generate=True,
     fp16=False,
     report_to="none",
     seed=42
@@ -129,6 +129,7 @@ trainer = Seq2SeqTrainer(
     eval_dataset=tok_val,
     data_collator=data_collator,
     tokenizer=tokenizer,
+    callbacks=[EarlyStoppingCallback(early_stopping_patience=2)],
 )
 
 trainer.train()

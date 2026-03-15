@@ -9,3 +9,5 @@ python -m pip uninstall -y transformers accelerate torch torchvision
 python -m pip install transformers accelerate datasets evaluate sentencepiece sacrebleu
 
 python -c "from transformers import Seq2SeqTrainer; print('ok')"
+
+ learning_rate=2e-5,

@@ -1,7 +1,7 @@
 from transformers import DataCollatorForSeq2Seq, Seq2SeqTrainingArguments, Seq2SeqTrainer
 import evaluate
 import numpy as np
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, NllbTokenizer
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, NllbTokenizer, EarlyStoppingCallback
 
 
 from datasets import load_from_disk
@@ -141,11 +141,11 @@ training_args = Seq2SeqTrainingArguments(
     save_strategy="steps",
     save_steps=1000,
     logging_steps=200,
-    learning_rate=2e-5,
+    learning_rate=3e-5,
     per_device_train_batch_size=4,
     per_device_eval_batch_size=4,
     weight_decay=0.01,
-    num_train_epochs=1,
+    num_train_epochs=3,
     predict_with_generate=True,
     generation_max_length=128,
     fp16=True,
@@ -165,6 +165,7 @@ trainer = Seq2SeqTrainer(
     processing_class=tokenizer,
     data_collator=data_collator,
     compute_metrics=compute_metrics,
+    callbacks=[EarlyStoppingCallback(early_stopping_patience=2)],
 )
 
 trainer.train()
