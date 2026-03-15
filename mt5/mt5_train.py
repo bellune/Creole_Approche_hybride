@@ -46,7 +46,6 @@ print("Device:", device)
 # Traitement des données        
 # --------------------------------
 
-import reload as r
 def keep_hat_en(example):
     t = example["translation"]
     return (t["src_lang"] == "hat") and (t["tgt_lang"] == "eng")
