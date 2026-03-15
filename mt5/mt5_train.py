@@ -101,12 +101,24 @@ chrf = evaluate.load("chrf")
 def compute_metrics(eval_pred):
     preds, labels = eval_pred
 
+    # parfois Trainer renvoie un tuple
     if isinstance(preds, tuple):
         preds = preds[0]
 
-    decoded_preds = tokenizer.batch_decode(preds, skip_special_tokens=True)
+    # sécurité: convertir en numpy int64
+    preds = np.asarray(preds)
+    labels = np.asarray(labels)
 
-    labels = np.where(labels != -100, labels, tokenizer.pad_token_id)
+    # si jamais preds contient encore des logits, on prend argmax
+    if preds.ndim == 3:
+        preds = np.argmax(preds, axis=-1)
+
+    preds = preds.astype(np.int64)
+
+    # remplacer les labels masqués
+    labels = np.where(labels != -100, labels, tokenizer.pad_token_id).astype(np.int64)
+
+    decoded_preds = tokenizer.batch_decode(preds, skip_special_tokens=True)
     decoded_labels = tokenizer.batch_decode(labels, skip_special_tokens=True)
 
     decoded_preds = [p.strip() for p in decoded_preds]
@@ -126,7 +138,6 @@ def compute_metrics(eval_pred):
         "bleu": bleu_score,
         "chrf": chrf_score,
     }
-
 # -------------------------------
 # Collator
 # -------------------------------
