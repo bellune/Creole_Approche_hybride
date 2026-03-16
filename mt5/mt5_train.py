@@ -5,7 +5,6 @@ from transformers import (
     DataCollatorForSeq2Seq,
     Seq2SeqTrainer,
     Seq2SeqTrainingArguments,
-    EarlyStoppingCallback,
 )
 import torch
 import evaluate
@@ -39,7 +38,6 @@ val_f = val_ds.filter(keep_hat_en)
 test_f = test_ds.filter(keep_hat_en)
 
 print("Train:", len(train_f), "Val:", len(val_f), "Test:", len(test_f))
-print(train_f)
 
 # -------------------------------
 # Seed
@@ -93,52 +91,6 @@ tok_val = val_f.map(preprocess, batched=True, remove_columns=["translation"])
 tok_test = test_f.map(preprocess, batched=True, remove_columns=["translation"])
 
 # -------------------------------
-# Métriques
-# -------------------------------
-bleu = evaluate.load("sacrebleu")
-chrf = evaluate.load("chrf")
-
-def compute_metrics(eval_pred):
-    preds, labels = eval_pred
-
-    # parfois Trainer renvoie un tuple
-    if isinstance(preds, tuple):
-        preds = preds[0]
-
-    # sécurité: convertir en numpy int64
-    preds = np.asarray(preds)
-    labels = np.asarray(labels)
-
-    # si jamais preds contient encore des logits, on prend argmax
-    if preds.ndim == 3:
-        preds = np.argmax(preds, axis=-1)
-
-    preds = preds.astype(np.int64)
-
-    # remplacer les labels masqués
-    labels = np.where(labels != -100, labels, tokenizer.pad_token_id).astype(np.int64)
-
-    decoded_preds = tokenizer.batch_decode(preds, skip_special_tokens=True)
-    decoded_labels = tokenizer.batch_decode(labels, skip_special_tokens=True)
-
-    decoded_preds = [p.strip() for p in decoded_preds]
-    decoded_labels = [l.strip() for l in decoded_labels]
-
-    bleu_score = bleu.compute(
-        predictions=decoded_preds,
-        references=[[l] for l in decoded_labels]
-    )["score"]
-
-    chrf_score = chrf.compute(
-        predictions=decoded_preds,
-        references=decoded_labels
-    )["score"]
-
-    return {
-        "bleu": bleu_score,
-        "chrf": chrf_score,
-    }
-# -------------------------------
 # Collator
 # -------------------------------
 data_collator = DataCollatorForSeq2Seq(tokenizer=tokenizer, model=model)
@@ -148,9 +100,8 @@ data_collator = DataCollatorForSeq2Seq(tokenizer=tokenizer, model=model)
 # -------------------------------
 args = Seq2SeqTrainingArguments(
     output_dir="mt5_baseline",
-    eval_strategy="steps",
+    eval_strategy="no",
     save_strategy="steps",
-    eval_steps=1000,
     save_steps=1000,
     logging_steps=200,
     learning_rate=3e-5,
@@ -158,15 +109,11 @@ args = Seq2SeqTrainingArguments(
     warmup_steps=500,
     per_device_train_batch_size=8,
     per_device_eval_batch_size=8,
-    num_train_epochs=3,
-    predict_with_generate=True,
-    generation_max_length=128,
+    num_train_epochs=1,
+    predict_with_generate=False,
     fp16=torch.cuda.is_available(),
     report_to="none",
     seed=42,
-    load_best_model_at_end=True,
-    metric_for_best_model="bleu",
-    greater_is_better=True,
     save_total_limit=2,
 )
 
@@ -177,11 +124,8 @@ trainer = Seq2SeqTrainer(
     model=model,
     args=args,
     train_dataset=tok_train,
-    eval_dataset=tok_val,
     processing_class=tokenizer,
     data_collator=data_collator,
-    compute_metrics=compute_metrics,
-    callbacks=[EarlyStoppingCallback(early_stopping_patience=2)],
 )
 
 # -------------------------------
@@ -190,22 +134,25 @@ trainer = Seq2SeqTrainer(
 trainer.train()
 
 # -------------------------------
-# Évaluation finale sur test
+# Sauvegarde finale
 # -------------------------------
-test_results = trainer.evaluate(eval_dataset=tok_test)
-print("Test results:", test_results)
+trainer.save_model("mt5_baseline/final_model")
+tokenizer.save_pretrained("mt5_baseline/final_model")
 
 # -------------------------------
-# Exemples de génération
+# Évaluation finale sur test
 # -------------------------------
-k = 10
-test_sample = test_f.select(range(min(k, len(test_f))))
+model.eval()
+
+k = min(1000, len(test_f))   # tu peux mettre 100 pour tester vite
+test_sample = test_f.select(range(k))
 translations = test_sample["translation"]
 
 src_texts = [PREFIX + ex["src_text"] for ex in translations]
 refs = [ex["tgt_text"] for ex in translations]
 
 preds = []
+
 for text in src_texts:
     inputs = tokenizer(
         text,
@@ -224,7 +171,25 @@ for text in src_texts:
     pred = tokenizer.decode(output_ids[0], skip_special_tokens=True)
     preds.append(pred)
 
-for i in range(len(preds)):
+bleu = evaluate.load("sacrebleu")
+bleu_score = bleu.compute(
+    predictions=preds,
+    references=[[r] for r in refs]
+)
+
+chrf = evaluate.load("chrf")
+chrf_score = chrf.compute(
+    predictions=preds,
+    references=refs
+)
+
+print("BLEU score:", bleu_score["score"])
+print("chrF score:", chrf_score["score"])
+
+# -------------------------------
+# Exemples
+# -------------------------------
+for i in range(min(10, len(test_sample))):
     print(f"\n--- {i} ---")
     print("SRC :", test_sample[i]["translation"]["src_text"])
     print("PRED:", preds[i])
