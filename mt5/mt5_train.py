@@ -125,6 +125,7 @@ trainer = Seq2SeqTrainer(
     model=model,
     args=args,
     train_dataset=tok_train,
+    eval_dataset=tok_val,
     processing_class=tokenizer,
     data_collator=data_collator,
 )
