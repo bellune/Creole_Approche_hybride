@@ -100,11 +100,12 @@ data_collator = DataCollatorForSeq2Seq(tokenizer=tokenizer, model=model)
 # -------------------------------
 args = Seq2SeqTrainingArguments(
     output_dir="mt5_baseline",
-    eval_strategy="no",
     save_strategy="steps",
+    eval_strategy="steps",
+    eval_steps=1000,
     save_steps=1000,
     logging_steps=200,
-    learning_rate=5e-5,
+    learning_rate=3e-4,
     max_grad_norm=1.0,
     warmup_steps=500,
     per_device_train_batch_size=8,
