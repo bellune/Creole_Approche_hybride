@@ -1,56 +1,59 @@
 import numpy as np
-
 import evaluate
-import numpy as np
-from transformers import AutoModelForSeq2SeqLM, Seq2SeqTrainer, Seq2SeqTrainingArguments, AutoModelForSeq2SeqLM, AutoTokenizer
-
-
 from datasets import load_from_disk
-
-
-path_data = "datasets"
-save_path = path_data + "/kreyol-mt-hat-eng"
+from transformers import (
+    AutoModelForSeq2SeqLM,
+    AutoTokenizer,
+    Seq2SeqTrainer,
+    Seq2SeqTrainingArguments,
+    DataCollatorForSeq2Seq,
+)
 
 # -------------------------------
 # Chargement des données
 # -------------------------------
-
+path_data = "datasets"
+save_path = path_data + "/kreyol-mt-hat-eng"
 
 ds = load_from_disk(save_path)
 print(ds)
 
-
-test_ds  = ds["test"]
-
+test_ds = ds["test"]
 
 # -------------------------------
-# Chargement du modèle et du tokenizer  
+# Chargement du modèle et tokenizer
 # -------------------------------
-
 model_path = "nllb200_baseline/checkpoint-41565"
+base_model = "facebook/nllb-200-distilled-600M"
+
+SRC_LANG = "hat_Latn"
+TGT_LANG = "eng_Latn"
 
 model = AutoModelForSeq2SeqLM.from_pretrained(model_path)
 
 tokenizer = AutoTokenizer.from_pretrained(
-    model_path,
-    src_lang="hat_Latn",
-    tgt_lang="eng_Latn"
+    base_model,
+    src_lang=SRC_LANG,
+    tgt_lang=TGT_LANG,
+    use_fast=False
 )
 
+# Très important pour NLLB pendant generate()
+model.generation_config.forced_bos_token_id = tokenizer.convert_tokens_to_ids(TGT_LANG)
 
 # --------------------------------
-# Traitement des données
+# Filtrage hat -> eng
 # --------------------------------
-
 def keep_hat_en(example):
     t = example["translation"]
     return (t["src_lang"] == "hat") and (t["tgt_lang"] == "eng")
 
-test_f  = test_ds.filter(keep_hat_en)
-
+test_f = test_ds.filter(keep_hat_en)
 print("Test:", len(test_f))
 
-
+# --------------------------------
+# Prétraitement
+# --------------------------------
 MAX_LEN = 128
 
 def preprocess(examples):
@@ -77,24 +80,20 @@ def preprocess(examples):
     model_inputs["labels"] = labels
     return model_inputs
 
-tok_test  = test_f.map(preprocess, batched=True, remove_columns=["translation"])
+tok_test = test_f.map(preprocess, batched=True, remove_columns=["translation"])
 
-
-print("src_lang:", tokenizer.src_lang)
-print("tgt_lang:", tokenizer.tgt_lang)
-print("hat_Latn:", tokenizer.convert_tokens_to_ids("hat_Latn"))
-print("eng_Latn:", tokenizer.convert_tokens_to_ids("eng_Latn"))
-
+print("src_lang:", SRC_LANG)
+print("tgt_lang:", TGT_LANG)
+print("hat_Latn:", tokenizer.convert_tokens_to_ids(SRC_LANG))
+print("eng_Latn:", tokenizer.convert_tokens_to_ids(TGT_LANG))
 
 # -------------------------------
-# Training et evaluation
+# Métriques
 # -------------------------------
-
 bleu = evaluate.load("sacrebleu")
 chrf = evaluate.load("chrf")
 ter = evaluate.load("ter")
 bleurt = evaluate.load("bleurt", config_name="bleurt-base-128")
-
 
 def compute_metrics(eval_preds):
     preds, labels = eval_preds
@@ -107,7 +106,7 @@ def compute_metrics(eval_preds):
     labels = np.where(labels != -100, labels, tokenizer.pad_token_id)
     decoded_labels = tokenizer.batch_decode(labels, skip_special_tokens=True)
 
-    # BLEU (liste de listes)
+    # SacreBLEU attend liste de listes
     bleu_labels = [[label] for label in decoded_labels]
 
     bleu_result = bleu.compute(
@@ -115,7 +114,7 @@ def compute_metrics(eval_preds):
         references=bleu_labels
     )
 
-    # chrF++
+    # chrF
     chrf_result = chrf.compute(
         predictions=decoded_preds,
         references=decoded_labels
@@ -128,34 +127,38 @@ def compute_metrics(eval_preds):
     )
 
     # BLEURT
-    
     bleurt_result = bleurt.compute(
-    predictions=decoded_preds,
-    references=decoded_labels
-)
+        predictions=decoded_preds,
+        references=decoded_labels
+    )
+
     return {
         "bleu": bleu_result["score"],
         "chrf": chrf_result["score"],
         "ter": ter_result["score"],
-        "bleurt": np.mean(bleurt_result["scores"])
-
+        "bleurt": float(np.mean(bleurt_result["scores"]))
     }
 
-
+# -------------------------------
+# Evaluation
+# -------------------------------
+data_collator = DataCollatorForSeq2Seq(tokenizer=tokenizer, model=model)
 
 training_args = Seq2SeqTrainingArguments(
     output_dir="eval_results",
     predict_with_generate=True,
     per_device_eval_batch_size=8,
-    report_to="none"
+    report_to="none",
+    generation_max_length=128
 )
 
 trainer = Seq2SeqTrainer(
     model=model,
     args=training_args,
     tokenizer=tokenizer,
+    data_collator=data_collator,
     compute_metrics=compute_metrics
 )
 
-results = trainer.evaluate(eval_dataset=test_ds)
+results = trainer.evaluate(eval_dataset=tok_test)
 print(results)
