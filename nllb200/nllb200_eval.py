@@ -1,13 +1,8 @@
+import torch
 import numpy as np
 import evaluate
 from datasets import load_from_disk
-from transformers import (
-    AutoModelForSeq2SeqLM,
-    AutoTokenizer,
-    Seq2SeqTrainer,
-    Seq2SeqTrainingArguments,
-    DataCollatorForSeq2Seq,
-)
+from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 
 # -------------------------------
 # Chargement des données
@@ -28,8 +23,12 @@ base_model = "facebook/nllb-200-distilled-600M"
 
 SRC_LANG = "hat_Latn"
 TGT_LANG = "eng_Latn"
+MAX_LEN = 128
 
-model = AutoModelForSeq2SeqLM.from_pretrained(model_path)
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print("Device:", device)
+
+model = AutoModelForSeq2SeqLM.from_pretrained(model_path).to(device)
 
 tokenizer = AutoTokenizer.from_pretrained(
     base_model,
@@ -38,49 +37,17 @@ tokenizer = AutoTokenizer.from_pretrained(
     use_fast=False
 )
 
-# Très important pour NLLB pendant generate()
-model.generation_config.forced_bos_token_id = tokenizer.convert_tokens_to_ids(TGT_LANG)
+model.eval()
 
-# --------------------------------
+# -------------------------------
 # Filtrage hat -> eng
-# --------------------------------
+# -------------------------------
 def keep_hat_en(example):
     t = example["translation"]
     return (t["src_lang"] == "hat") and (t["tgt_lang"] == "eng")
 
 test_f = test_ds.filter(keep_hat_en)
 print("Test:", len(test_f))
-
-# --------------------------------
-# Prétraitement
-# --------------------------------
-MAX_LEN = 128
-
-def preprocess(examples):
-    src_texts = [item["src_text"] for item in examples["translation"]]
-    tgt_texts = [item["tgt_text"] for item in examples["translation"]]
-
-    model_inputs = tokenizer(
-        src_texts,
-        max_length=MAX_LEN,
-        truncation=True,
-        padding="max_length"
-    )
-
-    labels = tokenizer(
-        text_target=tgt_texts,
-        max_length=MAX_LEN,
-        truncation=True,
-        padding="max_length"
-    )["input_ids"]
-
-    pad = tokenizer.pad_token_id
-    labels = [[tok if tok != pad else -100 for tok in seq] for seq in labels]
-
-    model_inputs["labels"] = labels
-    return model_inputs
-
-tok_test = test_f.map(preprocess, batched=True, remove_columns=["translation"])
 
 print("src_lang:", SRC_LANG)
 print("tgt_lang:", TGT_LANG)
@@ -95,69 +62,63 @@ chrf = evaluate.load("chrf")
 ter = evaluate.load("ter")
 bleurt = evaluate.load("bleurt", config_name="bleurt-base-128")
 
-def compute_metrics(eval_preds):
-    preds, labels = eval_preds
-
-    if isinstance(preds, tuple):
-        preds = preds[0]
-
-    decoded_preds = tokenizer.batch_decode(preds, skip_special_tokens=True)
-
-    labels = np.where(labels != -100, labels, tokenizer.pad_token_id)
-    decoded_labels = tokenizer.batch_decode(labels, skip_special_tokens=True)
-
-    # SacreBLEU attend liste de listes
-    bleu_labels = [[label] for label in decoded_labels]
-
-    bleu_result = bleu.compute(
-        predictions=decoded_preds,
-        references=bleu_labels
-    )
-
-    # chrF
-    chrf_result = chrf.compute(
-        predictions=decoded_preds,
-        references=decoded_labels
-    )
-
-    # TER
-    ter_result = ter.compute(
-        predictions=decoded_preds,
-        references=decoded_labels
-    )
-
-    # BLEURT
-    bleurt_result = bleurt.compute(
-        predictions=decoded_preds,
-        references=decoded_labels
-    )
-
-    return {
-        "bleu": bleu_result["score"],
-        "chrf": chrf_result["score"],
-        "ter": ter_result["score"],
-        "bleurt": float(np.mean(bleurt_result["scores"]))
-    }
+predictions = []
+references_bleu = []
+references_plain = []
 
 # -------------------------------
-# Evaluation
+# Génération
 # -------------------------------
-data_collator = DataCollatorForSeq2Seq(tokenizer=tokenizer, model=model)
+for ex in test_f:
+    src_text = ex["translation"]["src_text"]
+    tgt_text = ex["translation"]["tgt_text"]
 
-training_args = Seq2SeqTrainingArguments(
-    output_dir="eval_results",
-    predict_with_generate=True,
-    per_device_eval_batch_size=8,
-    report_to="none",
-    generation_max_length=128
+    inputs = tokenizer(
+        src_text,
+        return_tensors="pt",
+        truncation=True,
+        max_length=MAX_LEN
+    )
+
+    inputs = {k: v.to(device) for k, v in inputs.items()}
+
+    with torch.no_grad():
+        generated_tokens = model.generate(
+            **inputs,
+            max_length=MAX_LEN,
+            forced_bos_token_id=tokenizer.convert_tokens_to_ids(TGT_LANG)
+        )
+
+    pred_text = tokenizer.batch_decode(generated_tokens, skip_special_tokens=True)[0]
+
+    predictions.append(pred_text)
+    references_bleu.append([tgt_text])   # pour sacrebleu
+    references_plain.append(tgt_text)    # pour chrf, ter, bleurt
+
+# -------------------------------
+# Calcul des scores
+# -------------------------------
+bleu_result = bleu.compute(
+    predictions=predictions,
+    references=references_bleu
 )
 
-trainer = Seq2SeqTrainer(
-    model=model,
-    args=training_args,
-    data_collator=data_collator,
-    compute_metrics=compute_metrics
+chrf_result = chrf.compute(
+    predictions=predictions,
+    references=references_plain
 )
 
-results = trainer.evaluate(eval_dataset=tok_test)
-print(results)
+ter_result = ter.compute(
+    predictions=predictions,
+    references=references_plain
+)
+
+bleurt_result = bleurt.compute(
+    predictions=predictions,
+    references=references_plain
+)
+
+print("BLEU   :", bleu_result["score"])
+print("chrF   :", chrf_result["score"])
+print("TER    :", ter_result["score"])
+print("BLEURT :", float(np.mean(bleurt_result["scores"])))
