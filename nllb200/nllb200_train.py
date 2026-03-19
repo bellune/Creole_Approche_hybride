@@ -102,6 +102,7 @@ data_collator = DataCollatorForSeq2Seq(tokenizer=tokenizer, model=model)
 
 bleu = evaluate.load("sacrebleu")
 chrf = evaluate.load("chrf")
+ter = evaluate.load("ter")
 
 def compute_metrics(eval_preds):
     preds, labels = eval_preds
@@ -128,14 +129,22 @@ def compute_metrics(eval_preds):
         references=decoded_labels
     )
 
+    
+    ter_result = ter.compute(
+    predictions=decoded_preds,
+    references=decoded_labels
+   )
+    
+
     return {
         "bleu": bleu_result["score"],
-        "chrf": chrf_result["score"]
+        "chrf": chrf_result["score"],
+        "ter": ter_result["score"]  
     }
 
 
 training_args = Seq2SeqTrainingArguments(
-    output_dir="nllb200_baseline",
+    output_dir="nllb200_baseline2",
     eval_strategy="steps",
     eval_steps=1000,
     save_strategy="steps",
