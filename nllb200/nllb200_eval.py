@@ -30,7 +30,11 @@ test_ds  = ds["test"]
 model_path = "nllb200_baseline/checkpoint-41565"
 
 model = AutoModelForSeq2SeqLM.from_pretrained(model_path)
-tokenizer = AutoTokenizer.from_pretrained(model_path)
+tokenizer = AutoTokenizer.from_pretrained(
+    model,
+    src_lang="hat_Latn",
+    tgt_lang="eng_Latn"
+)
 
 
 # --------------------------------
