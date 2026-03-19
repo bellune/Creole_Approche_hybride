@@ -155,7 +155,6 @@ training_args = Seq2SeqTrainingArguments(
 trainer = Seq2SeqTrainer(
     model=model,
     args=training_args,
-    tokenizer=tokenizer,
     data_collator=data_collator,
     compute_metrics=compute_metrics
 )
