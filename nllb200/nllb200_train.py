@@ -144,7 +144,6 @@ def compute_metrics(eval_preds):
 
 
 training_args = Seq2SeqTrainingArguments(
-training_args = Seq2SeqTrainingArguments(
     output_dir="nllb200_baseline3",
 
     eval_strategy="steps",
@@ -173,7 +172,7 @@ training_args = Seq2SeqTrainingArguments(
 
     report_to="none"
 )
-)
+
 
 trainer = Seq2SeqTrainer(
     model=model,
