@@ -144,26 +144,36 @@ def compute_metrics(eval_preds):
 
 
 training_args = Seq2SeqTrainingArguments(
-    output_dir="nllb200_baseline2",
+training_args = Seq2SeqTrainingArguments(
+    output_dir="nllb200_baseline3",
+    overwrite_output_dir=True,
+
     eval_strategy="steps",
     eval_steps=1000,
     save_strategy="steps",
     save_steps=1000,
     logging_steps=200,
-    learning_rate=3e-5,
+
+    learning_rate=5e-5,
     per_device_train_batch_size=4,
     per_device_eval_batch_size=4,
     weight_decay=0.01,
+
     num_train_epochs=3,
+
     predict_with_generate=True,
     generation_max_length=128,
+    generation_num_beams=4,
+
     fp16=True,
     save_total_limit=2,
+
     load_best_model_at_end=True,
     metric_for_best_model="bleu",
     greater_is_better=True,
-    report_to="none",
-    generation_num_beams=4
+
+    report_to="none"
+)
 )
 
 trainer = Seq2SeqTrainer(
@@ -173,8 +183,7 @@ trainer = Seq2SeqTrainer(
     eval_dataset=tok_val,
     processing_class=tokenizer,
     data_collator=data_collator,
-    compute_metrics=compute_metrics,
-    callbacks=[EarlyStoppingCallback(early_stopping_patience=2)],
+    compute_metrics=compute_metrics
 )
 
 trainer.train()
