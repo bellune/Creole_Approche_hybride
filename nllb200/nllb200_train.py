@@ -152,12 +152,12 @@ training_args = Seq2SeqTrainingArguments(
     save_steps=1000,
     logging_steps=200,
 
-    learning_rate=5e-5,
+    learning_rate=4e-5,
     per_device_train_batch_size=4,
     per_device_eval_batch_size=4,
     weight_decay=0.01,
 
-    num_train_epochs=3,
+    num_train_epochs=4,
 
     predict_with_generate=True,
     generation_max_length=128,
