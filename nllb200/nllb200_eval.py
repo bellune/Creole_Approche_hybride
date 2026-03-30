@@ -18,7 +18,7 @@ test_ds = ds["test"]
 # -------------------------------
 # Chargement du modèle et tokenizer
 # -------------------------------
-model_path = "nllb200_baseline4/checkpoint-98000"
+model_path = "nllb200_baseline4/checkpoint-166260"
 base_model = "facebook/nllb-200-distilled-600M"
 
 SRC_LANG = "hat_Latn"
