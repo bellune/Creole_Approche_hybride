@@ -4,6 +4,8 @@ import evaluate
 from datasets import load_from_disk
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 
+import math
+
 # -------------------------------
 # Chargement des données
 # -------------------------------
@@ -69,10 +71,15 @@ references_plain = []
 # -------------------------------
 # Génération
 # -------------------------------
+
+total_loss = 0
+count = 0
+
 for ex in test_f:
     src_text = ex["translation"]["src_text"]
     tgt_text = ex["translation"]["tgt_text"]
 
+    # Tokenisation input
     inputs = tokenizer(
         src_text,
         return_tensors="pt",
@@ -80,8 +87,31 @@ for ex in test_f:
         max_length=MAX_LEN
     )
 
-    inputs = {k: v.to(device) for k, v in inputs.items()}
+    # Tokenisation target (labels)
+    with tokenizer.as_target_tokenizer():
+        labels = tokenizer(
+            tgt_text,
+            return_tensors="pt",
+            truncation=True,
+            max_length=MAX_LEN
+        )
 
+    inputs = {k: v.to(device) for k, v in inputs.items()}
+    labels_ids = labels["input_ids"].to(device)
+
+    # -----------------------
+    # 🔹 Calcul de la LOSS
+    # -----------------------
+    with torch.no_grad():
+        outputs = model(**inputs, labels=labels_ids)
+
+    loss = outputs.loss
+    total_loss += loss.item()
+    count += 1
+
+    # -----------------------
+    # 🔹 Génération (inchangée)
+    # -----------------------
     with torch.no_grad():
         generated_tokens = model.generate(
             **inputs,
@@ -92,8 +122,8 @@ for ex in test_f:
     pred_text = tokenizer.batch_decode(generated_tokens, skip_special_tokens=True)[0]
 
     predictions.append(pred_text)
-    references_bleu.append([tgt_text])   # pour sacrebleu
-    references_plain.append(tgt_text)    # pour chrf, ter, bleurt
+    references_bleu.append([tgt_text])
+    references_plain.append(tgt_text)
 
 # -------------------------------
 # Calcul des scores
@@ -118,7 +148,16 @@ bleurt_result = bleurt.compute(
     references=references_plain
 )
 
+avg_loss = total_loss / count
+
+perplexity = math.exp(avg_loss)
+
 print("BLEU   :", bleu_result["score"])
 print("chrF   :", chrf_result["score"])
 print("TER    :", ter_result["score"])
 print("BLEURT :", float(np.mean(bleurt_result["scores"])))
+
+
+
+print("Loss moyenne :", avg_loss)
+print("Perplexité :", perplexity)
