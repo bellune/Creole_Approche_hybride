@@ -3,7 +3,6 @@ import numpy as np
 import evaluate
 from datasets import load_from_disk
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
-
 import math
 
 # -------------------------------
@@ -71,7 +70,6 @@ references_plain = []
 # -------------------------------
 # Génération
 # -------------------------------
-
 total_loss = 0
 count = 0
 
@@ -87,20 +85,19 @@ for ex in test_f:
         max_length=MAX_LEN
     )
 
-    # Tokenisation target (labels)
-    with tokenizer.as_target_tokenizer():
-        labels = tokenizer(
-            tgt_text,
-            return_tensors="pt",
-            truncation=True,
-            max_length=MAX_LEN
-        )
+    # Tokenisation target (labels) corrigée
+    labels = tokenizer(
+        text_target=tgt_text,
+        return_tensors="pt",
+        truncation=True,
+        max_length=MAX_LEN
+    )
 
     inputs = {k: v.to(device) for k, v in inputs.items()}
     labels_ids = labels["input_ids"].to(device)
 
     # -----------------------
-    # 🔹 Calcul de la LOSS
+    # Calcul de la loss
     # -----------------------
     with torch.no_grad():
         outputs = model(**inputs, labels=labels_ids)
@@ -110,7 +107,7 @@ for ex in test_f:
     count += 1
 
     # -----------------------
-    # 🔹 Génération (inchangée)
+    # Génération
     # -----------------------
     with torch.no_grad():
         generated_tokens = model.generate(
@@ -149,15 +146,11 @@ bleurt_result = bleurt.compute(
 )
 
 avg_loss = total_loss / count
-
 perplexity = math.exp(avg_loss)
 
 print("BLEU   :", bleu_result["score"])
 print("chrF   :", chrf_result["score"])
 print("TER    :", ter_result["score"])
 print("BLEURT :", float(np.mean(bleurt_result["scores"])))
-
-
-
 print("Loss moyenne :", avg_loss)
 print("Perplexité :", perplexity)
