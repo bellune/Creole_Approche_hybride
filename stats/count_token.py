@@ -7,9 +7,9 @@ def count_tokens(dataset, tokenizer):
     total_src = 0
     total_tgt = 0
 
-    for example in dataset:
-        src = example["src_text"]
-        tgt = example["tgt_text"]
+    for ex in dataset:
+        src = ex["translation"]["src_text"]
+        tgt = ex["translation"]["tgt_text"]
 
         total_src += len(tokenizer.tokenize(src))
         total_tgt += len(tokenizer.tokenize(tgt))
