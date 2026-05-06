@@ -56,9 +56,6 @@ def translate_dataset(model, dataset):
                 max_length=128,
                 num_beams=4
             )
-            loss = outputs.loss
-            total_loss += loss.item()
-            count += 1
 
 
         pred = tokenizer.batch_decode(outputs, skip_special_tokens=True)[0]
@@ -67,19 +64,18 @@ def translate_dataset(model, dataset):
         predictions.append(pred)
         references.append(ref)
 
-        avg_loss = total_loss / count
-        perplexity = math.exp(avg_loss)
 
-    return sources, predictions, references, avg_loss, perplexity
+
+    return sources, predictions, references
 
 
 print("Testing baseline...")
 baseline_model = load_model(BASELINE_MODEL)
-sources, baseline_preds, refs, baseline_avg_loss, baseline_perplexity = translate_dataset(baseline_model, test_data)
+sources, baseline_preds, refs = translate_dataset(baseline_model, test_data)
 
 print("Testing cultural-adapted model...")
 cultural_model = load_model(CULTURAL_MODEL)
-_, cultural_preds, _, cultural_avg_loss, cultural_perplexity = translate_dataset(cultural_model, test_data)
+_, cultural_preds, _, = translate_dataset(cultural_model, test_data)
 
 # -------------------------------
 # Métriques
@@ -153,12 +149,6 @@ print("Cultural TER :", cultural_ter["score"])
 
 print("Baseline BLEURT :", baseline_bleurt["scores"][0])
 print("Cultural BLEURT :", cultural_bleurt["scores"][0])
-
-print("Loss moyenne baseline :", baseline_avg_loss)
-print("Perplexité baseline :", baseline_perplexity)
-
-print("Loss moyenne culturelle :", cultural_avg_loss)
-print("Perplexité culturelle :", cultural_perplexity)
 
 
 
