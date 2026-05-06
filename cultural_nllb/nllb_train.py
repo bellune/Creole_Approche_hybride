@@ -142,8 +142,7 @@ trainer = Seq2SeqTrainer(
     train_dataset=tokenized_dataset["train"],
     eval_dataset=tokenized_dataset["validation"],
 
-    data_collator=data_collator,
-    tokenizer=tokenizer
+    data_collator=data_collator
 )
 
 
