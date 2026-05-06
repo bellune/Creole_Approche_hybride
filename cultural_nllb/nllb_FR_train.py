@@ -130,11 +130,24 @@ def preprocess(batch):
     return inputs
 
 
-tokenized_dataset = dataset.map(
-    preprocess,
-    batched=True,
-    remove_columns=dataset["train"].column_names
-)
+# tokenized_dataset = dataset.map(
+#     preprocess,
+#     batched=True,
+#     remove_columns=dataset["train"].column_names
+# )
+
+tokenized_dataset = {
+    "train": dataset["train"].map(
+        preprocess,
+        batched=True,
+        remove_columns=dataset["train"].column_names
+    ),
+    "validation": dataset["validation"].map(
+        preprocess,
+        batched=True,
+        remove_columns=dataset["validation"].column_names
+    )
+}
 
 
 # ============================
