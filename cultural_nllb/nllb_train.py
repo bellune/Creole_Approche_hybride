@@ -118,8 +118,8 @@ training_args = Seq2SeqTrainingArguments(
     per_device_train_batch_size=4,
     per_device_eval_batch_size=4,
 
-    learning_rate=1e-5,
-    num_train_epochs=1,
+    learning_rate=5e-6,
+    num_train_epochs=2,
 
     eval_strategy="epoch",
     save_strategy="epoch",
