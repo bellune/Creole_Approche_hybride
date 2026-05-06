@@ -1,0 +1,43 @@
+Cultural Dataset 
+-----------------------
+Total lignes trilingues lues : 1736
+CR-EN disponibles : 1539
+CR-FR disponibles : 1477
+
+cr_en
+Train : 1231
+Dev   : 154
+Test  : 154
+
+
+
+------------------------------------
+Statistics Details dataset culturel
+------------------------------------
+
+ TRILINGUE (CR–EN–FR)
+Paires : 1285
+Mots CR : 13825
+Mots EN : 14482
+Mots FR : 15152
+Moy. mots/phrase CR : 10.76
+Moy. mots/phrase EN : 11.27
+Moy. mots/phrase FR : 11.79
+
+ BILINGUE (CR–FR)
+Paires : 170
+Mots CR : 1069
+Mots FR : 1073
+Moy. mots/phrase CR : 6.29
+Moy. mots/phrase FR : 6.31
+
+ BILINGUE (CR–EN)
+Paires : 251
+Mots CR : 1962
+Mots EN : 2014
+Moy. mots/phrase CR : 7.82
+Moy. mots/phrase EN : 8.02
+
+ Check total paires : 1706
+   (tri = 1285 , bi1 = 170 , bi2 = 251 )
+
