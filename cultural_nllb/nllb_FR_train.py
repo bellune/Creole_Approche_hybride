@@ -69,6 +69,11 @@ validation = concatenate_datasets([
     cr_fr_dev
 ])
 
+dataset = {
+    "train": train,
+    "validation": validation
+    }
+
 
 # ============================
 # 3. Charger tokenizer + modèle
