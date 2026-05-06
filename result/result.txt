@@ -1,3 +1,17 @@
+----------------------
+MtKreyol dataset statictics
+----------------------
+Tokens Train HT : 14947629
+Tokens Val  HT : 14924
+Tokens Test HT : 30438
+----------------------------------
+Tokens Train EN : 13648756
+Tokens Val  EN : 13451
+Tokens Test EN : 27435
+
+
+
+-----------------------
 Cultural Dataset 
 -----------------------
 Total lignes trilingues lues : 1736
@@ -40,4 +54,15 @@ Moy. mots/phrase EN : 8.02
 
  Check total paires : 1706
    (tri = 1285 , bi1 = 170 , bi2 = 251 )
+
+
+---------------------------
+Resultat Baseline
+--------------------------
+BLEU   : 50.31081970412988
+chrF   : 69.38097158835417
+TER    : 39.46592225850627
+BLEURT : 0.2747914488806544
+Loss moyenne : 3.6246991633203987
+Perplexité : 37.513436044356965
 
