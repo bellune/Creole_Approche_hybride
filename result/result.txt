@@ -23,7 +23,9 @@ Train : 1231
 Dev   : 154
 Test  : 154
 
-
+cr_fr
+Train : 1329
+Dev   : 148
 
 ------------------------------------
 Statistics Details dataset culturel
@@ -71,7 +73,7 @@ configuration :
 learning_rate=5e-5
 num_train_epochs=5
 
-===== RESULTS ON CULTURAL TEST SET ===== Experimentation 1
+===== RESULTS ON CULTURAL TEST SET =====
 Baseline BLEU : 15.158708012138229
 Cultural BLEU : 18.127751016281014
 Baseline chrF : 35.7326778258885
@@ -80,6 +82,7 @@ Baseline TER : 84.33813892529488
 Cultural TER : 82.24115334207077
 Baseline BLEURT : 1.0478873252868652
 Cultural BLEURT : 1.0478873252868652
+
 
 
 configuration:

@@ -90,26 +90,26 @@ print("CR-FR disponibles :", ((df["cr"] != "") & (df["fr"] != "")).sum())
 # 2. Créer dataset CR -> EN
 # ============================
 
-cr_en_rows = []
+# cr_en_rows = []
 
-for _, row in df.iterrows():
-    cr = row["cr"].strip()
-    en = row["en"].strip()
+# for _, row in df.iterrows():
+#     cr = row["cr"].strip()
+#     en = row["en"].strip()
 
-    if cr and en:
-        cr_en_rows.append({
-            "id": f"{row['source']}_{row['line_id']}_hat_eng",
-            "translation": {
-                "src_lang": "hat_Latn",
-                "src_text": cr,
-                "tgt_lang": "eng_Latn",
-                "tgt_text": en
-            },
-            "source": row["source"],
-            "direction": "hat-eng"
-        })
+#     if cr and en:
+#         cr_en_rows.append({
+#             "id": f"{row['source']}_{row['line_id']}_hat_eng",
+#             "translation": {
+#                 "src_lang": "hat_Latn",
+#                 "src_text": cr,
+#                 "tgt_lang": "eng_Latn",
+#                 "tgt_text": en
+#             },
+#             "source": row["source"],
+#             "direction": "hat-eng"
+#         })
 
-cr_en_df = pd.DataFrame(cr_en_rows)
+# cr_en_df = pd.DataFrame(cr_en_rows)
 
 
 # ============================
@@ -142,17 +142,52 @@ cr_fr_df = pd.DataFrame(cr_fr_rows)
 # 4. Fonction split train/dev/test
 # ============================
 
-def split_dataset(dataframe, name):
-    train_df, temp_df = train_test_split(
-        dataframe,
-        test_size=0.2,
-        random_state=42,
-        shuffle=True
-    )
+# def split_dataset(dataframe, name):
+#     train_df, temp_df = train_test_split(
+#         dataframe,
+#         test_size=0.2,
+#         random_state=42,
+#         shuffle=True
+#     )
 
-    dev_df, test_df = train_test_split(
-        temp_df,
-        test_size=0.5,
+#     dev_df, test_df = train_test_split(
+#         temp_df,
+#         test_size=0.5,
+#         random_state=42,
+#         shuffle=True
+#     )
+
+#     print(f"\n{name}")
+#     print("Train :", len(train_df))
+#     print("Dev   :", len(dev_df))
+#     print("Test  :", len(test_df))
+
+#     train_df.to_json(
+#         OUTPUT_DIR / f"train/{name}.jsonl",
+#         orient="records",
+#         lines=True,
+#         force_ascii=False
+#     )
+
+#     dev_df.to_json(
+#         OUTPUT_DIR / f"dev/{name}.jsonl",
+#         orient="records",
+#         lines=True,
+#         force_ascii=False
+#     )
+
+#     test_df.to_json(
+#         OUTPUT_DIR / f"test/{name}.jsonl",
+#         orient="records",
+#         lines=True,
+#         force_ascii=False
+#     )
+
+
+def split_dataset2(dataframe, name):
+    train_df, dev_df = train_test_split(
+        dataframe,
+        test_size=0.1,
         random_state=42,
         shuffle=True
     )
@@ -160,7 +195,7 @@ def split_dataset(dataframe, name):
     print(f"\n{name}")
     print("Train :", len(train_df))
     print("Dev   :", len(dev_df))
-    print("Test  :", len(test_df))
+   
 
     train_df.to_json(
         OUTPUT_DIR / f"train/{name}.jsonl",
@@ -176,19 +211,14 @@ def split_dataset(dataframe, name):
         force_ascii=False
     )
 
-    test_df.to_json(
-        OUTPUT_DIR / f"test/{name}.jsonl",
-        orient="records",
-        lines=True,
-        force_ascii=False
-    )
+ 
 
 
 # ============================
 # 5. Sauvegarder les deux datasets
 # ============================
 
-split_dataset(cr_en_df, "cr_en")
-# split_dataset(cr_fr_df, "cr_fr")
+# split_dataset(cr_en_df, "cr_en")
+split_dataset2(cr_fr_df, "cr_fr")
 
 print("\nFichiers créés dans :", OUTPUT_DIR)
