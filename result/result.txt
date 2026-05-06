@@ -67,6 +67,10 @@ Loss moyenne : 3.6246991633203987
 Perplexité : 37.513436044356965
 
 
+configuration :
+learning_rate=5e-5
+num_train_epochs=5
+
 ===== RESULTS ON CULTURAL TEST SET ===== Experimentation 1
 Baseline BLEU : 15.158708012138229
 Cultural BLEU : 18.127751016281014
@@ -77,3 +81,17 @@ Cultural TER : 82.24115334207077
 Baseline BLEURT : 1.0478873252868652
 Cultural BLEURT : 1.0478873252868652
 
+
+configuration:
+learning_rate=3e-5
+num_train_epochs=3
+
+===== RESULTS ON CULTURAL TEST SET =====
+Baseline BLEU : 15.158708012138229
+Cultural BLEU : 17.320497181827527
+Baseline chrF : 35.7326778258885
+Cultural chrF : 37.48313682506354
+Baseline TER : 84.33813892529488
+Cultural TER : 83.6173001310616
+Baseline BLEURT : 1.0478873252868652
+Cultural BLEURT : 1.0478873252868652
