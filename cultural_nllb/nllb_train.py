@@ -59,13 +59,8 @@ model.generation_config.forced_bos_token_id = forced_bos_token_id
 MAX_LEN = 128
 
 def preprocess(batch):
-    src_texts = [
-        item["src_text"] for item in batch["translation"]
-    ]
-
-    tgt_texts = [
-        item["tgt_text"] for item in batch["translation"]
-    ]
+    src_texts = [item["src_text"] for item in batch["translation"]]
+    tgt_texts = [item["tgt_text"] for item in batch["translation"]]
 
     tokenizer.src_lang = SRC_LANG
 
@@ -81,7 +76,17 @@ def preprocess(batch):
         truncation=True
     )
 
-    inputs["labels"] = labels["input_ids"]
+    labels_ids = labels["input_ids"]
+
+    labels_ids = [
+        [
+            token if token != tokenizer.pad_token_id else -100
+            for token in label
+        ]
+        for label in labels_ids
+    ]
+
+    inputs["labels"] = labels_ids
 
     return inputs
 
@@ -113,7 +118,7 @@ training_args = Seq2SeqTrainingArguments(
     per_device_train_batch_size=4,
     per_device_eval_batch_size=4,
 
-    learning_rate=3e-5,
+    learning_rate=5e-5,
     num_train_epochs=5,
 
     eval_strategy="epoch",
@@ -124,6 +129,7 @@ training_args = Seq2SeqTrainingArguments(
     predict_with_generate=True,
     generation_max_length=128,
     generation_num_beams=4,
+
 
     fp16=True,
 
