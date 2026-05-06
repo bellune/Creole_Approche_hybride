@@ -124,6 +124,22 @@ cultural_bleurt = bleurt.compute(
     references=refs
 )
 
+ # -----------------------
+    # Calcul de la loss
+    # -----------------------
+with torch.no_grad():
+    outputs = model(**inputs, labels=labels_ids)
+
+    loss = outputs.loss
+    total_loss += loss.item()
+    count += 1
+
+avg_loss = total_loss / count
+perplexity = math.exp(avg_loss)
+
+# -------------------------------
+
+
 print("\n===== RESULTS ON CULTURAL TEST SET =====")
 print("Baseline BLEU :", baseline_bleu["score"])
 print("Cultural BLEU :", cultural_bleu["score"])
@@ -136,6 +152,9 @@ print("Cultural TER :", cultural_ter["score"])
 
 print("Baseline BLEURT :", baseline_bleurt["scores"][0])
 print("Cultural BLEURT :", cultural_bleurt["scores"][0])
+
+print("Loss moyenne :", avg_loss)
+print("Perplexité :", perplexity)
 
 
 df_results = pd.DataFrame({
