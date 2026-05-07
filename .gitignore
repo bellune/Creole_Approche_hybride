@@ -17,6 +17,7 @@ env/
 mt5_baseline/
 nllb200_baseline/
 nllb200_*/
+model_*/
 runs/
 outputs/
 
