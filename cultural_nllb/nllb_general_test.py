@@ -162,6 +162,20 @@ print("Cultural FR BLEURT :", cultural_fr_bleurt["scores"][0])
 
 
 
+df_scores = pd.DataFrame({
+    "Model": ["Cultural Adapted", "Cultural Adapted FR"],
+    "BLEU": [cultural_bleu["score"], cultural_fr_bleu["score"]],
+    "chrF": [cultural_chrf["score"], cultural_fr_chrf["score"]],
+    "TER": [cultural_ter["score"], cultural_fr_ter["score"]],
+    "BLEURT": [cultural_bleurt["scores"][0], cultural_fr_bleurt["scores"][0]]
+})
+
+df_scores.to_csv(
+    "result/MTcreole_test_scores_cultural_vs_adapted.csv",
+    index=False,
+    encoding="utf-8-sig"
+)
+
 df_results = pd.DataFrame({
     "cr": sources,
     "reference_en": refs,
@@ -173,7 +187,7 @@ df_results = pd.DataFrame({
 df_results.to_csv(
     "result/MTcreole_test_comparison_cultural_vs_adapted.csv",
     index=False,
-    encoding="utf-8"
+    encoding="utf-8-sig"
 )
 
 print("\nComparaison sauvegardée : result/MTcreole_test_comparison_cultural_vs_adapted.csv")

@@ -151,6 +151,26 @@ print("Cultural BLEURT :", cultural_bleurt["scores"][0])
 print("Cultural FR BLEURT :", cultural_fr_bleurt["scores"][0])
 
 
+model_names = [CULTURAL_MODEL.split("/")[-1], CULTURAL_MODEL_TRI.split("/")[-1]]
+bleu_scores = [cultural_bleu["score"], cultural_fr_bleu["score"]]
+chrf_scores = [cultural_chrf["score"], cultural_fr_chrf["score"]]
+ter_scores = [cultural_ter["score"], cultural_fr_ter["score"]]
+bleurt_scores = [cultural_bleurt["scores"][0], cultural_fr_bleurt["scores"][0]]
+
+df_res_score = pd.DataFrame({
+    "model": model_names,
+    "bleu_scores": bleu_scores,
+    "chrf_scores": chrf_scores,
+    "ter_scores": ter_scores,
+    "bleurt_scores": bleurt_scores
+})
+
+df_res_score.to_csv(
+    "result/scores_comparison_FR_cultural_vs_adapted.csv",
+    index=False,
+    encoding="utf-8-sig"
+)
+
 
 
 df_results = pd.DataFrame({
@@ -164,7 +184,7 @@ df_results = pd.DataFrame({
 df_results.to_csv(
     "result/cultural_FR_test_comparison_cultural_vs_adapted.csv",
     index=False,
-    encoding="utf-8"
+    encoding="utf-8-sig"
 )
 
 print("\nComparaison sauvegardée : result/cultural_FR_test_comparison_cultural_vs_adapted.csv")

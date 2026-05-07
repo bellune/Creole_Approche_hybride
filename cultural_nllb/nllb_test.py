@@ -152,6 +152,22 @@ print("Cultural BLEURT :", cultural_bleurt["scores"][0])
 
 
 
+df_scores = pd.DataFrame({
+    "Model": ["Baseline", "Cultural"],
+    "BLEU": [baseline_bleu["score"], cultural_bleu["score"]],
+    "chrF": [baseline_chrf["score"], cultural_chrf["score"]],
+    "TER": [baseline_ter["score"], cultural_ter["score"]],
+    "BLEURT": [baseline_bleurt["scores"][0], cultural_bleurt["scores"][0]]
+})
+
+df_scores.to_csv(
+    "result/cultural_test_scores_comparison_baseline_vs_adapted.csv",
+    index=False,
+    encoding="utf-8-sig"
+)
+
+
+
 
 df_results = pd.DataFrame({
     "cr": sources,
@@ -164,7 +180,7 @@ df_results = pd.DataFrame({
 df_results.to_csv(
     "result/cultural_test_comparison_baseline_vs_adapted.csv",
     index=False,
-    encoding="utf-8"
+    encoding="utf-8-sig"
 )
 
 print("\nComparaison sauvegardée : result/cultural_test_comparison_baseline_vs_adapted.csv")
