@@ -162,9 +162,9 @@ df_results = pd.DataFrame({
 })
 
 df_results.to_csv(
-    "result/cultural_test_comparison_cultural_vs_adapted.csv",
+    "result/cultural_FR_test_comparison_cultural_vs_adapted.csv",
     index=False,
     encoding="utf-8"
 )
 
-print("\nComparaison sauvegardée : result/cultural_test_comparison_cultural_vs_adapted.csv")
+print("\nComparaison sauvegardée : result/cultural_FR_test_comparison_cultural_vs_adapted.csv")
