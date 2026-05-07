@@ -16,6 +16,7 @@ env/
 # HuggingFace / training outputs
 mt5_baseline/
 nllb200_baseline/
+nllb200_*/
 runs/
 outputs/
 
