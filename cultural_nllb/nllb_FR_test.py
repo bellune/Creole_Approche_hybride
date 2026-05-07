@@ -138,17 +138,17 @@ cultural_fr_bleurt = bleurt.compute(
 
 
 print("\n===== RESULTS ON CULTURAL TEST SET =====")
-print("Baseline BLEU :", cultural_bleu["score"])
-print("Cultural BLEU :", cultural_fr_bleu["score"])
+print("cultural BLEU :", cultural_bleu["score"])
+print("Cultural FR BLEU :", cultural_fr_bleu["score"])
 
-print("Baseline chrF :", cultural_chrf["score"])
-print("Cultural chrF :", cultural_fr_chrf["score"])
+print("Cultural chrF :", cultural_chrf["score"])
+print("Cultural FR chrF :", cultural_fr_chrf["score"])
 
-print("Baseline TER :", cultural_ter["score"])
-print("Cultural TER :", cultural_fr_ter["score"])
+print("Cultural TER :", cultural_ter["score"])
+print("Cultural FR TER :", cultural_fr_ter["score"])
 
-print("Baseline BLEURT :", cultural_bleurt["scores"][0])
-print("Cultural BLEURT :", cultural_fr_bleurt["scores"][0])
+print("Cultural BLEURT :", cultural_bleurt["scores"][0])
+print("Cultural FR BLEURT :", cultural_fr_bleurt["scores"][0])
 
 
 
@@ -156,15 +156,15 @@ print("Cultural BLEURT :", cultural_fr_bleurt["scores"][0])
 df_results = pd.DataFrame({
     "cr": sources,
     "reference_en": refs,
-    "baseline_prediction": cultural_preds,
+    "_prediction": cultural_preds,
     "cultural_prediction": cultural_fr_preds,
 
 })
 
 df_results.to_csv(
-    "result/cultural_test_comparison_baseline_vs_adapted.csv",
+    "result/cultural_test_comparison_cultural_vs_adapted.csv",
     index=False,
     encoding="utf-8"
 )
 
-print("\nComparaison sauvegardée : result/cultural_test_comparison_baseline_vs_adapted.csv")
+print("\nComparaison sauvegardée : result/cultural_test_comparison_cultural_vs_adapted.csv")
