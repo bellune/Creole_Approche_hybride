@@ -25,35 +25,49 @@ Perplexité : 37.513436044356965
 --------------------------------
 
 
-
 ==============================
 Construction dataset hat-eng
 ==============================
 
-
-TOTAL hat-eng : 2107 paires
+TOTAL hat-eng : 2115 paires
 
 ==============================
 SPLIT cr_en
 ==============================
-Taille totale : 2107
-Train : 1685
+Taille totale : 2115
+Train : 1692
 Dev   : 211
-Test  : 211
+Test  : 212
 
 ==============================
 Construction dataset hat-fra
 ==============================
 
-TOTAL hat-fra : 1750 paires
+TOTAL hat-fra : 1757 paires
 
 ==============================
 SPLIT cr_fr
 ==============================
-Taille totale : 1750
-Train : 1575
-Dev   : 175
+Taille totale : 1757
+Train : 1581
+Dev   : 176
 
 ==============================
 FIN DU TRAITEMENT
 ==============================
+
+
+===== RESULTS ON CULTURAL TEST SET =====
+Baseline BLEU : 16.147706329007654
+Cultural BLEU : 20.590691958730908
+Tri-lingual BLEU : 21.589588248951326
+Baseline chrF : 36.75288971190783
+Cultural chrF : 40.396060164092106
+Tri-lingual chrF : 41.42081298635369
+Baseline TER : 84.3613404565323
+Cultural TER : 79.84458474987858
+Tri-lingual TER : 78.87323943661971
+Baseline BLEURT : 1.074263334274292
+Cultural BLEURT : 1.074263334274292
+Tri-lingual BLEURT : 1.074263334274292
+
