@@ -13,7 +13,10 @@ def read_lines(path):
     with open(path, "r", encoding="utf-8") as f:
         return [line.strip() for line in f if line.strip()]
 
-
+def read_lines_keep_empty(path):
+    with open(path, "r", encoding="utf-8") as f:
+        return [line.rstrip("\n") for line in f]    
+    
 def build_dataset(input_dirs, src_suffix, tgt_suffix,
                   src_lang, tgt_lang, direction):
 
@@ -43,30 +46,36 @@ def build_dataset(input_dirs, src_suffix, tgt_suffix,
                 print(f"Traduction manquante : {base_name}")
                 continue
 
-            src_lines = read_lines(src_file)
-            tgt_lines = read_lines(tgt_file)
+            src_lines = read_lines_keep_empty(src_file)
+            tgt_lines = read_lines_keep_empty(tgt_file)
 
             print(f"\nFichier : {base_name}")
             print(f"Lignes source      : {len(src_lines)}")
             print(f"Lignes traduction  : {len(tgt_lines)}")
 
-            min_len = min(len(src_lines), len(tgt_lines))
+            max_len = max(len(src_lines), len(tgt_lines))
 
-            if len(src_lines) != len(tgt_lines):
-                print(
-                    f"ATTENTION : tailles différentes "
-                    f"-> {min_len} paires gardées"
-                )
+            src_lines = src_lines + [""] * (max_len - len(src_lines))
+            tgt_lines = tgt_lines + [""] * (max_len - len(tgt_lines))
 
-            for i in range(min_len):
+            for i, (src_text, tgt_text) in enumerate(
+                    zip(src_lines, tgt_lines),
+                    start=1
+            ):
+                
+                src_text = src_text.strip()
+                tgt_text = tgt_text.strip()
+
+                if not src_text or not tgt_text:
+                    continue
 
                 rows.append({
                     "id": f"{base_name}_{i+1}_{direction.replace('-', '_')}",
                     "translation": {
                         "src_lang": src_lang,
-                        "src_text": src_lines[i],
+                        "src_text": src_text,
                         "tgt_lang": tgt_lang,
-                        "tgt_text": tgt_lines[i]
+                        "tgt_text": tgt_text
                     },
                     "source": base_name,
                     "line_id": i + 1,

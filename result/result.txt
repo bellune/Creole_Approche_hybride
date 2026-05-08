@@ -11,53 +11,6 @@ Tokens Test EN : 27435
 
 
 
------------------------
-Cultural Dataset 
------------------------
-Total lignes trilingues lues : 1736
-CR-EN disponibles : 1539
-CR-FR disponibles : 1477
-
-cr_en
-Train : 1231
-Dev   : 154
-Test  : 154
-
-cr_fr
-Train : 1329
-Dev   : 148
-
-------------------------------------
-Statistics Details dataset culturel
-------------------------------------
-
- TRILINGUE (CR–EN–FR)
-Paires : 1285
-Mots CR : 13825
-Mots EN : 14482
-Mots FR : 15152
-Moy. mots/phrase CR : 10.76
-Moy. mots/phrase EN : 11.27
-Moy. mots/phrase FR : 11.79
-
- BILINGUE (CR–FR)
-Paires : 170
-Mots CR : 1069
-Mots FR : 1073
-Moy. mots/phrase CR : 6.29
-Moy. mots/phrase FR : 6.31
-
- BILINGUE (CR–EN)
-Paires : 251
-Mots CR : 1962
-Mots EN : 2014
-Moy. mots/phrase CR : 7.82
-Moy. mots/phrase EN : 8.02
-
- Check total paires : 1706
-   (tri = 1285 , bi1 = 170 , bi2 = 251 )
-
-
 ---------------------------
 Resultat Baseline
 --------------------------
@@ -69,34 +22,38 @@ Loss moyenne : 3.6246991633203987
 Perplexité : 37.513436044356965
 
 
-configuration :
-learning_rate=5e-5
-num_train_epochs=5
-
-===== RESULTS ON CULTURAL TEST SET =====
-Baseline BLEU : 15.158708012138229
-Cultural BLEU : 18.127751016281014
-Baseline chrF : 35.7326778258885
-Cultural chrF : 38.13432795610358
-Baseline TER : 84.33813892529488
-Cultural TER : 82.24115334207077
-Baseline BLEURT : 1.0478873252868652
-Cultural BLEURT : 1.0478873252868652
+--------------------------------
 
 
 
-configuration:
-learning_rate=3e-5
-num_train_epochs=3
-
-===== RESULTS ON CULTURAL TEST SET =====
-Baseline BLEU : 15.158708012138229
-Cultural BLEU : 17.320497181827527
-Baseline chrF : 35.7326778258885
-Cultural chrF : 37.48313682506354
-Baseline TER : 84.33813892529488
-Cultural TER : 83.6173001310616
-Baseline BLEURT : 1.0478873252868652
-Cultural BLEURT : 1.0478873252868652
+==============================
+Construction dataset hat-eng
+==============================
 
 
+TOTAL hat-eng : 2107 paires
+
+==============================
+SPLIT cr_en
+==============================
+Taille totale : 2107
+Train : 1685
+Dev   : 211
+Test  : 211
+
+==============================
+Construction dataset hat-fra
+==============================
+
+TOTAL hat-fra : 1750 paires
+
+==============================
+SPLIT cr_fr
+==============================
+Taille totale : 1750
+Train : 1575
+Dev   : 175
+
+==============================
+FIN DU TRAITEMENT
+==============================
