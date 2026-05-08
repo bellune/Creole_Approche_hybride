@@ -4,187 +4,143 @@ from sklearn.model_selection import train_test_split
 
 BASE_DIR = Path("datasets/corpus_culturel/all_data")
 OUTPUT_DIR = Path("datasets/corpus_culturel")
-OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+for split in ["train", "dev", "test"]:
+    (OUTPUT_DIR / split).mkdir(parents=True, exist_ok=True)
 
 
-def read_lines_keep_empty(path):
+def read_lines(path):
     with open(path, "r", encoding="utf-8") as f:
-        return [line.rstrip("\n").strip() for line in f]
+        return [line.strip() for line in f if line.strip()]
 
 
-def pad_lines(lines, max_len):
-    return lines + [""] * (max_len - len(lines))
+def build_dataset(input_dirs, src_suffix, tgt_suffix,
+                  src_lang, tgt_lang, direction):
 
+    rows = []
 
-rows = []
+    print(f"\n==============================")
+    print(f"Construction dataset {direction}")
+    print(f"==============================")
 
-# ============================
-# 1. Lire le dossier trilingue
-# ============================
+    for one_dir in input_dirs:
 
-tri_dir = BASE_DIR / "trilingue"
-bi1_dir = BASE_DIR / "bilingue/cr_en"
-bi2_dir = BASE_DIR / "bilingue/cr_fr"
-
-
-for one_dir in [tri_dir, bi1_dir, bi2_dir]:
-
-    if not one_dir.exists():
-        print(f"Erreur : le dossier {one_dir} n'existe pas.")
-        exit(1)
-
-    for cr_file in sorted(one_dir.glob("*_cr.txt")):
-
-        base_name = cr_file.name.replace("_cr.txt", "")
-
-        en_file = one_dir / f"{base_name}_en.txt"
-        fr_file = one_dir / f"{base_name}_fr.txt"
-
-        if not en_file.exists() and not fr_file.exists():
-            print(f"Aucune traduction trouvée pour {base_name}")
+        if not one_dir.exists():
+            print(f"Attention : {one_dir} n'existe pas.")
             continue
 
-        cr_lines = read_lines_keep_empty(cr_file)
+        print(f"\nLecture dossier : {one_dir}")
 
-        if en_file.exists():
-            en_lines = read_lines_keep_empty(en_file)
-        else:
-            en_lines = []
+        for src_file in sorted(one_dir.glob(f"*_{src_suffix}.txt")):
 
-        if fr_file.exists():
-            fr_lines = read_lines_keep_empty(fr_file)
-        else:
-            fr_lines = []
+            base_name = src_file.name.replace(
+                f"_{src_suffix}.txt", ""
+            )
 
-        max_len = max(len(cr_lines), len(en_lines), len(fr_lines))
+            tgt_file = one_dir / f"{base_name}_{tgt_suffix}.txt"
 
-        cr_lines = pad_lines(cr_lines, max_len)
-        en_lines = pad_lines(en_lines, max_len)
-        fr_lines = pad_lines(fr_lines, max_len)
-
-        for i, (cr, en, fr) in enumerate(
-            zip(cr_lines, en_lines, fr_lines),
-            start=1
-        ):
-
-            if not cr:
+            if not tgt_file.exists():
+                print(f"Traduction manquante : {base_name}")
                 continue
 
-            rows.append({
-                "source": base_name,
-                "line_id": i,
-                "cr": cr,
-                "en": en,
-                "fr": fr
-            })
+            src_lines = read_lines(src_file)
+            tgt_lines = read_lines(tgt_file)
 
+            print(f"\nFichier : {base_name}")
+            print(f"Lignes source      : {len(src_lines)}")
+            print(f"Lignes traduction  : {len(tgt_lines)}")
 
-df = pd.DataFrame(rows)
+            min_len = min(len(src_lines), len(tgt_lines))
 
-print("Total lignes trilingues lues :", len(df))
-print("CR-EN disponibles :", ((df["cr"] != "") & (df["en"] != "")).sum())
-print("CR-FR disponibles :", ((df["cr"] != "") & (df["fr"] != "")).sum())
+            if len(src_lines) != len(tgt_lines):
+                print(
+                    f"ATTENTION : tailles différentes "
+                    f"-> {min_len} paires gardées"
+                )
 
+            for i in range(min_len):
 
-# ============================
-# 2. Créer dataset CR -> EN
-# ============================
+                rows.append({
+                    "id": f"{base_name}_{i+1}_{direction.replace('-', '_')}",
+                    "translation": {
+                        "src_lang": src_lang,
+                        "src_text": src_lines[i],
+                        "tgt_lang": tgt_lang,
+                        "tgt_text": tgt_lines[i]
+                    },
+                    "source": base_name,
+                    "line_id": i + 1,
+                    "direction": direction
+                })
 
-# cr_en_rows = []
+    df = pd.DataFrame(rows)
 
-# for _, row in df.iterrows():
-#     cr = row["cr"].strip()
-#     en = row["en"].strip()
+    print(f"\nTOTAL {direction} : {len(df)} paires")
 
-#     if cr and en:
-#         cr_en_rows.append({
-#             "id": f"{row['source']}_{row['line_id']}_hat_eng",
-#             "translation": {
-#                 "src_lang": "hat_Latn",
-#                 "src_text": cr,
-#                 "tgt_lang": "eng_Latn",
-#                 "tgt_text": en
-#             },
-#             "source": row["source"],
-#             "direction": "hat-eng"
-#         })
-
-# cr_en_df = pd.DataFrame(cr_en_rows)
+    return df
 
 
 # ============================
-# 3. Créer dataset CR -> FR
+# Split train/dev/test
 # ============================
 
-cr_fr_rows = []
+def split_train_dev_test(dataframe, name):
 
-for _, row in df.iterrows():
-    cr = row["cr"].strip()
-    fr = row["fr"].strip()
+    print(f"\n==============================")
+    print(f"SPLIT {name}")
+    print(f"==============================")
 
-    if cr and fr:
-        cr_fr_rows.append({
-            "id": f"{row['source']}_{row['line_id']}_hat_fra",
-            "translation": {
-                "src_lang": "hat_Latn",
-                "src_text": cr,
-                "tgt_lang": "fra_Latn",
-                "tgt_text": fr
-            },
-            "source": row["source"],
-            "direction": "hat-fra"
-        })
+    train_df, temp_df = train_test_split(
+        dataframe,
+        test_size=0.2,
+        random_state=42,
+        shuffle=True
+    )
 
-cr_fr_df = pd.DataFrame(cr_fr_rows)
+    dev_df, test_df = train_test_split(
+        temp_df,
+        test_size=0.5,
+        random_state=42,
+        shuffle=True
+    )
+
+    print(f"Taille totale : {len(dataframe)}")
+    print(f"Train : {len(train_df)}")
+    print(f"Dev   : {len(dev_df)}")
+    print(f"Test  : {len(test_df)}")
+
+    train_df.to_json(
+        OUTPUT_DIR / "train" / f"{name}.jsonl",
+        orient="records",
+        lines=True,
+        force_ascii=False
+    )
+
+    dev_df.to_json(
+        OUTPUT_DIR / "dev" / f"{name}.jsonl",
+        orient="records",
+        lines=True,
+        force_ascii=False
+    )
+
+    test_df.to_json(
+        OUTPUT_DIR / "test" / f"{name}.jsonl",
+        orient="records",
+        lines=True,
+        force_ascii=False
+    )
 
 
 # ============================
-# 4. Fonction split train/dev/test
+# Split train/dev seulement
 # ============================
 
-# def split_dataset(dataframe, name):
-#     train_df, temp_df = train_test_split(
-#         dataframe,
-#         test_size=0.2,
-#         random_state=42,
-#         shuffle=True
-#     )
+def split_train_dev(dataframe, name):
 
-#     dev_df, test_df = train_test_split(
-#         temp_df,
-#         test_size=0.5,
-#         random_state=42,
-#         shuffle=True
-#     )
+    print(f"\n==============================")
+    print(f"SPLIT {name}")
+    print(f"==============================")
 
-#     print(f"\n{name}")
-#     print("Train :", len(train_df))
-#     print("Dev   :", len(dev_df))
-#     print("Test  :", len(test_df))
-
-#     train_df.to_json(
-#         OUTPUT_DIR / f"train/{name}.jsonl",
-#         orient="records",
-#         lines=True,
-#         force_ascii=False
-#     )
-
-#     dev_df.to_json(
-#         OUTPUT_DIR / f"dev/{name}.jsonl",
-#         orient="records",
-#         lines=True,
-#         force_ascii=False
-#     )
-
-#     test_df.to_json(
-#         OUTPUT_DIR / f"test/{name}.jsonl",
-#         orient="records",
-#         lines=True,
-#         force_ascii=False
-#     )
-
-
-def split_dataset2(dataframe, name):
     train_df, dev_df = train_test_split(
         dataframe,
         test_size=0.1,
@@ -192,33 +148,69 @@ def split_dataset2(dataframe, name):
         shuffle=True
     )
 
-    print(f"\n{name}")
-    print("Train :", len(train_df))
-    print("Dev   :", len(dev_df))
-   
+    print(f"Taille totale : {len(dataframe)}")
+    print(f"Train : {len(train_df)}")
+    print(f"Dev   : {len(dev_df)}")
 
     train_df.to_json(
-        OUTPUT_DIR / f"train/{name}.jsonl",
+        OUTPUT_DIR / "train" / f"{name}.jsonl",
         orient="records",
         lines=True,
         force_ascii=False
     )
 
     dev_df.to_json(
-        OUTPUT_DIR / f"dev/{name}.jsonl",
+        OUTPUT_DIR / "dev" / f"{name}.jsonl",
         orient="records",
         lines=True,
         force_ascii=False
     )
 
- 
+
+# ==================================================
+# 1. DATASET CR -> EN
+# ==================================================
+
+cr_en_dirs = [
+    BASE_DIR / "trilingue",
+    BASE_DIR / "bilingue/cr_en"
+]
+
+cr_en_df = build_dataset(
+    input_dirs=cr_en_dirs,
+    src_suffix="cr",
+    tgt_suffix="en",
+    src_lang="hat_Latn",
+    tgt_lang="eng_Latn",
+    direction="hat-eng"
+)
+
+split_train_dev_test(cr_en_df, "cr_en")
 
 
-# ============================
-# 5. Sauvegarder les deux datasets
-# ============================
+# ==================================================
+# 2. DATASET CR -> FR
+# ==================================================
 
-# split_dataset(cr_en_df, "cr_en")
-split_dataset2(cr_fr_df, "cr_fr")
+cr_fr_dirs = [
+    BASE_DIR / "trilingue",
+    BASE_DIR / "bilingue/cr_fr"
+]
 
-print("\nFichiers créés dans :", OUTPUT_DIR)
+cr_fr_df = build_dataset(
+    input_dirs=cr_fr_dirs,
+    src_suffix="cr",
+    tgt_suffix="fr",
+    src_lang="hat_Latn",
+    tgt_lang="fra_Latn",
+    direction="hat-fra"
+)
+
+# PAS DE TEST
+split_train_dev(cr_fr_df, "cr_fr")
+
+
+print("\n==============================")
+print("FIN DU TRAITEMENT")
+print("==============================")
+print(f"Fichiers sauvegardés dans : {OUTPUT_DIR}")
