@@ -11,8 +11,9 @@ from datasets import load_dataset
 # FICHIERS
 # =========================
 
+
 TEST_FILE = "datasets/corpus_culturel/test/cr_en.jsonl"
-OUTPUT_FILE = "result/test_cr_en_with_GPT_predictions.csv"
+OUTPUT_FILE = "result/ldp_with_GPT_predictions.csv"
 
 # =========================
 # API
@@ -47,15 +48,21 @@ for idx, item in enumerate(test_data):
 
     src_text = item["translation"]["src_text"]
     reference = item["translation"]["tgt_text"]
+    cultural_context = item["cultural_context"]
 
     prompt = f"""
- Translate the following Haitian Creole expression into natural English.
- Only provide the English translation.
+French: On ne souffre pas de ce qu’on ignore.
+English: Far from the eyes, far from the heart.
 
-Haitian Creole text:
+Spanish: Buenos dias
+English: Good morning
+
+
+Haitian Creole:
 {src_text}
 
 English:
+
 """
 
     try:

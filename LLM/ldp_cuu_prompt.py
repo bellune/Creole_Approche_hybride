@@ -11,8 +11,8 @@ from datasets import load_dataset
 # FICHIERS
 # =========================
 
-TEST_FILE = "datasets/corpus_culturel/test/cr_en.jsonl"
-OUTPUT_FILE = "result/test_cr_en_with_GPT_predictions.csv"
+TEST_FILE = "datasets/corpus_culturel/cr_en_with_explain.csv"
+OUTPUT_FILE = "result/ldp_cult_with_GPT_predictions.csv"
 
 # =========================
 # API
@@ -23,15 +23,14 @@ client = OpenAI(
 )
 
 # =========================
-# LOAD DATASET
+# LOAD CSV
 # =========================
 
-test_data = load_dataset(
-    "json",
-    data_files={"test": TEST_FILE}
-)["test"]
+test_data = pd.read_csv(TEST_FILE)
 
-print(test_data)
+print(test_data.head())
+print(test_data.columns)
+
 
 # =========================
 # RESULTATS
@@ -45,17 +44,25 @@ results = []
 
 for idx, item in enumerate(test_data):
 
-    src_text = item["translation"]["src_text"]
-    reference = item["translation"]["tgt_text"]
+    src_text = item["src_text"]
+    reference = item["reference"]
+    cultural_context = item["explanation"]
 
     prompt = f"""
- Translate the following Haitian Creole expression into natural English.
- Only provide the English translation.
+ French: On ne souffre pas de ce qu’on ignore.
+English: Far from the eyes, far from the heart.
 
-Haitian Creole text:
-{src_text}
+Spanish: Buenos dias
+English: Good morning
 
-English:
+ Igbo: Ịmụ igwe
+ English: Machine learning
+ 
+ Cultural context: {cultural_context}
+
+ Haitian Creole: {src_text}
+ English:
+
 """
 
     try:

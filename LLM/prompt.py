@@ -12,7 +12,7 @@ from datasets import load_dataset
 # =========================
 
 TEST_FILE = "datasets/corpus_culturel/test/cr_en.jsonl"
-OUTPUT_FILE = "result/test_cr_en_with_GPT_predictions.csv"
+OUTPUT_FILE = "datasets/corpus_culturel/cr_en_with_explain.csv"
 
 # =========================
 # API
@@ -49,13 +49,16 @@ for idx, item in enumerate(test_data):
     reference = item["translation"]["tgt_text"]
 
     prompt = f"""
- Translate the following Haitian Creole expression into natural English.
- Only provide the English translation.
 
-Haitian Creole text:
-{src_text}
+    Haitian Creole expression:
+   {src_text}
 
-English:
+   Reference English translation:
+    {reference}
+
+Provide a short cultural explanation of this expression in one sentence based on its Reference English translation.
+don't provide a literal translation, but rather an explanation of the cultural meaning behind the expression. 
+
 """
 
     try:
@@ -67,17 +70,16 @@ English:
             temperature=0
         )
 
-        prediction = response.choices[0].message.content.strip()
+        explanation = response.choices[0].message.content.strip()
 
     except Exception as e:
         print(f"Erreur ligne {idx}: {e}")
-        prediction = ""
+        explanation = ""
 
     results.append({
         "src_text": src_text,
         "reference": reference,
-        "prompt": prompt,
-        "prediction": prediction
+        "explanation": explanation
     })
 
     print(f"{idx + 1}/{len(test_data)} terminé")

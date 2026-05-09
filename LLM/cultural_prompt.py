@@ -12,7 +12,7 @@ from datasets import load_dataset
 # =========================
 
 TEST_FILE = "datasets/corpus_culturel/test/cr_en.jsonl"
-OUTPUT_FILE = "result/test_cr_en_with_GPT_predictions.csv"
+OUTPUT_FILE = "result/cultural_with_GPT_predictions.csv"
 
 # =========================
 # API
@@ -48,14 +48,19 @@ for idx, item in enumerate(test_data):
     src_text = item["translation"]["src_text"]
     reference = item["translation"]["tgt_text"]
 
-    prompt = f"""
- Translate the following Haitian Creole expression into natural English.
- Only provide the English translation.
 
-Haitian Creole text:
+    prompt = f"""
+ You are a Haitian Creole translator familiar with Haitian culture.
+
+Translate the following Haitian Creole expression into natural English according to its Haitian cultural context.
+
+Only provide the English translation.
+
+Haitian Creole:
 {src_text}
 
 English:
+
 """
 
     try:
