@@ -43,8 +43,8 @@ for name, info in files.items():
 
     df = pd.read_csv(info["path"])
 
-    print(df.head())
-    print(df.columns)
+    # print(df.head())
+    # print(df.columns)
 
     if refs is None:
         refs = df["reference"].astype(str).tolist()

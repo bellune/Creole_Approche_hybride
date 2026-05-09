@@ -48,7 +48,6 @@ for idx, item in enumerate(test_data):
 
     src_text = item["translation"]["src_text"]
     reference = item["translation"]["tgt_text"]
-    cultural_context = item["cultural_context"]
 
     prompt = f"""
 French: On ne souffre pas de ce qu’on ignore.
