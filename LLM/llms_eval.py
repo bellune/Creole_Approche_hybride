@@ -85,7 +85,7 @@ for name, preds in all_predictions.items():
         "BLEU": bleu_score["score"],
         "chrF": chrf_score["score"],
         "TER": ter_score["score"],
-        "BLEURT": bleurt_score["score"]
+        "BLEURT": bleurt_score["scores"][0]
 
     })
 
