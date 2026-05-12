@@ -14,7 +14,7 @@ from datasets import load_dataset
 # =========================
 
 TEST_FILE = "datasets/corpus_culturel/code-switching/prcs_cr_en.jsonl"
-OUTPUT_FILE = "datasets/corpus_culturel/code-switching/CS_Token_cr_en.jsonl"
+OUTPUT_FILE = "datasets/corpus_culturel/code-switching/CS_Sentence_cr_en.jsonl"
 
 # =========================
 # API
@@ -53,20 +53,20 @@ for idx, item in enumerate(test_data):
 You are a Haitian Creole-English code-switching generator.
 
 Task:
-Generate a natural Haitian Creole-English code-switched sentence using TOKEN-LEVEL REPLACEMENT.
+Generate a natural Haitian Creole-English code-switched sentence using SENTENCE-LEVEL ANNOTATION.
 
 Instructions:
-- Keep the sentence mostly in Haitian Creole.
-- Replace only one to three words depending on the length of the sentence with English.
-- Do NOT translate the whole sentence.
-- Keep the sentence fluent and natural.
-- Preserve the original meaning.
-- Output only the code-switched sentence.
+- Keep the original Haitian Creole sentence unchanged.
+- Add a natural English annotation in parentheses.
+- Preserve the cultural meaning.
+- Prefer natural English expressions over literal translation.
+- Output only the final annotated text.
 
-Haitian Creole sentence:
+Haitian Creole proverb or expression:
 "{src_text}"
 
-Code-switched sentence:
+Annotated version:
+
 """
 
     try:
