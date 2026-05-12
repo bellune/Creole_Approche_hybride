@@ -13,8 +13,14 @@ from datasets import load_dataset
 # FICHIERS
 # =========================
 
-TEST_FILE = "datasets/corpus_culturel/code-switching/prcs_cr_en.jsonl"
-OUTPUT_FILE = "datasets/corpus_culturel/code-switching/CS_Token_cr_en.jsonl"
+FILES = ["datasets/corpus_culturel/train/cr_en.jsonl", 
+         "datasets/corpus_culturel/dev/cr_en.jsonl",
+           "datasets/corpus_culturel/test/cr_en.jsonl" ]
+
+OUTPUT_FILES = ["datasets/corpus_culturel/code-switching/train/cr_cs_en.jsonl",
+                 "datasets/corpus_culturel/code-switching/dev/cr_cs_en.jsonl",
+                   "datasets/corpus_culturel/code-switching/test/cr_cs_en.jsonl"]
+
 
 # =========================
 # API
@@ -24,80 +30,84 @@ client = OpenAI(
     api_key=os.getenv("OPENAI_API_KEY")
 )
 
-# =========================
-# LOAD DATASET
-# =========================
+for FILE, OUTPUT_FILE in zip(FILES, OUTPUT_FILES):  
 
-test_data = load_dataset(
-    "json",
-    data_files={"test": TEST_FILE}
-)["test"]
 
-print(test_data)
 
-# =========================
-# RESULTATS
-# =========================
+    # =========================
+    # LOAD DATASET
+    # =========================
 
-results = []
+    test_data = load_dataset(
+        "json",
+        data_files={"test": FILE}
+    )["test"]
 
-# =========================
-# BOUCLE
-# =========================
+    print(test_data)
 
-for idx, item in enumerate(test_data):
+    # =========================
+    # RESULTATS
+    # =========================
 
-    src_text = item["translation"]["src_text"]
+    results = []
 
-    prompt = f"""
-You are a Haitian Creole-English code-switching generator.
+    # =========================
+    # BOUCLE
+    # =========================
 
-Task:
-Generate a natural Haitian Creole-English code-switched sentence using TOKEN-LEVEL REPLACEMENT.
+    for idx, item in enumerate(test_data):
 
-Instructions:
-- Keep the sentence mostly in Haitian Creole.
-- Replace only one to three words depending on the length of the sentence with English.
-- Do NOT translate the whole sentence.
-- Keep the sentence fluent and natural.
-- Preserve the original meaning.
-- Output only the code-switched sentence.
+        src_text = item["translation"]["src_text"]
 
-Haitian Creole sentence:
-"{src_text}"
+        prompt = f"""
+    You are a Haitian Creole-English code-switching generator.
 
-Code-switched sentence:
-"""
+    Task:
+    Generate a natural Haitian Creole-English code-switched sentence using TOKEN-LEVEL REPLACEMENT.
 
-    try:
-        response = client.chat.completions.create(
-            model="gpt-5.4-mini",
-            messages=[
-                {"role": "user", "content": prompt}
-            ],
-            temperature=0
-        )
+    Instructions:
+    - Keep the sentence mostly in Haitian Creole.
+    - Replace only one to three words depending on the length of the sentence with English.
+    - Do NOT translate the whole sentence.
+    - Keep the sentence fluent and natural.
+    - Preserve the original meaning.
+    - Output only the code-switched sentence.
 
-        prediction = response.choices[0].message.content.strip()
+    Haitian Creole sentence:
+    "{src_text}"
 
-    except Exception as e:
-        print(f"Erreur ligne {idx}: {e}")
-        prediction = ""
+    Code-switched sentence:
+    """
 
-    results.append({
-    **item,
-    "src_text": prediction
-   })
+        try:
+            response = client.chat.completions.create(
+                model="gpt-5.4-mini",
+                messages=[
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0
+            )
 
-    print(f"{idx + 1}/{len(test_data)} terminé")
+            prediction = response.choices[0].message.content.strip()
 
-    time.sleep(0.5)
+        except Exception as e:
+            print(f"Erreur ligne {idx}: {e}")
+            prediction = ""
 
-# =========================
-# SAVE JSON
-# =========================
+        results.append({
+        **item,
+        "src_text": prediction
+    })
 
-with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
-    json.dump(results, f, ensure_ascii=False, indent=2)
+        print(f"{idx + 1}/{len(test_data)} terminé")
 
-print("\nFichier sauvegardé :", OUTPUT_FILE)
+        time.sleep(0.5)
+
+    # =========================
+    # SAVE JSON
+    # =========================
+
+    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+        json.dump(results, f, ensure_ascii=False, indent=2)
+
+    print("\nFichier sauvegardé :", OUTPUT_FILE)
