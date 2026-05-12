@@ -1,5 +1,6 @@
 import os
 import time
+from pathlib import Path
 import pandas as pd
 import sys
 import json
@@ -13,13 +14,15 @@ from datasets import load_dataset
 # FICHIERS
 # =========================
 
+OUTPUT_DIR =  Path("datasets/corpus_culturel/code-switching")
+
 FILES = ["datasets/corpus_culturel/train/cr_en.jsonl", 
          "datasets/corpus_culturel/dev/cr_en.jsonl",
            "datasets/corpus_culturel/test/cr_en.jsonl" ]
 
-OUTPUT_FILES = ["datasets/corpus_culturel/code-switching/train/cr_cs_en.jsonl",
-                 "datasets/corpus_culturel/code-switching/dev/cr_cs_en.jsonl",
-                   "datasets/corpus_culturel/code-switching/test/cr_cs_en.jsonl"]
+OUTPUT_FILES = [f"{OUTPUT_DIR}/train/cr_cs_en.jsonl",
+                 f"{OUTPUT_DIR}/dev/cr_cs_en.jsonl",
+                   f"{OUTPUT_DIR}/test/cr_cs_en.jsonl"]
 
 
 # =========================
@@ -29,6 +32,10 @@ OUTPUT_FILES = ["datasets/corpus_culturel/code-switching/train/cr_cs_en.jsonl",
 client = OpenAI(
     api_key=os.getenv("OPENAI_API_KEY")
 )
+
+for split in ["train", "dev", "test"]:
+    (OUTPUT_DIR / split).mkdir(parents=True, exist_ok=True)
+
 
 for FILE, OUTPUT_FILE in zip(FILES, OUTPUT_FILES):  
 
