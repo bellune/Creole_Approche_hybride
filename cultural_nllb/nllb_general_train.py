@@ -6,6 +6,8 @@ from transformers import (
     Seq2SeqTrainingArguments,
     Seq2SeqTrainer
 )
+import evaluate
+import numpy as np
 
 # ============================
 # 1. Chemins
@@ -168,6 +170,53 @@ data_collator = DataCollatorForSeq2Seq(
 
 
 # ============================
+# 6. Metrics
+# ============================
+
+bleu = evaluate.load("sacrebleu")
+chrf = evaluate.load("chrf")
+ter = evaluate.load("ter")
+
+def compute_metrics(eval_preds):
+    preds, labels = eval_preds
+
+    if isinstance(preds, tuple):
+        preds = preds[0]
+
+    decoded_preds = tokenizer.batch_decode(preds, skip_special_tokens=True)
+
+    labels = np.where(labels != -100, labels, tokenizer.pad_token_id)
+    decoded_labels = tokenizer.batch_decode(labels, skip_special_tokens=True)
+
+    # Pour SacreBLEU : liste de listes
+    bleu_labels = [[label] for label in decoded_labels]
+
+    bleu_result = bleu.compute(
+        predictions=decoded_preds,
+        references=bleu_labels
+    )
+
+    # Pour chrF : liste simple
+    chrf_result = chrf.compute(
+        predictions=decoded_preds,
+        references=decoded_labels
+    )
+
+    
+    ter_result = ter.compute(
+    predictions=decoded_preds,
+    references=decoded_labels
+   )
+    
+
+    return {
+        "bleu": bleu_result["score"],
+        "chrf": chrf_result["score"],
+        "ter": ter_result["score"]  
+    }
+
+
+# ============================
 # 6. Arguments d'entraînement
 # ============================
 
@@ -196,7 +245,7 @@ training_args = Seq2SeqTrainingArguments(
     save_total_limit=2,
 
     load_best_model_at_end=True,
-    metric_for_best_model="bleu",
+    metric_for_best_model="blue",
     greater_is_better=True,
 
     report_to="none"
@@ -215,7 +264,8 @@ trainer = Seq2SeqTrainer(
     train_dataset=tokenized_dataset["train"],
     eval_dataset=tokenized_dataset["validation"],
 
-    data_collator=data_collator
+    data_collator=data_collator,
+    compute_metrics=compute_metrics
 )
 
 
