@@ -245,7 +245,7 @@ training_args = Seq2SeqTrainingArguments(
     save_total_limit=2,
 
     load_best_model_at_end=True,
-    metric_for_best_model="blue",
+    metric_for_best_model="bleu",
     greater_is_better=True,
 
     report_to="none"
