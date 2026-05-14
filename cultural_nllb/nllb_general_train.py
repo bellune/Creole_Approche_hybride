@@ -1,4 +1,4 @@
-from datasets import concatenate_datasets, load_dataset, load_from_disk
+from datasets import DatasetDict, concatenate_datasets, load_dataset, load_from_disk
 from transformers import (
     AutoTokenizer,
     AutoModelForSeq2SeqLM,
@@ -87,11 +87,12 @@ validation = concatenate_datasets([
     val_ds
 ])
 
-dataset = {
+dataset = DatasetDict({
     "train": train,
     "validation": validation
-    }
-    
+})
+
+print(dataset)
 
 
 # ============================
