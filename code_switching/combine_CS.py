@@ -9,9 +9,7 @@ token_file = ["datasets/corpus_culturel/code-switching/train/cr_cs_en.jsonl",
                  "datasets/corpus_culturel/code-switching/test/cr_cs_en.jsonl"]
 # sentence_file = "datasets/corpus_culturel/code-switching/CS_Sentence_cr_en.jsonl"
 
-OUTPUT_FILE = ["datasets/corpus_culturel/code-switching/train/cr_en.jsonl",
-                "datasets/corpus_culturel/code-switching/dev/cr_en.jsonl", 
-                "datasets/corpus_culturel/code-switching/test/cr_en.jsonl"]
+OUTPUT_FILE = ["datasets/corpus_culturel/code-switching/train/cr_en.jsonl"]
 
 from datasets import load_dataset
 
