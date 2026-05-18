@@ -15,8 +15,8 @@ BASE_MODEL = "facebook/nllb-200-distilled-600M"
 
 CHECKPOINT_PATH = "nllb200_baseline4/checkpoint-166260"  # à modifier
 
-TRAIN_FILE = "datasets/corpus_culturel/code-switching/train/cr_cs_MT_en.jsonl"
-DEV_FILE = "datasets/corpus_culturel/code-switching/dev/cr_cs_MT_en.jsonl"
+TRAIN_FILE = "datasets/corpus_culturel/code-switching/train/cr_codeS_en.jsonl"
+DEV_FILE = "datasets/corpus_culturel/code-switching/dev/cr_codeS_en.jsonl"
 
 OUTPUT_DIR = "model/nllb_CS_MT"
 
