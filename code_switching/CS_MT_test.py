@@ -7,9 +7,8 @@ import pandas as pd
 BASE_MODEL = "facebook/nllb-200-distilled-600M"
 
 BASELINE_MODEL = "nllb200_baseline4/checkpoint-166260"
-CULTURAL_MODEL_TRI = "model/nllb_cult_tri_CS"
-MODEL = "model/nllb_CS"
-TEST_FILE = "datasets/corpus_culturel/code-switching/test/cr_cs_en.jsonl"
+MODEL = "model/nllb_CS_MT"
+TEST_FILE = "datasets/corpus_culturel/code-switching/test/cr_codeS_en.jsonl"
 
 SRC_LANG = "hat_Latn"
 TGT_LANG = "eng_Latn"
@@ -77,9 +76,7 @@ print("Testing  model...")
 model = load_model(MODEL)
 _, n_preds, _, = translate_dataset(model, test_data)
 
-print("Testing tri-lingual model...")
-tri_model = load_model(CULTURAL_MODEL_TRI)
-_, tri_preds, _, = translate_dataset(tri_model, test_data)
+
 
 # -------------------------------
 # Métriques
@@ -95,13 +92,8 @@ baseline_bleu = bleu.compute(
     references=[[r] for r in refs]
 )
 
-cultural_bleu = bleu.compute(
+MTCS_bleu = bleu.compute(
     predictions=n_preds,
-    references=[[r] for r in refs]
-)
-
-tri_bleu = bleu.compute(
-    predictions=tri_preds,
     references=[[r] for r in refs]
 )
 
@@ -110,44 +102,33 @@ baseline_chrf = chrf.compute(
     references=refs
 )
 
-cultural_chrf = chrf.compute(
+MTCS_chrf = chrf.compute(
     predictions=n_preds,
     references=refs
 )
 
-tri_chrf = chrf.compute(
-    predictions=tri_preds,
-    references=refs
-)
 
 baseline_ter = ter.compute(
     predictions=baseline_preds,
     references=refs
 )
 
-cultural_ter = ter.compute(
+MTCS_ter = ter.compute(
     predictions=n_preds,
     references=refs
 )
 
-tri_ter = ter.compute(
-    predictions=tri_preds,
-    references=refs
-)
 
 baseline_bleurt = bleurt.compute(
     predictions=baseline_preds,
     references=refs
 )
 
-cultural_bleurt = bleurt.compute(
+MTCS_bleurt = bleurt.compute(
     predictions=n_preds,
     references=refs
 )
-tri_bleurt = bleurt.compute(
-    predictions=tri_preds,
-    references=refs
-)
+
 
  # -----------------------
     # Calcul de la loss
@@ -159,35 +140,31 @@ tri_bleurt = bleurt.compute(
 # -------------------------------
 
 
-print("\n===== RESULTS ON CULTURAL TEST SET =====")
+print("\n===== RESULTS ON MTCS TEST SET =====")
 print("Baseline BLEU :", baseline_bleu["score"])
-print("Cultural BLEU :", cultural_bleu["score"])
-print("Tri-lingual BLEU :", tri_bleu["score"])
+print("MTCS BLEU :", MTCS_bleu["score"])
 
 print("Baseline chrF :", baseline_chrf["score"])
-print("Cultural chrF :", cultural_chrf["score"])
-print("Tri-lingual chrF :", tri_chrf["score"])
+print("MTCS chrF :", MTCS_chrf["score"])
 
 print("Baseline TER :", baseline_ter["score"])
-print("Cultural TER :", cultural_ter["score"])
-print("Tri-lingual TER :", tri_ter["score"])
+print("MTCS TER :", MTCS_ter["score"])
 
 print("Baseline BLEURT :", baseline_bleurt["scores"][0])
-print("Cultural BLEURT :", cultural_bleurt["scores"][0])
-print("Tri-lingual BLEURT :", tri_bleurt["scores"][0])
+print("MTCS BLEURT :", MTCS_bleurt["scores"][0])
 
 
 
 df_scores = pd.DataFrame({
-    "Model": ["Baseline", "Cultural", "Tri-lingual"],
-    "BLEU": [baseline_bleu["score"], cultural_bleu["score"], tri_bleu["score"]],
-    "chrF": [baseline_chrf["score"], cultural_chrf["score"], tri_chrf["score"]],
-    "TER": [baseline_ter["score"], cultural_ter["score"], tri_ter["score"]],
-    "BLEURT": [baseline_bleurt["scores"][0], cultural_bleurt["scores"][0], tri_bleurt["scores"][0]          ]
+    "Model": ["Baseline", "MTCS"],
+    "BLEU": [baseline_bleu["score"], MTCS_bleu["score"]],
+    "chrF": [baseline_chrf["score"], MTCS_chrf["score"]],
+    "TER": [baseline_ter["score"], MTCS_ter["score"]],
+    "BLEURT": [baseline_bleurt["scores"][0], MTCS_bleurt["scores"][0]         ]
 })
 
 df_scores.to_csv(
-    "result/code-switching_test_scores_all.csv",
+    "result/MT_test_scores_all.csv",
     index=False,
     encoding="utf-8-sig"
 )
@@ -199,14 +176,13 @@ df_results = pd.DataFrame({
     "cr": sources,
     "reference_en": refs,
     "baseline_prediction": baseline_preds,
-    "cultural_prediction": n_preds,
-    "tri_prediction": tri_preds
+    "MTCS_prediction": n_preds
 })
 
 df_results.to_csv(
-    "result/code-switching_test_comparison_all.csv",
+    "result/MT_code-switching_test_comparison_all.csv",
     index=False,
     encoding="utf-8-sig"
 )
 
-print("\nComparaison sauvegardée : result/code-switching_test_comparison_all.csv")
+print("\nComparaison sauvegardée : result/code-switching_test_comparison_MT.csv")
