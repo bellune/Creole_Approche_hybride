@@ -23,7 +23,8 @@ OUTPUT_DIR =  Path("datasets/corpus_culturel/code-switching")
 path_data = "datasets"
 save_path = path_data + "/kreyol-mt-hat-eng"
 
-OUTPUT_FILES = [f"{OUTPUT_DIR}/train/cr_codeS_en.jsonl",
+OUTPUT_FILES = [
+    # f"{OUTPUT_DIR}/train/cr_codeS_en.jsonl",
                  f"{OUTPUT_DIR}/dev/cr_codeS_en.jsonl",
                    f"{OUTPUT_DIR}/test/cr_codeS_en.jsonl" 
                    ]
@@ -47,9 +48,9 @@ print(train_ds[0])
 # Get 15% of the data for each split
 # --------------------------------
 
-train_ds = train_ds.shuffle(seed=42).select(range(int(0.10 * len(train_ds))))
-val_ds   = val_ds.shuffle(seed=42).select(range(int(0.15 * len(val_ds))))
-test_ds  = test_ds.shuffle(seed=42).select(range(int(0.15 * len(test_ds))))
+# train_ds = train_ds.shuffle(seed=42).select(range(int(0.10 * len(train_ds))))
+# val_ds   = val_ds.shuffle(seed=42).select(range(int(0.15 * len(val_ds))))
+# test_ds  = test_ds.shuffle(seed=42).select(range(int(0.15 * len(test_ds))))
 
 # =========================
 # API
@@ -59,11 +60,11 @@ client = OpenAI(
     api_key=os.getenv("OPENAI_API_KEY")
 )
 
-for split in ["train", "dev", "test"]:
-    (OUTPUT_DIR / split).mkdir(parents=True, exist_ok=True)
+# for split in ["train", "dev", "test"]:
+#     (OUTPUT_DIR / split).mkdir(parents=True, exist_ok=True)
 
 
-for data, OUTPUT_FILE in zip([train_ds, val_ds, test_ds], OUTPUT_FILES):  
+for data, OUTPUT_FILE in zip([ val_ds, test_ds], OUTPUT_FILES):  
 
     # =========================
     # RESULTATS
