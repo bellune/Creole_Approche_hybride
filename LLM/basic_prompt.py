@@ -47,6 +47,7 @@ for idx, item in enumerate(test_data):
 
     src_text = item["translation"]["src_text"]
     reference = item["translation"]["tgt_text"]
+    id = item["id"]
 
     prompt = f"""
  Translate the following Haitian Creole expression into natural English.
@@ -74,6 +75,7 @@ English:
         prediction = ""
 
     results.append({
+        "id": id,
         "src_text": src_text,
         "reference": reference,
         "prompt": prompt,

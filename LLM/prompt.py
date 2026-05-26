@@ -47,6 +47,7 @@ for idx, item in enumerate(test_data):
 
     src_text = item["translation"]["src_text"]
     reference = item["translation"]["tgt_text"]
+    id = item["id"]
 
     prompt = f"""
 
@@ -58,8 +59,25 @@ for idx, item in enumerate(test_data):
 
 Provide a short cultural explanation of this expression in one sentence based on its Reference English translation.
 don't provide a literal translation, but rather an explanation of the cultural meaning behind the expression. 
+ONLY provide the cultural explanation, without any additional information or context.
 
 """
+
+    prompt2 = f"""
+
+        Haitian Creole expression:
+    {src_text}
+
+    Reference English translation:
+        {reference}
+
+    Provide two short cultural expected English translation of this expression based on its Reference English translation.
+    don't provide a literal translation, but rather an expected translation of the expression based on its cultural meaning. 
+    ONLY provide the expected translation, without any additional information or context.
+    separate the two expected translations with a separator "|" .
+
+    """
+
 
     try:
         response = client.chat.completions.create(
@@ -72,14 +90,27 @@ don't provide a literal translation, but rather an explanation of the cultural m
 
         explanation = response.choices[0].message.content.strip()
 
+        response = client.chat.completions.create(
+            model="gpt-5.4-mini",
+            messages=[
+                {"role": "user", "content": prompt2}
+            ],
+            temperature=0
+        )
+
+        expected_translation = response.choices[0].message.content.strip()
+
     except Exception as e:
         print(f"Erreur ligne {idx}: {e}")
         explanation = ""
+        expected_translation = ""
 
     results.append({
+        "id" : id,
         "src_text": src_text,
         "reference": reference,
-        "explanation": explanation
+        "explanation": explanation,
+        "expected_translation": expected_translation
     })
 
     print(f"{idx + 1}/{len(test_data)} terminé")

@@ -154,3 +154,4 @@ print("TER    :", ter_result["score"])
 print("BLEURT :", float(np.mean(bleurt_result["scores"])))
 print("Loss moyenne :", avg_loss)
 print("Perplexité :", perplexity)
+

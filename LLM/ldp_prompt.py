@@ -48,7 +48,8 @@ for idx, item in enumerate(test_data):
 
     src_text = item["translation"]["src_text"]
     reference = item["translation"]["tgt_text"]
-
+    id = item["id"]
+    
     prompt = f"""
 French: On ne souffre pas de ce qu’on ignore.
 English: Far from the eyes, far from the heart.
@@ -80,6 +81,7 @@ English:
         prediction = ""
 
     results.append({
+        "id": id,
         "src_text": src_text,
         "reference": reference,
         "prompt": prompt,

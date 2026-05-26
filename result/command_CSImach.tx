@@ -1,0 +1,7 @@
+pip install rapidfuzz pandas
+
+python cultural_nllb/csi_match_eval.py \
+  --input result/test_cr_en_with_GPT_predictions.csv \
+  --output result/csi_match_cultural_basic_results.csv \
+  --prediction_col prediction \
+  --csi_col expected_translation
