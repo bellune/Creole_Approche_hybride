@@ -7,15 +7,15 @@ import evaluate
 
 files = {
     "basic": {
-        "path": "result/test_cr_en_with_GPT_predictions.csv",
+        "path": "result/cultural/test_cr_en_with_GPT_predictions.csv",
         "pred_col": "prediction"
     },
     "Cultural": {
-        "path": "result/cultural_with_GPT_predictions.csv",
+        "path": "result/cultural/cultural_with_GPT_predictions.csv",
         "pred_col": "prediction"
     },
     "LDP": {
-        "path": "result/ldp_with_GPT_predictions.csv",
+        "path": "result/cultural/ldp_with_GPT_predictions.csv",
         "pred_col": "prediction"
     }
 }
@@ -96,7 +96,7 @@ for name, preds in all_predictions.items():
 df_scores = pd.DataFrame(score_rows)
 
 df_scores.to_csv(
-    "result/cultural_test_scores_all.csv",
+    "result/cult_LLM_test_scores_all.csv",
     index=False,
     encoding="utf-8-sig"
 )
@@ -117,10 +117,10 @@ df_results = pd.DataFrame({
 })
 
 df_results.to_csv(
-    "result/cultural_test_comparison_all.csv",
+    "result/cult_LLM_test_comparison_all.csv",
     index=False,
     encoding="utf-8-sig"
 )
 
-print("\nScores sauvegardés : result/cultural_test_scores_all.csv")
-print("Comparaison sauvegardée : result/cultural_test_comparison_all.csv")
+print("\nScores sauvegardés : result/cult_LLM_test_scores_all.csv")
+print("Comparaison sauvegardée : result/cult_LLM_test_comparison_all.csv")
