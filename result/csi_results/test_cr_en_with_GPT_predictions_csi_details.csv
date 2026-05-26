@@ -1,0 +1,1927 @@
+id,src_text,reference,prompt,prediction,expected_translation,prediction_csi_match_score,prediction_csi_match_success
+cuisine_48_hat_eng,epina,Spinach,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+epina
+
+English:
+",spinach,spinach|leafy greens,100.0,True
+fanm_313_hat_eng,Epi li renmen Ayiti.,She loves Haiti.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Epi li renmen Ayiti.
+
+English:
+",And he loves Haiti.,And she loves Haiti | She loves Haiti,94.73684210526316,True
+cuisine_6_hat_eng,Sitwonad,lemonade,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Sitwonad
+
+English:
+",Lemonade,lemonade | lemon drink,100.0,True
+cuisine_100_hat_eng,"Yon bon kabrit nan sòs, akonpaye pa yon vè ji soursop, toujou lakòz yon sansasyon pandan yon dine ak fanmi oswa zanmi.","A good kid in sauce, accompanied by a glass of soursop juice, always makes a sensation at a dinner with family or friends.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Yon bon kabrit nan sòs, akonpaye pa yon vè ji soursop, toujou lakòz yon sansasyon pandan yon dine ak fanmi oswa zanmi.
+
+English:
+","A good goat in sauce, accompanied by a glass of soursop juice, always creates a sensation during a dinner with family or friends.",A delicious goat stew with soursop juice is always a hit at family or friends’ dinners | A flavorful goat dish served with soursop juice always impresses at a gathering,57.28155339805825,False
+cuisine_100_hat_eng,"Yon bon kabrit nan sòs, akonpaye pa yon vè ji soursop, toujou lakòz yon sansasyon pandan yon dine ak fanmi oswa zanmi.","A good kid in sauce, accompanied by a glass of soursop juice, always makes a sensation at a dinner with family or friends.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Yon bon kabrit nan sòs, akonpaye pa yon vè ji soursop, toujou lakòz yon sansasyon pandan yon dine ak fanmi oswa zanmi.
+
+English:
+","A good goat in sauce, accompanied by a glass of soursop juice, always creates a sensation during a dinner with family or friends.",Haiti’s national beer brand | the national beer of Haiti,48.21428571428571,False
+fanm_261_hat_eng,"bòt nan pye, kas nan tèt, pèl, pikwa, bouwèt;","boots, helmets, shovels, pickaxes, wheelbarrows ...","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+bòt nan pye, kas nan tèt, pèl, pikwa, bouwèt;
+
+English:
+","boots on your feet, a helmet on your head, a shovel, a pickaxe, a wheelbarrow",tools of the trade | work gear,46.666666666666664,False
+zile_125_hat_eng,Poutan Latibonit degoute tak Lagrandans akoukouman nan kalbas,But still the Artibonite River drips like a tap the Grandanse River curls up inside a calabash,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Poutan Latibonit degoute tak Lagrandans akoukouman nan kalbas
+
+English:
+","However, Latibonit is disgusted by Lagrandans like a gourd full of bitterness.","Even so, the Artibonite trickles while the Grandanse coils in a calabash | Still, the Artibonite drips and the Grandanse curls up small in a calabash",54.16666666666667,False
+zile_130_hat_eng,toupatou kote lavi ak lanmò ap twoke kòn,everywhere life and death are locking horns,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+toupatou kote lavi ak lanmò ap twoke kòn
+
+English:
+",everywhere life and death are clashing horns,everywhere life and death are in conflict | everywhere life and death are at odds,87.5,True
+fanm_85_hat_eng,yo te deplase Toya pou voye li ale sou bitasyon Kolon Delije.,Toya was sent to settler Delije's dwelling .,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+yo te deplase Toya pou voye li ale sou bitasyon Kolon Delije.
+
+English:
+",They moved Toya to send her away to the Kolon Delije plantation.,Toya was sent off to Delije’s plantation | Toya was moved to Delije’s estate,61.53846153846154,False
+charlemagne_79_hat_eng,Li pa te danse kole avèk yo.,From Ounaminthe Charlemagne got transfered to a jail in Cap.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Li pa te danse kole avèk yo.
+
+English:
+",He didn’t dance closely with them.,He wasn’t in on it. | He didn’t go along with them.,76.19047619047619,False
+charlemagne_122_hat_eng,Se te nan lannuit 31 oktòb / 1 novanm 1919.,"Charlemagne died on the spot between the night of octiber 31st and november 1st, 1919.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Se te nan lannuit 31 oktòb / 1 novanm 1919.
+
+English:
+","It was on the night of October 31 / November 1, 1919.","It was on the night of October 31st to November 1st, 1919. | It happened during the night of October 31st and November 1st, 1919.",88.67924528301887,True
+charlemagne_58_hat_eng,"Jou sa a, se fyète nasyonal la ki te anba plant pye nou.",The pride of Haitians was at its lowest on that day.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Jou sa a, se fyète nasyonal la ki te anba plant pye nou.
+
+English:
+","That day, national pride was under our feet.","National pride was at its lowest that day | That day, Haitian pride was at an all-time low",63.63636363636363,False
+fanm_211_hat_eng,Leyanda sòti anba dekonm yo san yon ti blese.,Leyanda emerged from the rubble unharmed.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Leyanda sòti anba dekonm yo san yon ti blese.
+
+English:
+",Leyanda came out from under the rubble without a scratch.,Leyanda came out unscathed | Leyanda walked away without a scratch,63.829787234042556,False
+ife_225_hat_eng,Nou te chita kotakot sou kanape a.,I was at your house sitting next to you on the love seat.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Nou te chita kotakot sou kanape a.
+
+English:
+",We were sitting side by side on the couch.,I was sitting close beside you on the couch | I was sitting next to you on the sofa,76.19047619047619,False
+zile_151_hat_eng,Fanm pote lavi,Women carry life,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Fanm pote lavi
+
+English:
+",Women bring life,Women bring life | Women are life-givers,100.0,True
+cuisine_152_hat_eng,Resèt rapid pou bannann peze:,Quick recipe for fried plantain:,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Resèt rapid pou bannann peze:
+
+English:
+",Quick recipe for fried plantains:,Quick fried plantain recipe | Easy fried plantain recipe,75.47169811320755,False
+ife_326_hat_eng,"Nou te rete chita arebò tab la, se Vre, men nou te gen chans reviv bèl sezon adolesans nou yo.","Sitting at the table, we both had a chance to relive the beautiful seasons of our adolescence.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Nou te rete chita arebò tab la, se Vre, men nou te gen chans reviv bèl sezon adolesans nou yo.
+
+English:
+","We sat at the edge of the table, it’s true, but we had the chance to relive the beautiful seasons of our adolescence.",We sat at the table and reminisced about our youth | We spent time at the table reliving the beautiful days of our adolescence,64.45497630331754,False
+ife_483_hat_eng,lavi gen enpas.,the road to lile is full of obstacles.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+lavi gen enpas.
+
+English:
+",Life has dead ends.,life is full of obstacles | life is full of hardships,51.85185185185186,False
+proverb_215_hat_eng,"Si ou manje bouji, fòk ou poupou mèch.","If you eat a candle, you must poop the wick.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Si ou manje bouji, fòk ou poupou mèch.
+
+English:
+","If you eat the candle, you have to poop out the wick.",You reap what you sow | Actions have consequences,48.19277108433735,False
+fanm_134_hat_eng,"Nan lane 1973, Ertha te marye avèk Ernst Trouillot yon gran avoka, ekriven, jounalis. Li gen yon pitit fi.","In 1973, Ertha married Ernst Trouillot, a great lawyer, writer, journalist, and a daughter was born through this union.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Nan lane 1973, Ertha te marye avèk Ernst Trouillot yon gran avoka, ekriven, jounalis. Li gen yon pitit fi.
+
+English:
+","In 1973, Ertha married Ernst Trouillot, a prominent lawyer, writer, and journalist. She has a daughter.","In 1973, Ertha married Ernst Trouillot, a prominent lawyer, writer, and journalist, and they had a daughter. | In 1973, Ertha wed Ernst Trouillot, a distinguished lawyer, writer, and journalist, and the couple had a daughter.",92.23300970873787,True
+cuisine_66_hat_eng,fèy fenugreek,Fenugreek Leaf,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+fèy fenugreek
+
+English:
+",fenugreek leaves,fenugreek greens | fenugreek leaves,100.0,True
+proverb_252_hat_eng,"""Je pa wè, kè pa tounen.""","Far from the eyes, far from the heart","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+""Je pa wè, kè pa tounen.""
+
+English:
+","Out of sight, out of mind.","Out of sight, out of mind | Absence makes the heart grow fonder",98.0392156862745,True
+ife_254_hat_eng,"Anfet, nou konnen nou p ap janm rive reyalize tout rèv nou, paske nou pa ka rive menm wotè ak lapèfeksyon.",We will not realise all our dreams that's a fact.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Anfet, nou konnen nou p ap janm rive reyalize tout rèv nou, paske nou pa ka rive menm wotè ak lapèfeksyon.
+
+English:
+","Indeed, we know we will never be able to achieve all our dreams, because we cannot reach the height of perfection.",We can’t achieve all our dreams | We’ll never realize every dream,63.07692307692307,False
+ife_142_hat_eng,"Si nou aksepte viv youn lavi depaman pandan tout tan sa a, se paske nou gen katafal rèv nou vle bati ansanm.",I know temptation is an open trap waiting for all the lovers who shun their responsibilities.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Si nou aksepte viv youn lavi depaman pandan tout tan sa a, se paske nou gen katafal rèv nou vle bati ansanm.
+
+English:
+","If we accept living separate lives all this time, it’s because we have the catafalque of dreams we want to build together.","If we choose to live apart for now, it’s because we still share a dream we want to build together. | We can endure this separation because we have a future we’re trying to create side by side.",69.0909090909091,False
+cuisine_195_hat_eng,Fry jiskaske lò mawon.,Fry until golden brown.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Fry jiskaske lò mawon.
+
+English:
+",Fry until golden brown.,Cook until golden brown | Fry until nicely browned,82.6086956521739,True
+cuisine_186_hat_eng,Lalo Epina ayisyen,Lalo Haitian Spinach,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Lalo Epina ayisyen
+
+English:
+",Haitian spinach stew,Haitian spinach dish | Haitian spinach stew,100.0,True
+fanm_113_hat_eng,"se la jeneral Jan Jak Desalin ansanm avèk lòt chèf ki te ak li yo te kreye drapo peyi a, pandan yo t ap òganize yon kongrè.","Grann Giton May 18, 1803, in a small town near the village of Arcahaie, called Merotte, General Jean Jacques Dessalines and other chiefs who accompanied him, reated the national flag during a congress.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+se la jeneral Jan Jak Desalin ansanm avèk lòt chèf ki te ak li yo te kreye drapo peyi a, pandan yo t ap òganize yon kongrè.
+
+English:
+","It was there that General Jean-Jacques Dessalines, together with the other leaders who were with him, created the country’s flag while they were organizing a congress.",General Jean-Jacques Dessalines and the other leaders with him created the national flag during a congress | The national flag was created by General Jean-Jacques Dessalines and his fellow leaders at a congress,69.59706959706959,False
+zile_6_hat_eng,Flè solèy fèmen bèldriv,The sunflower closed down long ago,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Flè solèy fèmen bèldriv
+
+English:
+",Sunflowers close their petals,It’s been over for a long time | That ended ages ago,44.827586206896555,False
+proverb_73_hat_eng,"""Chak fou gen mawòt li""",Every fool has his hobby,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+""Chak fou gen mawòt li""
+
+English:
+",Every fool has his own folly.,Everyone has their own quirks | Every fool has a hobby,70.58823529411764,False
+proverb_218_hat_eng,Souke tèt pa kase kou.,To shake the head won't break the neck.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Souke tèt pa kase kou.
+
+English:
+",Shaking your head doesn’t break your neck.,It won’t hurt to disagree | A little dissent won’t do any harm,38.095238095238095,False
+fanm_276_hat_eng,Li te blese byen grav pou li mouri.,"Severely injured, she was on the verge of death.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Li te blese byen grav pou li mouri.
+
+English:
+",He was badly injured and died.,critically injured | near death,58.18181818181818,False
+cuisine_80_hat_eng,"yon asyèt Diri Shela,","a plate of Diri Shela,","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+yon asyèt Diri Shela,
+
+English:
+",a plate of Shela rice,a plate of rice and beans | a serving of rice and beans,83.33333333333334,True
+fanm_109_hat_eng,"Katrin Flon, yon fanm zansèt Yo toujou asosye Katrin Flon ak kreyasyon drapo a jan nou wè sa.","At that time, it represented the union of blacks and mulattoes.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Katrin Flon, yon fanm zansèt Yo toujou asosye Katrin Flon ak kreyasyon drapo a jan nou wè sa.
+
+English:
+","Katrin Flon, an ancestral woman. People always associate Katrin Flon with the creation of the flag as we see it.",It symbolized the unity of Black people and mulattoes | It stood for the joining of Blacks and mixed-race Haitians,45.945945945945944,False
+ife_94_hat_eng,"Mwen dako. Pa fatige ou,",I agree. Dont worry about me.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Mwen dako. Pa fatige ou,
+
+English:
+",I agree. Don’t worry about it.,I agree. Don’t worry about me. | I’m fine. Don’t worry about me.,94.73684210526316,True
+ife_300_hat_eng,Se kòmsi li vle al poze men-l nan matris solèy ki kouri louvrije-l nan mitan nyaj pou kabre danje,"It's as though it went after the sun which, fecling threatened to refuge behind a light cloud.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Se kòmsi li vle al poze men-l nan matris solèy ki kouri louvrije-l nan mitan nyaj pou kabre danje
+
+English:
+",It’s as if he wants to go lay his hand in the womb of the sun that runs to open itself among the clouds to ward off danger,It’s like chasing the sun behind the clouds | It’s like reaching for the impossible,48.19277108433735,False
+fanm_47_hat_eng,èd-kasik nan Zaragwa.,Cacique assistant to Xaragua.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+èd-kasik nan Zaragwa.
+
+English:
+",the chief’s aide in Zaragwa,chief’s aide | assistant to the chief,69.76744186046511,False
+proverb_275_hat_eng,Pale anpil fè kont,dispute,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Pale anpil fè kont
+
+English:
+",Talking too much causes trouble,argue | quarrel,42.85714285714286,False
+fanm_121_hat_eng,"Moun ki te konnen li di se te yon adolesan pezib, trankil, ki te renmen solitid.",People who knew her said that Ertha was a calm and quiet teenager who liked soli­ tude.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Moun ki te konnen li di se te yon adolesan pezib, trankil, ki te renmen solitid.
+
+English:
+","People who knew him said he was a peaceful, quiet teenager who liked solitude.","People who knew her said she was a calm, quiet teenager who liked being alone | Those who knew her described her as a peaceful, reserved teen who enjoyed solitude",84.93150684931507,True
+fanm_54_hat_eng,Anriyèt Senmak,Henriette Saint-Marc,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Anriyèt Senmak
+
+English:
+",Henriette Saint-Marc,Henriette Saint-Marc | Henriette St. Marc,100.0,True
+ife_547_hat_eng,"Premye kadè nou nan Randolph Avni, se te eskonbrit souf nou dekoupe ak sakad ritme kò nou nan melodi frison vwa ou ki te vle vare sou somèy Inosans.","Breathless, we arrived at Cité Randolph our bodies trembling with pent-up pleasure and our voices full of joyful notes that could awaken the innocent.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Premye kadè nou nan Randolph Avni, se te eskonbrit souf nou dekoupe ak sakad ritme kò nou nan melodi frison vwa ou ki te vle vare sou somèy Inosans.
+
+English:
+","Our first quarter at Randolph Avenue was the breathless commotion of our bodies moving in rhythm to the shiver of your voice, which wanted to break over Innocence’s sleep.","Breathless, we reached Randolph Avenue, our bodies shaking with restrained desire and our voices humming with delight that could stir the innocent | At Randolph Avenue, we arrived out of breath, our bodies quivering with pent-up pleasure and our voices carrying a thrill that could rouse innocence",56.965944272445824,False
+charlemagne_88_hat_eng,"La, li jwenn anviwon 200 prizonye ki t ap travay nan yon chantye pou fè wout. Li diskite avèk yo.",he invited 200 prisoners to follow him in the mountains.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+La, li jwenn anviwon 200 prizonye ki t ap travay nan yon chantye pou fè wout. Li diskite avèk yo.
+
+English:
+","There, he found about 200 prisoners who were working on a road construction site. He talked with them.",He found about 200 prisoners working on a road project and talked with them | He met around 200 prisoners laboring on a road construction site and spoke with them,76.8361581920904,False
+proverb_264_hat_eng,Tanga pi rèd pase rad.,Old clothes are better than Sunday best.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Tanga pi rèd pase rad.
+
+English:
+",Tanga is tighter than clothes.,Old clothes are better than Sunday best | Worn clothes are better than fancy clothes,64.40677966101696,False
+proverb_361_hat_eng,Ti pwason swiv kouran.,People are shaped by the world around them.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Ti pwason swiv kouran.
+
+English:
+",Small fish follow the current.,People follow the current | People are influenced by their surroundings,72.72727272727273,False
+ife_144_hat_eng,li gen pou l' blayi.,"Whatever the dream, Soul, if it starts off on the wrong path, it will fall by the wayside. I am slow, it's true. No one can build a dream in the space of a heartbeat.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+li gen pou l' blayi.
+
+English:
+",he has to spread out.,it’s bound to fall apart | it won’t last long,38.70967741935484,False
+proverb_303_hat_eng,Madichon pa pè nan nwit.,Badluck/evil spell isn't afraid at night.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Madichon pa pè nan nwit.
+
+English:
+",A curse is not afraid of the night.,Bad luck doesn’t sleep at night | Evil works best in the dark,48.484848484848484,False
+ife_585_hat_eng,Chak fwa koze sa yo klere lespri mwen.gen youn lide ki louvri je mwen sou divès etap nou pase sou wout lavi nou.,Each time these words illuminate my spirit a stream of ideas opens my eyes on the road we have travelled so far.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Chak fwa koze sa yo klere lespri mwen.gen youn lide ki louvri je mwen sou divès etap nou pase sou wout lavi nou.
+
+English:
+","Every time these things come to mind, I have an idea that opens my eyes to the various stages we go through on our journey through life.","Every time I hear those words, they light up my mind and open my eyes to the journey we’ve been on. | Those words always inspire me and help me see more clearly the path we’ve traveled together.",55.96707818930041,False
+proverb_375_hat_eng,Lenj sal lave an fanmi,don’t put your business out there,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Lenj sal lave an fanmi
+
+English:
+",Dirty laundry gets washed at home.,keep it in the family | don’t air your dirty laundry,55.319148936170215,False
+proverb_20_hat_eng,Bèl dan pa vle di zanmi : dan pa kè.,Beautiful smiles do not mean friends: smiles are not the heart.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Bèl dan pa vle di zanmi : dan pa kè.
+
+English:
+",Pretty teeth don’t mean friendship: teeth aren’t a heart.,Looks can be deceiving | A smile doesn’t always mean friendship,51.685393258426956,False
+zile_2_hat_eng,BÈLDRIV,LONG AGO,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+BÈLDRIV
+
+English:
+",BÈLDRIV,"once upon a time | long, long ago",14.28571428571429,False
+fanm_307_hat_eng,"Men, rive Etazini, grann nan vin agrandi fanmi an.","But on arrival in the United States, the grandmother came to expand the family.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Men, rive Etazini, grann nan vin agrandi fanmi an.
+
+English:
+","But when she arrived in the United States, the grandmother expanded the family.","But once they got to the United States, the grandmother helped the family grow. | But after arriving in the United States, the grandmother became part of the growing family.",80.26315789473684,True
+ife_176_hat_eng,"Pi bèl amoni an, se amoni ou kreye anndan pwòp tèt ou pandan ou ap analize tout aksyon ou ansanm ak tout kalite pawòl ki abitye soti nan bouch ou.",The most meaningful harmony is born from you when you reflect on all of your actions and of all the words you utter.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Pi bèl amoni an, se amoni ou kreye anndan pwòp tèt ou pandan ou ap analize tout aksyon ou ansanm ak tout kalite pawòl ki abitye soti nan bouch ou.
+
+English:
+",The most beautiful harmony is the harmony you create within yourself as you analyze all your actions along with all the kinds of words that usually come out of your mouth.,The deepest harmony comes from self-reflection and mindful speech | True harmony is created within by examining your actions and words,54.54545454545454,False
+fanm_56_hat_eng,"Anriyèt deside pase yon kwa sou tout kalite sa yo,",Henriette decided to  set aside these fine qualities.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Anriyèt deside pase yon kwa sou tout kalite sa yo,
+
+English:
+",Henriette decided to cross out all those qualities.,Henriette decided to put all that aside | Henriette decided to let all that go,76.19047619047619,False
+proverb_142_hat_eng,"Nan bay kout men, ou jwenn kout pye","You give a hand, but [you may] get kicked out.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Nan bay kout men, ou jwenn kout pye
+
+English:
+","If you lend a hand, you get a kick in the pants.",No good deed goes unpunished | Help someone and get kicked in the teeth,61.904761904761905,False
+cuisine_63_hat_eng,mayi,Corn,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+mayi
+
+English:
+",corn,corn|maize,100.0,True
+expression_64_hat_eng,Ou konn kouri ou pa konn kache,A guilty person will be caught sooner or later,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Ou konn kouri ou pa konn kache
+
+English:
+","You know how to run, but you don’t know how to hide.","You can run, but you can’t hide | You can’t escape the truth",65.06024096385542,False
+proverb_157_hat_eng,Ougan pa janm geri maleng li.,The ‘ougan’ (Medecine Man) never cures his own illness.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Ougan pa janm geri maleng li.
+
+English:
+",A healer never cures his own wounds.,No one can fix their own problems | A healer can’t heal himself,50.79365079365079,False
+ife_431_hat_eng,Souke kò ou.,Wake up!,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Souke kò ou.
+
+English:
+",Shake your body.,Get moving! | Shake it off!,55.172413793103445,False
+charlemagne_126_hat_eng,Yo te antere kadav la ak gran sekrè nan Chabè toupre Twoudinò.,Burried in a secret place at « Chabert » clost to the » Trou du Nord ».,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Yo te antere kadav la ak gran sekrè nan Chabè toupre Twoudinò.
+
+English:
+",They buried the body in great secrecy in Chabè near Troudinò.,"The body was secretly buried in Chabert near Trou du Nord | They buried the corpse in a hidden spot in Chabert, close to Trou du Nord",64.34782608695653,False
+ife_148_hat_eng,"maladi,","sickness,","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+maladi,
+
+English:
+",illness,illness | disease,100.0,True
+ife_99_hat_eng,"Sepandan, ou pa dwe janm bliye sa, jounen jodi a, se twa timounn yo ak mwen, nou kat la ki pran nan eto.","However, never forget the four of us, you, myself, the children we are in a squeeze.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Sepandan, ou pa dwe janm bliye sa, jounen jodi a, se twa timounn yo ak mwen, nou kat la ki pran nan eto.
+
+English:
+","However, you must never forget this: today, it is the three children and me—the four of us—who are taking the hit.","However, never forget that the four of us are all in this together. | But don’t forget, the four of us are all struggling right now.",62.42774566473989,False
+proverb_222_hat_eng,Tete pa janm twò lou pou mèt li.,Breasts are never heavy for their owner.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Tete pa janm twò lou pou mèt li.
+
+English:
+",No burden is too heavy for its owner.,What’s yours is never a burden | You never mind carrying your own load,51.35135135135135,False
+ife_227_hat_eng,mwen te pran chans mande ou youn prenmye bo pou nou te sele ako sekrè nou te siyen ant nou de a.,I ventured to ask for that first kiss that would seal the secret pact we had made.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+mwen te pran chans mande ou youn prenmye bo pou nou te sele ako sekrè nou te siyen ant nou de a.
+
+English:
+",I took a chance and asked you for a first kiss so we could seal the secret agreement we had signed between the two of us.,I took a chance and asked for our first kiss to seal our secret pact | I dared to ask for that first kiss to seal the secret agreement between us,67.3170731707317,False
+zile_159_hat_eng,Lè fanm ap goumen,When a woman fights,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Lè fanm ap goumen
+
+English:
+",When women are fighting,When a woman is fighting | When women are at odds,78.26086956521739,False
+fanm_263_hat_eng,"Wi yo vle travay,","Yes, they want to work.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Wi yo vle travay,
+
+English:
+","Yes, they want to work.","Sure, they want to work | Yes, they do want to work",86.95652173913044,True
+zile_67_hat_eng,trase chema fedatifis,the course of fireworks,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+trase chema fedatifis
+
+English:
+",draw a fireworks diagram,fireworks display | fireworks show,66.66666666666667,False
+fanm_181_hat_eng,resevwa lèt kreyans anbasadè ki vin reprezante peyi yo nan Kanada;,"preside over the swearing-in ceremony of the Prime Minister, the President of the Supreme Court, the Council of Ministers;","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+resevwa lèt kreyans anbasadè ki vin reprezante peyi yo nan Kanada;
+
+English:
+",receive the letters of credence of ambassadors who have come to represent their countries in Canada;,receive the credentials of ambassadors appointed to represent their countries in Canada | receive the letters of credence of ambassadors accredited to Canada,81.28342245989305,True
+fanm_347_hat_eng,pou yon pi bèl viktwa pi devan!,"Without resting, carry our flag high, go to vic­tory!","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+pou yon pi bèl viktwa pi devan!
+
+English:
+",for a better victory ahead!,Onward to victory! | Keep our flag flying high!,57.77777777777777,False
+ife_153_hat_eng,"fwa sa a, pou nou pèmèt reyalizasyon nou yo rete entak.",We should strive to keep our achievement intact–,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+fwa sa a, pou nou pèmèt reyalizasyon nou yo rete entak.
+
+English:
+","this time, so that we can keep our achievements intact.",let’s make sure this time our progress stays intact | we need to preserve what we’ve achieved,50.943396226415096,False
+cuisine_122_hat_eng,plat sa a konbine gou sansib nan poul ak gou kroustiyan ak yon ti kras dous nan nwa kajou.,this dish combines the tender taste of chicken with the crunchy and slightly sweet flavor of cashew nuts.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+plat sa a konbine gou sansib nan poul ak gou kroustiyan ak yon ti kras dous nan nwa kajou.
+
+English:
+","This dish combines the tender flavor of chicken with the crunchy, slightly sweet taste of cashews.","This dish blends tender chicken with crunchy, lightly sweet cashews | Tender chicken paired with the crisp, subtle sweetness of cashew nuts",77.57575757575758,False
+cuisine_5_hat_eng,"pa janm sispann etone ak richès kiltirèl li yo,","never ceases to amaze with its cultural richness,","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+pa janm sispann etone ak richès kiltirèl li yo,
+
+English:
+","never cease to be amazed by its cultural richness,",never fails to impress with its cultural richness | continues to amaze with its rich cultural heritage,74.74747474747474,False
+cuisine_2_hat_eng,Lis 25 pi bon plat ayisyen an 2025:,List of the 25 Best Haitian Dishes in 2025:,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Lis 25 pi bon plat ayisyen an 2025:
+
+English:
+",List of the 25 best Haitian dishes in 2025:,Top 25 Haitian Dishes of 2025 | 25 Best Haitian Foods in 2025,76.19047619047619,False
+proverb_341_hat_eng,"Fè nèg byen, se bay Bondye.",Do not necessarily expect to be rewarded on earth,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Fè nèg byen, se bay Bondye.
+
+English:
+","Do good to people, and you are giving to God.",Do good without expecting anything in return | Good deeds aren’t always rewarded here on earth,55.42168674698795,False
+ife_25_hat_eng,"Malgre pyes mounn pa te vann nou li,","It was ours,","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Malgre pyes mounn pa te vann nou li,
+
+English:
+","Although nobody sold it to us,",It belonged to us | It was ours to keep,46.808510638297875,False
+ife_429_hat_eng,"ou va santi, mwenimenl tou, mwen rantre nan ri ansanm avèk ou.",you will feel that I too will be shaken by the contagion of spirit shall free itself from the bonds of suffering and you shall our laughter.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+ou va santi, mwenimenl tou, mwen rantre nan ri ansanm avèk ou.
+
+English:
+","you will feel it, I’ll feel it too, I’ll join you in the street.","you’ll feel it too, I’ll be swept up in it with you | you’ll sense that I’ll join you in laughter and release",61.855670103092784,False
+fanm_191_hat_eng,• Prezidan Konsèy Administrasyon Enstiti Wotzetid Kebèk nan Inivèsite Laval (Oktòb 2010).,"• Special Envoy for UNESCO in HAITI (October 1, 2010);","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+• Prezidan Konsèy Administrasyon Enstiti Wotzetid Kebèk nan Inivèsite Laval (Oktòb 2010).
+
+English:
+",Chair of the Board of Directors of the Quebec Institute of Higher Studies at Laval University (October 2010).,Chairman of the Board of the Quebec Institute of Higher Education at Laval University (October 2010) | President of the Board of Directors of the Quebec Institute of Higher Education at Laval University (October 2010),91.58878504672897,True
+zile_33_hat_eng,Pou Hugues Lamour ak Garry Gauthier,For Hugues Lamou and Garry Gauthier,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Pou Hugues Lamour ak Garry Gauthier
+
+English:
+",For Hugues Lamour and Garry Gauthier,For Hugues Lamour and Garry Gauthier | To Hugues Lamour and Garry Gauthier,100.0,True
+proverb_313_hat_eng,Mèt kò pa grate kò,You always need someone else to help you.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Mèt kò pa grate kò
+
+English:
+",Every man for himself.,You can’t do it alone | You need help from others,44.99999999999999,False
+proverb_104_hat_eng,Koulèv ki vle gwo rete nan trou-l.,The snake that wants to get big stays in its hole.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Koulèv ki vle gwo rete nan trou-l.
+
+English:
+",A snake that wants to be big stays in its hole.,Stay in your lane | Know your place,45.28301886792453,False
+cuisine_94_hat_eng,"Plat sa a, prepare ak vyann kabrit ki byen sezonman ak mitone nan yon sòs ki rich nan epis santi bon,","This dish, prepared with well-seasoned goat meat and simmered in a sauce rich in spices,","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Plat sa a, prepare ak vyann kabrit ki byen sezonman ak mitone nan yon sòs ki rich nan epis santi bon,
+
+English:
+","This dish is prepared with well-seasoned goat meat simmered in a rich, spicy sauce.","This dish, made with seasoned goat meat and a rich spiced sauce | A flavorful goat dish simmered in a fragrant, spicy sauce",76.71232876712328,False
+zile_186_hat_eng,youn bél karako lalin de boul je,a robe of moonlight two round eyes a pair of golden wings,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+youn bél karako lalin de boul je
+
+English:
+",a beautiful blouse with moon-shaped buttons,a radiant figure with moonlit eyes and golden wings | a luminous being with bright eyes and golden wings,52.38095238095239,False
+zile_220_hat_eng,Ki ka ban nou zèl toutrèl Pou n' monte nan syèl,that give us wings of doves so that we rise to the sky,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Ki ka ban nou zèl toutrèl Pou n' monte nan syèl
+
+English:
+",Who can give us dove’s wings so we can rise into the sky,give us peace and freedom | lift us heavenward with gentle wings,46.808510638297875,False
+cuisine_179_hat_eng,"Tassot se vyann bèf ki marin,","Tassot is a marinated beef,","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Tassot se vyann bèf ki marin,
+
+English:
+",Tassot is marinated beef.,marinated beef | seasoned beef,71.7948717948718,False
+proverb_88_hat_eng,"Je wè, bouch be.","The eyes see, the mouth is silent.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Je wè, bouch be.
+
+English:
+","I see, but I’m not saying anything.","See no evil, speak no evil | What the eyes see, the mouth keeps quiet",48.38709677419355,False
+zile_94_hat_eng,« Dèy o ! N'a rele dèy o ! Ayiti ! »,"« Mourning 0, We cry out in mourning, O Haiti !»","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+« Dèy o ! N'a rele dèy o ! Ayiti ! »
+
+English:
+",“Alas! We will cry out in mourning! Haiti!”,"We mourn, O Haiti! | Crying out in grief, O Haiti!",60.526315789473685,False
+ife_201_hat_eng,Ou retounen,You comne back,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Ou retounen
+
+English:
+",You came back,You’re back | You came back,100.0,True
+proverb_312_hat_eng,Meprize vo mye pase reponn.,To ignore someone is stronger than answering.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Meprize vo mye pase reponn.
+
+English:
+",Better to despise than to answer.,Ignoring is better than replying | Silence is stronger than a response,51.515151515151516,False
+zile_208_hat_eng,MIYAMI,MIAMI,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+MIYAMI
+
+English:
+",Miami,"Miami | Miami, Florida",100.0,True
+expression_54_hat_eng,Chak jou pa dimanch,you may not get the same results all the time,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Chak jou pa dimanch
+
+English:
+",Every day is not Sunday,every day isn’t Sunday | things don’t always turn out the same,93.33333333333333,True
+proverb_256_hat_eng,Bèf ki bèf pran souf.,Even the ox takes a break,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Bèf ki bèf pran souf.
+
+English:
+",Even the strongest ox needs a rest.,Everyone needs a break | Even the strongest need rest,88.88888888888889,True
+cuisine_250_hat_eng,Pen pòmdetè Desè a k ap fonn,Pain Patate The melting dessert,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Pen pòmdetè Desè a k ap fonn
+
+English:
+",The dessert potato bread that’s melting,sweet potato pudding | melting dessert,60.0,False
+cuisine_263_hat_eng,"Melanje farin, siwo kann, kannèl ak noutmèg.","Mix flour, cane syrup, cinnamon and nutmeg.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Melanje farin, siwo kann, kannèl ak noutmèg.
+
+English:
+","Mix flour, cane syrup, cinnamon, and nutmeg.","Mix flour, cane syrup, cinnamon, and nutmeg | Combine flour, cane syrup, cinnamon, and nutmeg",98.85057471264368,True
+fanm_8_hat_eng,Mimoz,Mimoz,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Mimoz
+
+English:
+",Mimosas,Mimosas|Mimosa,100.0,True
+cuisine_28_hat_eng,Manyòk,yuca,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Manyòk
+
+English:
+",cassava,cassava | manioc,100.0,True
+expression_17_hat_eng,Met dlo nan diven,"To calm down, to not make a big deal out of a situation.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Met dlo nan diven
+
+English:
+",Water down the wine,to tone it down | to make a fuss over nothing,55.172413793103445,False
+proverb_148_hat_eng,"Nen pran kou, je kouri dlo; je pran kou, nen kouri dlo.","The nose is hurt, the eyes water; the eyes are hurt, the nose runs.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Nen pran kou, je kouri dlo; je pran kou, nen kouri dlo.
+
+English:
+","When the nose gets hit, the eyes water; when the eyes get hit, the nose waters.","What affects one part affects the whole | When one thing suffers, everything feels it",47.55244755244755,False
+zile_124_hat_eng,foto ou pran woulib sou glas fele larivyè jele,your foto hitches a ride on the cracked ice of a frozen river,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+foto ou pran woulib sou glas fele larivyè jele
+
+English:
+",a photo of you riding on cracked ice on a frozen river,your photo rides on thin ice | your photo is skating on thin ice,49.48453608247423,False
+fanm_65_hat_eng,"Dènye rèl Anriyèt la te sèvi kouwè yon kleren majik ki chofe nanm tout esklav revòlte, tout afranchi revolisyonè.",Henriette's last cry was akin to a powerful rhum that would warm the souls of all the rebellious slaves and freedmen that had joi­ned in revolution.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Dènye rèl Anriyèt la te sèvi kouwè yon kleren majik ki chofe nanm tout esklav revòlte, tout afranchi revolisyonè.
+
+English:
+","Henriette’s last cry served like a magical clairin that warmed the souls of all the rebel slaves, all the revolutionary freedmen.","Henriette’s final cry was like a potent rum that warmed the hearts of all the rebellious slaves and freedmen | Henriette’s last cry was like a magical rum, stirring the souls of every rebel slave and freedman",70.79646017699115,False
+cuisine_239_hat_eng,akonpaye pa yon bon pikliz pikant.,"It is often served with diri kole (rice with red peas) or plantains, accompanied by a good spicy pikliz.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+akonpaye pa yon bon pikliz pikant.
+
+English:
+",accompanied by a good spicy pikliz,served with spicy pikliz | accompanied by a good spicy pikliz,100.0,True
+fanm_179_hat_eng,disoud palman an ouben mande chèf opozisyon an pou fòme yon nouvo gouvènman lè sa nesesè;,teach them how to work to build a strong and generous community;,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+disoud palman an ouben mande chèf opozisyon an pou fòme yon nouvo gouvènman lè sa nesesè;
+
+English:
+",dissolve the parliament or ask the opposition leader to form a new government when necessary;,dissolve parliament or ask the opposition leader to form a new government when needed | dissolve parliament or let the opposition leader form a new government when necessary,93.71428571428572,True
+ife_480_hat_eng,"nou dwe aprann ajiste pasyon nou yo, youn fason pou nou rive kwoke dyakout nou mezi ponyèt nou ka rive.","we must keep our passion in check and avoid overreaching,","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+nou dwe aprann ajiste pasyon nou yo, youn fason pou nou rive kwoke dyakout nou mezi ponyèt nou ka rive.
+
+English:
+","We must learn to adjust our passions, one way for us to be able to hang our knapsack as high as our wrist can reach.",we must keep our passions in check | we shouldn’t bite off more than we can chew,55.696202531645575,False
+fanm_237_hat_eng,M te kon yon egare.,"I was there, dazed ...","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+M te kon yon egare.
+
+English:
+",I used to be a fool.,I was kind of out of it | I was dazed,46.15384615384615,False
+ife_252_hat_eng,"Konsa, nou va tounen marasa dosou dosa nan rasin dlo, metrès tout fom lavi sou latè.","Our two lives will fuse into one like those spirits dwelling at the source of the water, mistress of all forms of life on earth.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Konsa, nou va tounen marasa dosou dosa nan rasin dlo, metrès tout fom lavi sou latè.
+
+English:
+","Thus, we shall become twin souls back to back in the roots of the waters, mistress of all forms of life on earth.","Our lives will become one, like the spirits at the source of the water, mistress of all life on earth. | We will be joined as one, like the water spirits, mistress of all life on earth.",67.90697674418604,False
+zile_111_hat_eng,Chalè ou fonn nan san-m fe laviwonn venn mwen,Your warmth melts in my blood makes a tour of my veins,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Chalè ou fonn nan san-m fe laviwonn venn mwen
+
+English:
+","Your heat melts in my blood, making my veins swirl around my life.",Your warmth runs through my veins | Your warmth flows through my blood,52.17391304347826,False
+fanm_141_hat_eng,"Jounen jodiya ansyen Prezidan Ertha Pascal ap viv lakay li, nan katye Kriswa, kote l ap ekri liv, l ap prepare konferans, l ap bay sè ak frè legliz li konsèy pou yo byen viv lafwa yo.","Former President Ertha Pascal now lives at her residential home, writing books, presenting lec­ tures, and advising her sisters and brothers to live their faith.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Jounen jodiya ansyen Prezidan Ertha Pascal ap viv lakay li, nan katye Kriswa, kote l ap ekri liv, l ap prepare konferans, l ap bay sè ak frè legliz li konsèy pou yo byen viv lafwa yo.
+
+English:
+","Today, former President Ertha Pascal lives at home in the Kriswa neighborhood, where she writes books, prepares lectures, and gives advice to the sisters and brothers in her church on how to live out their faith well.","Former President Ertha Pascal now lives at home, where she writes books, gives lectures, and counsels fellow church members on living their faith | Former President Ertha Pascal currently lives in her home in Kriswa, writing books, preparing talks, and advising her church family on how to live out their faith",68.42105263157895,False
+charlemagne_15_hat_eng,Ti gason sa a te fèt 10 Oktòb 1885 nan vil Ench.,"Francios was born on octiber 10, 1885 in « Hinche ».","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Ti gason sa a te fèt 10 Oktòb 1885 nan vil Ench.
+
+English:
+","This boy was born on October 10, 1885, in the city of Hinche.","Francios was born on October 10, 1885, in Hinche. | Francios was born in Hinche on October 10, 1885.",78.18181818181819,False
+proverb_304_hat_eng,Malè pa mal pou rive.,Trouble comes so easily,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Malè pa mal pou rive.
+
+English:
+",Misfortune can happen to anyone.,Trouble comes easily | Misfortune comes all too easily,63.49206349206349,False
+fanm_59_hat_eng,Te gen lòt Ayisyèn vanyan ki te konn fè travay sa a tou.,Other courageous Haitians also played this game.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Te gen lòt Ayisyèn vanyan ki te konn fè travay sa a tou.
+
+English:
+",There were other brave Haitian women who used to do this work too.,Other brave Haitian women did this too. | There were other strong Haitian women who did this too.,80.99173553719008,True
+cuisine_106_hat_eng,piman dou,bell peppers,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+piman dou
+
+English:
+",sweet pepper,sweet peppers|capsicums,100.0,True
+charlemagne_71_hat_eng,Ameriken yo sispèk Chalmay ak demi frè li jeneral Saül Péralt te nan konplo avèk rebèl yo.,Charlemagne Peralte and his half brother Saul Pralte are accused of being partners with rebels.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Ameriken yo sispèk Chalmay ak demi frè li jeneral Saül Péralt te nan konplo avèk rebèl yo.
+
+English:
+",The Americans suspected that Chalmay and his half-brother General Saül Péralt were in a conspiracy with the rebels.,The Americans suspected Charlemagne and his half-brother General Saül Péralte of conspiring with the rebels | The Americans believed Charlemagne and his half-brother General Saül Péralte were in league with the rebels,87.38738738738738,True
+ife_24_hat_eng,Se nan mitan ambyans sa a nou te dekouvri youn bèl galèt marasa kote karès nou te fè nich.,It was in the midst of that ambiance that we discovered that large oval boulder.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Se nan mitan ambyans sa a nou te dekouvri youn bèl galèt marasa kote karès nou te fè nich.
+
+English:
+",It was in the midst of this atmosphere that we discovered a beautiful twin pancake where our caresses had made their nest.,"It was in the middle of that atmosphere that we found that big oval stone | In that setting, we came upon that large oval boulder",61.32075471698113,False
+zile_150_hat_eng,Lè fanm vanyan ap mache li pòtre ak Manzè Lavi,When a brave womnan's out walking she looks just like Mistress Life,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Lè fanm vanyan ap mache li pòtre ak Manzè Lavi
+
+English:
+","When a brave woman walks, she looks like Lady Life.",A brave woman carries herself like life itself | A strong woman walks with the grace of Mistress Life,66.66666666666667,False
+cuisine_133_hat_eng,"Kwit pwa pijon yo ak epis santi bon (lay, zonyon, tim, pèsi).","Cook the pigeon peas with spices (garlic, onion, thyme, parsley).","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Kwit pwa pijon yo ak epis santi bon (lay, zonyon, tim, pèsi).
+
+English:
+","Cook the pigeon peas with seasonings (garlic, onion, thyme, parsley).",Cook the pigeon peas with seasonings | Prepare the pigeon peas with herbs and spices,74.78260869565217,False
+expression_12_hat_eng,Chape poul,To escape,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Chape poul
+
+English:
+",run away,to get away | to flee,62.5,False
+cuisine_257_hat_eng,Tranpe mayi sèk ak pwa wouj anvan ou kwit manje ak epis santi bon.,Soak dry corn and red peas before cooking with spices.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Tranpe mayi sèk ak pwa wouj anvan ou kwit manje ak epis santi bon.
+
+English:
+",Soak the dried corn and red beans before cooking with spices.,Soak the corn and red beans before seasoning and cooking | Soak dried corn and red peas before cooking with spices,93.10344827586206,True
+proverb_205_hat_eng,Se nan chemen ou konnen sa-k pase nan chanm.,It is on the road that you learn what goes on in [your] room.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Se nan chemen ou konnen sa-k pase nan chanm.
+
+English:
+",It’s on the road that you know what happens in the room.,You learn life by getting out into the world | Experience teaches you what you need to know,50.0,False
+fanm_36_hat_eng,Men sa ki pi enpòtan pou nou konnen sèke Anakawona te renmen anpil anpil lavi atis.,It must be remembered that Anacaona loved the life of an artist very much.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Men sa ki pi enpòtan pou nou konnen sèke Anakawona te renmen anpil anpil lavi atis.
+
+English:
+","What is most important for us to know is that Anakawona loved the life of an artist very, very much.",It should be remembered that Anacaona deeply loved the artistic life | One important thing to know is that Anacaona had a great love for the arts,59.887005649717516,False
+ife_67_hat_eng,"Men, bonnanj mwen va bay bonnanj ou kristė, menm jan li toujou fèpandan tout peyòd lesefrape distans manchlonng ki soude ekzistans nou an.","However, my spirit is going to tickle your spirit as it did on the day when we had to fight to dispel the feeling of distance between us.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Men, bonnanj mwen va bay bonnanj ou kristė, menm jan li toujou fèpandan tout peyòd lesefrape distans manchlonng ki soude ekzistans nou an.
+
+English:
+","But my spirit will give your spirit crystal clarity, just as it has always done throughout the periods of the long-distance separation that has shaped our existence.","My spirit will stir yours, just as it always has when we fought to bridge the distance between us | My soul will reach out to yours, as it did when we struggled to overcome the distance between us",58.909090909090914,False
+fanm_165_hat_eng,"li pale, li ekri 5 lang :",She speaks and writes 5 languages:,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+li pale, li ekri 5 lang :
+
+English:
+",He speaks and writes 5 languages.,She is fluent in 5 languages | She speaks and writes 5 languages fluently,96.96969696969697,True
+zile_31_hat_eng,ki jou latè va rale youn kanpo san kè kase ?,When will the earth pull up to rest without heartbreak ?,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+ki jou latè va rale youn kanpo san kè kase ?
+
+English:
+",When will the earth take a break without breaking hearts?,When will the world finally rest in peace? | When will there be peace on earth?,61.53846153846154,False
+fanm_159_hat_eng,Li patisipe nan plizyè film nan kolaborasyon avèk mari li Daniel Lafond.,"She has participated in the making of several films in col­ laboration with her husband, Daniel Lafond.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Li patisipe nan plizyè film nan kolaborasyon avèk mari li Daniel Lafond.
+
+English:
+",She participated in several films in collaboration with her husband Daniel Lafond.,"She has worked on several films with her husband, Daniel Lafond. | She has collaborated with her husband, Daniel Lafond, on several films.",76.71232876712328,False
+cuisine_21_hat_eng,Kremas,creamy coconut spiced rum beverage,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Kremas
+
+English:
+",Cream liqueur,Haitian cream liqueur | spiced coconut rum drink,100.0,True
+fanm_343_hat_eng,Se pou nou gen fyète lang nou!,"Be proud of your lan­ guage,","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Se pou nou gen fyète lang nou!
+
+English:
+",Let us be proud of our language!,Be proud of our language | Let’s be proud of our language,93.5483870967742,True
+cuisine_93_hat_eng,sitou pandan okazyon espesyal ak festival.,especially during special occasions and celebrations.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+sitou pandan okazyon espesyal ak festival.
+
+English:
+",especially during special occasions and festivals.,especially on special occasions | especially during festivals,80.43478260869566,True
+proverb_59_hat_eng,Degaje pa peche.,To get by is not a sin.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Degaje pa peche.
+
+English:
+",Making do is not a sin.,Making do is no sin | Getting by isn’t wrong,90.47619047619048,True
+cuisine_76_hat_eng,djondjon,Mushroom,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+djondjon
+
+English:
+",mushroom,mushroom | wild mushroom,100.0,True
+proverb_154_hat_eng,Ou pa fouye zo nan kalalou.,You do not dig up bones in akra.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Ou pa fouye zo nan kalalou.
+
+English:
+",Don’t go digging for bones in okra soup.,Don’t stir up old trouble | Let sleeping dogs lie,45.28301886792453,False
+ife_385_hat_eng,ou ta di yo pran pli satiyèt pou lage mwen toutouni ak ri.,Sometimes they seem to take a ticklish pleasure in exposing me naked.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+ou ta di yo pran pli satiyèt pou lage mwen toutouni ak ri.
+
+English:
+",you’d think they took a bigger sheet to leave me naked and laughing,they seem to enjoy humiliating me | they take pleasure in exposing me,45.11278195488722,False
+cuisine_9_hat_eng,"yon eritaj ki pase de jenerasyon an jenerasyon,","a heritage passed down from generation to generation,","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+yon eritaj ki pase de jenerasyon an jenerasyon,
+
+English:
+",a legacy passed down from generation to generation,a legacy passed down through generations | a tradition handed down through the generations,79.16666666666666,False
+ife_504_hat_eng,Gwo Bo,I love you my darling Soul Ife,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Gwo Bo
+
+English:
+",Big kiss,my big kiss | my darling sweetheart,100.0,True
+zile_230_hat_eng,Avèk youn bèl flè Ayiti Ki t'ap dekore youn kè anbalan,with a bcautiful Haitian flower pinned to my stumbling heart,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Avèk youn bèl flè Ayiti Ki t'ap dekore youn kè anbalan
+
+English:
+",With a beautiful flower of Haiti that was decorating a swaying heart,with a beautiful Haitian flower pinned to my wavering heart | with a lovely Haitian flower adorning my faltering heart,66.14173228346456,False
+cuisine_115_hat_eng,"Ajoute pòmdetè, kawòt ak pwa vèt.","Add potatoes, carrots and green beans.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Ajoute pòmdetè, kawòt ak pwa vèt.
+
+English:
+","Add potatoes, carrots, and green beans.","Add potatoes, carrots, and green beans | Toss in potatoes, carrots, and green beans",98.7012987012987,True
+zile_38_hat_eng,Monte apik,Rises straight up,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Monte apik
+
+English:
+",steep uphill,shoots up|goes straight up,50.0,False
+ife_64_hat_eng,Sa se mistè lavi! Se poutèt sa.,There lies the whole mystery of life.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Sa se mistè lavi! Se poutèt sa.
+
+English:
+",That’s the mystery of life! That’s why.,That’s the mystery of life. | That’s what life is all about.,92.3076923076923,True
+fanm_38_hat_eng,"Limenm te patisipe nan envante pwezi, chante;",She devoted herself to poetry and singing.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Limenm te patisipe nan envante pwezi, chante;
+
+English:
+","He himself took part in inventing poetry, songs;",She was devoted to poetry and song | She dedicated herself to poetry and singing,52.5,False
+cuisine_45_hat_eng,radi,Raddish,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+radi
+
+English:
+",cold,radish|turnip,28.57142857142857,False
+zile_62_hat_eng,Poudre wòch galèt,Powders riverbank stones,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Poudre wòch galèt
+
+English:
+",stone powder,waste your time | do something impossible,54.54545454545454,False
+fanm_77_hat_eng,Madan Pajo,Madame Pajo,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Madan Pajo
+
+English:
+",Mrs. Pajo,Mrs. Pajo | Madam Pajo,100.0,True
+fanm_157_hat_eng,Se konsa li rantre nan televizyon « Radyo-Kanada ».,She joined Radio-Canada television.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Se konsa li rantre nan televizyon « Radyo-Kanada ».
+
+English:
+",So he joined Radio-Canada television.,She joined Radio-Canada TV | She became part of Radio-Canada television,82.53968253968253,True
+cuisine_70_hat_eng,"Yon plat senp men plen karaktè,","A simple but characterful dish,","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Yon plat senp men plen karaktè,
+
+English:
+","A simple dish but full of character,",A simple yet flavorful dish | A humble dish with plenty of character,71.42857142857143,False
+cuisine_24_hat_eng,Lambi,conch,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Lambi
+
+English:
+",Conch,conch shell|sea snail,100.0,True
+fanm_264_hat_eng,"yo vle vanse pou yo bliye doulè a, pou yo donte chagren yo.","They want to move forward to forget their pain, to tame their grief.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+yo vle vanse pou yo bliye doulè a, pou yo donte chagren yo.
+
+English:
+","they want to move forward so they can forget the pain, so they can tame their grief.",They want to move on and forget their pain | They want to keep going and ease their grief,72.22222222222221,False
+fanm_209_hat_eng,"Mwen sere li pi fò epi mwen pa sispann pale avèk li, yon jan pou mwen ba li konfyans.","I hugged her very tightly and kept talking to her, to give her confidence.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Mwen sere li pi fò epi mwen pa sispann pale avèk li, yon jan pou mwen ba li konfyans.
+
+English:
+","I held him tighter and kept talking to him, in order to give him confidence.",I held her close and kept talking to reassure her | I hugged her tightly and kept talking to comfort her,64.0625,False
+fanm_110_hat_eng,"Epi, dapre sa pi fò moun rapòte, li te fè sa jou 18 me a nan Kongrè Akayè a.","Catherine Flon, a woman of history As we have noticed, Catherine Flon has always been associated with the creation of the flag.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Epi, dapre sa pi fò moun rapòte, li te fè sa jou 18 me a nan Kongrè Akayè a.
+
+English:
+","And, according to what most people reported, he did this on May 18 at the Arcahaie Congress.","And, according to most accounts, she did this on May 18 at the Congress of Arcahaie. | And, as many have reported, she carried out this act on May 18 at the Congress of Arcahaie.",78.52760736196319,False
+ife_455_hat_eng,Nou dwe abiye rèv nou Van lespwa se kànva,Let's dress our dreams with festoons and gems The winds of hope are on a quest,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Nou dwe abiye rèv nou Van lespwa se kànva
+
+English:
+",We must dress our dreams; the wind of hope is the canvas.,Let’s adorn our dreams with hope and beauty | Hope’s winds are carrying us forward,58.69565217391304,False
+cuisine_113_hat_eng,"legim ak epis santi bon, mitone ansanm pou bay yon gou rich, santi bon.","vegetables and spices, simmered together to give a rich and fragrant flavor.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+legim ak epis santi bon, mitone ansanm pou bay yon gou rich, santi bon.
+
+English:
+","vegetables and spices, simmered together to give a rich, fragrant flavor.","vegetables and spices simmered into a rich, fragrant dish | a flavorful vegetable and spice blend cooked together until aromatic",80.95238095238095,True
+charlemagne_73_hat_eng,"Yo bay lòd boule kay Chalmay, Yo bay lòd piye kay Saül Peralt, yo bay lòd asasinen Saül Péralte",The americans ordered Charlemagne House to be burned down and Saul house got burglarized.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Yo bay lòd boule kay Chalmay, Yo bay lòd piye kay Saül Peralt, yo bay lòd asasinen Saül Péralte
+
+English:
+","They ordered Chalmay’s house burned down, they ordered Saül Peralt’s house looted, they ordered Saül Péralte assassinated.","The Americans ordered Charlemagne’s house burned down and Saul’s house looted | The Americans ordered Charlemagne’s house burned down, Saul’s house ransacked, and Saul Péralte assassinated",72.81105990783409,False
+ife_619_hat_eng,Wout lavia se pa youn wout pyèsmounn kapab fè san sipò lèzot.,"Let's keep on seeking the light, faithfully, without being blinded by foolish pride.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Wout lavia se pa youn wout pyèsmounn kapab fè san sipò lèzot.
+
+English:
+",The road of life is not one that anyone can travel without the support of others.,We can’t make it alone; we need each other’s support. | No one can walk life’s path without the help of others.,61.038961038961034,False
+ife_612_hat_eng,"chak chedev yo reyalize,",each masterpiece created with wisdom is a reflection of achievement,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+chak chedev yo reyalize,
+
+English:
+","each achievement they accomplish,",every masterpiece reflects wisdom and accomplishment | each work of art is a sign of achievement,53.333333333333336,False
+fanm_6_hat_eng,pou pote chanjman sou latè beni.,Those who bring Changes to our world.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+pou pote chanjman sou latè beni.
+
+English:
+",to bring change to the blessed earth,Those who bring change to our blessed world | People who make a difference in our world,77.77777777777779,False
+ife_33_hat_eng,"Se te fason pa Mòn Lopital pou lite lage dlo je-l sou youn orevwa ki ta pral vire vitametènam. Oubyen tou, se te lason papou'l te di nou: « anmore pa tire foto-m ».",Morne lHopital was coyly saying a final goodbye with tears in her eyes.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Se te fason pa Mòn Lopital pou lite lage dlo je-l sou youn orevwa ki ta pral vire vitametènam. Oubyen tou, se te lason papou'l te di nou: « anmore pa tire foto-m ».
+
+English:
+","It was Mòn Lopital’s way of trying to shed tears over a farewell that was about to turn into a lifetime. Or else, it was the lesson his father had told us: “In love, don’t take my picture.”",Morne lHopital was saying a tearful goodbye | Morne lHopital was bidding farewell with tears in her eyes,51.92307692307692,False
+ife_101_hat_eng,Dan sere.,Let us be strong.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Dan sere.
+
+English:
+",Clenched teeth.,Stay strong | Be strong,27.586206896551722,False
+expression_60_hat_eng,Gate san,to be angry,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Gate san
+
+English:
+",Spill blood,to be mad | to be upset,30.000000000000004,False
+cuisine_92_hat_eng,"Kabrit nan sòs se yon plat popilè ann Ayiti,","Cabri en sauce is a popular dish in Haiti,","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Kabrit nan sòs se yon plat popilè ann Ayiti,
+
+English:
+",Goat in sauce is a popular dish in Haiti.,goat stew | goat in sauce,68.42105263157895,False
+fanm_122_hat_eng,"Alòske papa li te mouri lè li gen 3 zan, li te rete avèk espwa pou li jwenn papa li.","Although her father died when she was only three years old, she dreamed and still hoped to find him.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Alòske papa li te mouri lè li gen 3 zan, li te rete avèk espwa pou li jwenn papa li.
+
+English:
+","Although his father died when he was 3 years old, he held onto hope that he would find his father.","Although her father died when she was just three, she still hoped to find him | Even though her father passed away when she was three, she never stopped hoping to find him",69.31818181818181,False
+ife_349_hat_eng,"Sepandan, si mwen sonje byen, chak fwa nou abòde sije saa, ou te di mwen sa se estrateji lavi.",I must reach down deep into my brain to find the seed of power that will allow me to deal with the reality of my loneliness.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Sepandan, si mwen sonje byen, chak fwa nou abòde sije saa, ou te di mwen sa se estrateji lavi.
+
+English:
+","However, if I remember correctly, every time we brought up this subject, you told me that this was life’s strategy.","If I remember right, every time we’ve talked about this, you told me that’s just life’s strategy. | As far as I recall, whenever we brought this up, you said that was the way life works.",74.52830188679245,False
+cuisine_231_hat_eng,Pwason Gro Sel Otantisite nan gou yo nan lanmè a,Pwason Gro Sel Authentic Sea Flavors,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Pwason Gro Sel Otantisite nan gou yo nan lanmè a
+
+English:
+",Authentic Big Salt Fish in the flavors of the sea,Authentic Sea Flavors | True Taste of the Sea,65.67164179104478,False
+ife_320_hat_eng,Se yo tout ansanm ki gen pou pote lajwa nan jounen nou lè lavyeyes deside poze brid li sou nou.,Those are springs of happiness that will carry streams of happiness into the dull days of our later lives.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Se yo tout ansanm ki gen pou pote lajwa nan jounen nou lè lavyeyes deside poze brid li sou nou.
+
+English:
+",It is all of them together who will bring joy to our days when old age decides to rein in on us.,They are the ones who will bring joy to our later years | They will be the source of happiness in our old age,63.54166666666667,False
+fanm_7_hat_eng,Men kèk fanm ki kapab sèvi modèl pou jèn nou yo.,So here are some acceptable women To serve as role models for our young people.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Men kèk fanm ki kapab sèvi modèl pou jèn nou yo.
+
+English:
+",Here are some women who can serve as role models for our youth.,Here are some women who can serve as role models for our youth | Here are a few women who can be good examples for our young people,99.2,True
+charlemagne_31_hat_eng,Li te genyen 19 lane.,he quit school due to the death of his father.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Li te genyen 19 lane.
+
+English:
+",He was 19 years old.,he was 19 years old | he was nineteen,97.43589743589743,True
+proverb_192_hat_eng,Sa ou pa konnen pi gran pase ou.,What you do not know is bigger than you.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Sa ou pa konnen pi gran pase ou.
+
+English:
+",What you don’t know is greater than you.,You don’t know the half of it | There’s more to it than you know,67.6923076923077,False
+charlemagne_80_hat_eng,"Soti Wanament, yo kondi Chalmay nan prizon Okap.",We saw him with the head shaved and prison clothes.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Soti Wanament, yo kondi Chalmay nan prizon Okap.
+
+English:
+","From Wanament, they drove Chalmay to the prison in Cap-Haïtien.",He was taken to Cap-Haïtien prison | They brought Chalmay from Wanament to jail in Cap-Haïtien,68.68686868686868,False
+zile_207_hat_eng,Bonnanj mwen nan sèp,My soul's in a trap,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Bonnanj mwen nan sèp
+
+English:
+",My mind is in a daze,I’m in a bind | My soul is trapped,55.55555555555556,False
+cuisine_121_hat_eng,"Origine soti nan nò Ayiti,","Originally from northern Haiti,","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Origine soti nan nò Ayiti,
+
+English:
+","Originally from northern Haiti,",Originally from northern Haiti | Hailing from northern Haiti,98.36065573770492,True
+proverb_186_hat_eng,"Rayi chen an, men di dan li blanch.","[You may] hate the dog, but [you must] admit that its teeth are white.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Rayi chen an, men di dan li blanch.
+
+English:
+","Hate the dog, but admit its teeth are white.",Give credit where it’s due | Admit when something is good,45.45454545454546,False
+fanm_210_hat_eng,Nou rete konsa tout nwit la”.,We stayed like that all night.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Nou rete konsa tout nwit la”.
+
+English:
+",We stayed like that all night.,We stayed up all night | We were like that the whole night,76.92307692307692,False
+ife_590_hat_eng,Ou gide-m San bousòl,You guide me Without a compass,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Ou gide-m San bousòl
+
+English:
+",You guide me without a compass,You lead me without direction | You guide me blindly,68.0,False
+ife_588_hat_eng,Soul Mwen pa konn Si ou remake sa,Soul I do not know,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Soul Mwen pa konn Si ou remake sa
+
+English:
+","My soul, I don’t know if you noticed that",I don’t know | I’m not sure,70.37037037037037,False
+charlemagne_76_hat_eng,"Apre premye jijman li Ench, Chalmay menm,","When it comes to Charlemagne, after the first judgement at « Hinche ».","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Apre premye jijman li Ench, Chalmay menm,
+
+English:
+","After his first trial in Hinche, Chalmay himself,",After Charlemagne’s first trial in Hinche | Once Charlemagne had his first day in court in Hinche,69.38775510204081,False
+ife_371_hat_eng,"Pasaj silans sa a, se nou tou de reyini nan youn sèl mounn ki ap grandi nan jaden linivè.","The soothing silence, like a pathway From which we dream.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Pasaj silans sa a, se nou tou de reyini nan youn sèl mounn ki ap grandi nan jaden linivè.
+
+English:
+",This passage of silence is the two of us gathered into a single person growing in the garden of the universe.,The quiet passage where we meet as one | A silent path where our dreams grow,52.980132450331126,False
+cuisine_55_hat_eng,"Diri Blan, Sòs Pwa, Legim Sans lavi chak jou","2. Diri Blan, Sòs Pwa, Legim The essence of everyday life","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Diri Blan, Sòs Pwa, Legim Sans lavi chak jou
+
+English:
+","White rice, bean sauce, vegetables, the lifeblood of everyday life","White rice, bean sauce, and vegetables: the essence of daily life | White rice, bean sauce, and vegetables: everyday life itself",79.38931297709924,False
+ife_47_hat_eng,Kè-m sere.,My heart is so sad.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Kè-m sere.
+
+English:
+",My heart is tight.,I’m heartbroken | My heart is heavy,74.28571428571429,False
+ife_362_hat_eng,"Pandanstan, memwa nou se tanzantan l' al fề pyepoudre pou li reparet ak eteisel verite dantan, ki ap t tate matris lepase ak flanbo souvnans.","Meanwhile, our memories jump on a merrygo-round, and trigger a spark which, from time to time, tickle the wombs of the past with its flames.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Pandanstan, memwa nou se tanzantan l' al fề pyepoudre pou li reparet ak eteisel verite dantan, ki ap t tate matris lepase ak flanbo souvnans.
+
+English:
+","Meanwhile, our memory is constantly going to powder itself so it can be repaired with the sparks of bygone truth, which are groping through the womb of the past with the torch of remembrance.","Meanwhile, our memories keep circling back, sparking old truths from time to time | Meanwhile, our memories spin in cycles, rekindling the past with flashes of truth",52.70758122743682,False
+ife_37_hat_eng,bonèt lakansyèl,Made soft by fluffy clouds,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+bonèt lakansyèl
+
+English:
+",rainbow cap,softened by clouds | cloud-softened,36.36363636363637,False
+fanm_49_hat_eng,Petèt li te gen anvi jwenn yon bèl kolaborasyon avèk etranje yo.,"No doubt, she was impa­tient to find a wonderful collaboration on the part of these strangers.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Petèt li te gen anvi jwenn yon bèl kolaborasyon avèk etranje yo.
+
+English:
+",Maybe he wanted to have a good collaboration with foreigners.,She was probably eager to work with the foreigners | She likely wanted to team up with the outsiders,55.855855855855864,False
+ife_158_hat_eng,"Oumenm, ou di-m: Pwomès ou ap liminen.",You tiptoe And avoid frightening the doe You said your promises Are like candles of hope,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Oumenm, ou di-m: Pwomès ou ap liminen.
+
+English:
+",You told me: Your promise is shining.,You tiptoe so you won’t scare the doe | You said your promises shine like candles of hope,70.27027027027026,False
+zile_136_hat_eng,Je-m pantan,My eyes are startled,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Je-m pantan
+
+English:
+",I was startled.,I was startled | I was taken aback,96.55172413793103,True
+cuisine_100_hat_eng,Prestige Haitian beer,national Haitian beer brand,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Prestige Haitian beer
+
+English:
+",Prestige Haitian beer,A delicious goat stew with soursop juice is always a hit at family or friends’ dinners | A flavorful goat dish served with soursop juice always impresses at a gathering,57.14285714285714,False
+cuisine_100_hat_eng,Prestige Haitian beer,national Haitian beer brand,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Prestige Haitian beer
+
+English:
+",Prestige Haitian beer,Haiti’s national beer brand | the national beer of Haiti,57.14285714285714,False
+zile_200_hat_eng,Pou Maximilien Laroche,For Maximilien Laroche,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Pou Maximilien Laroche
+
+English:
+",For Maximilien Laroche,In honor of Maximilien Laroche | Dedicated to Maximilien Laroche,95.23809523809523,True
+expression_50_hat_eng,Pa fè bouch mwen long,don’t make me talk too much,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Pa fè bouch mwen long
+
+English:
+",Don’t make me pout.,Don’t make me keep talking | Don’t make me go on and on,84.84848484848484,True
+ife_237_hat_eng,Tè a tou blan ak lanèj epi li frèt pi mal pase mab.,"One of those sunny, unforgettable Saturdays we used to enjoy back home.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Tè a tou blan ak lanèj epi li frèt pi mal pase mab.
+
+English:
+","The ground is completely white with snow, and it’s colder than marble.","One of those bright, unforgettable Saturdays we used to enjoy back home | A sunny, memorable Saturday like the ones we loved back home",42.33576642335767,False
+cuisine_85_hat_eng,"Marine moso vyann kochon yo ak ji zoranj, sèl, pwav ak epis santi bon lokal yo.","Marinate the pork pieces with orange juice, salt, pepper and local spices.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Marine moso vyann kochon yo ak ji zoranj, sèl, pwav ak epis santi bon lokal yo.
+
+English:
+","Marinate the pieces of pork with orange juice, salt, pepper, and local spices.",Season the pork with orange juice and spices | Marinate the pork in citrus and local seasonings,65.57377049180329,False
+zile_226_hat_eng,Pou koze-m pa vante,to keep my words from going stale,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Pou koze-m pa vante
+
+English:
+",So I don’t brag about myself,to keep my words fresh | to keep my speech from getting stale,39.28571428571429,False
+fanm_182_hat_eng,Gouvènè Michaëlle ap gen 2 rezidans ofisyèl :,receive credentials from ambassadors repre­ senting their country in Canada;,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Gouvènè Michaëlle ap gen 2 rezidans ofisyèl :
+
+English:
+",Governor Michaëlle will have 2 official residences:,Governor Michaëlle will have two official residences | Governor Michaëlle will have two official homes,94.11764705882352,True
+proverb_18_hat_eng,Bèl antèman pa vle di paradi.,A nice funeral does not mean access to paradise.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Bèl antèman pa vle di paradi.
+
+English:
+",A beautiful funeral does not mean paradise.,Looks can be deceiving | A fancy send-off doesn’t guarantee a good ending,44.18604651162791,False
+fanm_74_hat_eng,Men Sanit te mete fanm sou li pou li pa moli devan blan yo ki t ap tòsyonnen li.,The French soldiers tortured them wit­hout mercy.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Men Sanit te mete fanm sou li pou li pa moli devan blan yo ki t ap tòsyonnen li.
+
+English:
+",But Sanit had put a woman on him so he wouldn’t weaken in front of the white men who were tormenting him.,The French soldiers tortured them mercilessly. | The French soldiers showed them no mercy.,42.95302013422819,False
+zile_69_hat_eng,sou wòch galèt,on the stones along,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+sou wòch galèt
+
+English:
+",on a flat rock,along the rocks | over the rocky path,64.28571428571428,False
+ife_213_hat_eng,ak rèv mwen an migan,In my dreams smashed into a thousand pieces,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+ak rèv mwen an migan
+
+English:
+",and my dream is mixed up,my dreams shattered | my dreams fell apart,62.5,False
+proverb_283_hat_eng,"Gen koze, nanpwenn tan.","Much to say, but no time to say it","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Gen koze, nanpwenn tan.
+
+English:
+","There’s a lot going on, all the time.","So much to say, but no time | Too much to say, not enough time",50.0,False
+zile_78_hat_eng,Sou tèt sous fanm ou,"by your fountain,","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Sou tèt sous fanm ou
+
+English:
+",On top of your woman’s head,at your source | by your spring,44.44444444444444,False
+fanm_199_hat_eng,Kenbe fèm!,HOLD ON!,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Kenbe fèm!
+
+English:
+",Stay strong!,Stay strong! | Hang in there!,100.0,True
+cuisine_210_hat_eng,Boulèt lam reyèl se yon plat ayisyen popilè.,Boulettes de lame véritable are a popular Haitian dish.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Boulèt lam reyèl se yon plat ayisyen popilè.
+
+English:
+",Real meatballs are a popular Haitian dish.,popular Haitian meatballs | a beloved Haitian dish,73.41772151898735,False
+proverb_314_hat_eng,Maldjòk papa pa janm geri,The curse of the parents is never eradicated,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Maldjòk papa pa janm geri
+
+English:
+",A father’s bad luck never heals.,A parent’s curse never fades | A curse from one’s parents never goes away,56.666666666666664,False
+proverb_200_hat_eng,Se kouto sèlman ki konnen sa ki nan kè yanm.,Only the knife knows what is in the yam’s heart.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Se kouto sèlman ki konnen sa ki nan kè yanm.
+
+English:
+",Only the knife knows what is in the heart of the yam.,Only the person who cuts it knows what’s inside | Only the one who handles it knows the truth,60.37735849056604,False
+cuisine_141_hat_eng,"Kwit farin mayi a ak dlo, sèl ak yon ti bè jiskaske ou jwenn yon teksti krèm.","Cook cornmeal with water, salt and a little butter until creamy.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Kwit farin mayi a ak dlo, sèl ak yon ti bè jiskaske ou jwenn yon teksti krèm.
+
+English:
+","Cook the cornmeal with water, salt, and a little butter until you get a creamy texture.",Make creamy cornmeal porridge | Cook the cornmeal until smooth and creamy,52.05479452054795,False
+cuisine_119_hat_eng,"sèvi ak diri blan, pou chofe epi jwi!","served with white rice, to warm you up and enjoy!","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+sèvi ak diri blan, pou chofe epi jwi!
+
+English:
+",use white rice to heat up and enjoy!,served with white rice to warm you up and enjoy | best enjoyed with white rice to warm you up,80.55555555555556,True
+proverb_236_hat_eng,Two vit pa rive.,Too fast does not arrive.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Two vit pa rive.
+
+English:
+",Haste makes waste.,Haste makes waste | Slow and steady wins the race,97.14285714285714,True
+ife_112_hat_eng,"Mven dwe toujou raple-w, se pa pote m ap pote fado a.",I want to remind you that I am not carrying that load.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Mven dwe toujou raple-w, se pa pote m ap pote fado a.
+
+English:
+","I always have to remind you, I’m not the one carrying the burden.",I’m not the one carrying that burden | That’s not my responsibility,67.32673267326732,False
+ife_533_hat_eng,Yo tout Se payèt zetwal san limit Pami divès boukèt Nan lavi lanmou nou.,They are twinkling stars In the firmament of our infinite love.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Yo tout Se payèt zetwal san limit Pami divès boukèt Nan lavi lanmou nou.
+
+English:
+","They are all little stars without limits, among the various bouquets in our love life.",They are shining stars in our boundless love | They are stars that sparkle in the sky of our endless love,55.55555555555556,False
+fanm_43_hat_eng,pretrès kilt endyen pou divinite Zemès yo;,priestess of Indian cults with the Zem divini­ties;,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+pretrès kilt endyen pou divinite Zemès yo;
+
+English:
+",very ancient Indian cult for the deities of the Earth;,priestess of the Zem divinities | priestess of the Indian cults of Zem,51.28205128205128,False
+ife_70_hat_eng,Semans wongòl,Scattering our seeds to the four winds,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Semans wongòl
+
+English:
+",Pigeon pea seeds,spreading ourselves thin | scattering our efforts everywhere,43.75,False
+proverb_217_hat_eng,"Sòt pa touye-w, men li fè ou swe.","Stupid does not kill you, but it makes you sweat.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Sòt pa touye-w, men li fè ou swe.
+
+English:
+",What doesn’t kill you makes you sweat.,"Foolishness won’t kill you, but it will make you work for it | Dumb mistakes don’t kill you, but they sure make life harder",65.78947368421053,False
+ife_468_hat_eng,Sepandan anpeche nou poze kesyon kou:« Poukisa se mwen sa ap rive?”,"and we cant help asking: ""Why me?""","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Sepandan anpeche nou poze kesyon kou:« Poukisa se mwen sa ap rive?”
+
+English:
+","However, don’t let us ask questions like: “Why is this happening to me?”",Why me? | Why is this happening to me?,84.50704225352112,True
+zile_77_hat_eng,nan glise arebò pafouten lonbrit ou je-m fè youn lalad,to slide around the sideburns of your navel my eyes promenade,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+nan glise arebò pafouten lonbrit ou je-m fè youn lalad
+
+English:
+","slipping along the edge of your navel, my eyes made a salad",to flirt shamelessly | to make a bold pass,46.753246753246756,False
+zile_55_hat_eng,N'ap tann septanm,We're waiting for September,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+N'ap tann septanm
+
+English:
+",We’re waiting for September,We’re looking forward to September | September can’t come soon enough,62.96296296296296,False
+ife_123_hat_eng,"Se pou rezon sa a ak anpil òt ankò, map ba-w tout ankourajaman w bezwen pou lanmou djougans nou kab pran rasin dejou-an-jou nan lizyè laj majè nou.","For that reason, I am giving you all the encouragement you need and by the same token, ensure that our love will grow stronger day by day.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Se pou rezon sa a ak anpil òt ankò, map ba-w tout ankourajaman w bezwen pou lanmou djougans nou kab pran rasin dejou-an-jou nan lizyè laj majè nou.
+
+English:
+","For this reason and many others, I will give you all the encouragement you need so that the love of our union can take root day by day on the threshold of our maturity.","For that reason, I’m giving you all the encouragement you need so our love can keep growing stronger day by day. | That’s why I’m offering you all the support you need, so our love will continue to deepen day by day.",64.74358974358974,False
+fanm_67_hat_eng,anpil nèg te deside vanje lanmò sa a.,Many wanted to avenge her death.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+anpil nèg te deside vanje lanmò sa a.
+
+English:
+",many men decided to avenge that death.,Many people wanted revenge for her death | A lot of people wanted to avenge her death,69.84126984126983,False
+ife_617_hat_eng,"Konsa tou, chak fwa younn nan nou fè youn pa nan direksyon limye, se chemen li ap trase pou sila yo ki nan wout ap suiv li.",all of us fall victims to the chaos that results.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Konsa tou, chak fwa younn nan nou fè youn pa nan direksyon limye, se chemen li ap trase pou sila yo ki nan wout ap suiv li.
+
+English:
+","Likewise, whenever one of us takes a step toward the light, it is a path being laid for those who are on the road to follow.",We all end up caught in the chaos it creates. | We all become victims of the disorder that follows.,52.35602094240838,False
+proverb_82_hat_eng,Fòk ou pèdi tan pou ou gen tan.,You need to lose time in order to have time.,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Fòk ou pèdi tan pou ou gen tan.
+
+English:
+",You have to lose time to have time.,You have to slow down to get things done | Sometimes you need to waste time to save time,80.0,True
+ife_163_hat_eng,San youn plim je-n pa rache,Without tearing out Even one hair,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+San youn plim je-n pa rache
+
+English:
+",Not a single eyelash was pulled out.,without a scratch | unscathed,41.379310344827594,False
+fanm_240_hat_eng,"Nan jaden Primati a, gen yon gwo kan refijye.","In the garden of the Prime Minister, there is a large refugee camp.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Nan jaden Primati a, gen yon gwo kan refijye.
+
+English:
+","In the Primati field, there is a large refugee camp.",There’s a big refugee camp in the Prime Minister’s backyard | The Prime Minister’s place has become a refugee camp,61.53846153846154,False
+cuisine_33_hat_eng,brinjal,Brinjal,"
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+brinjal
+
+English:
+",eggplant,eggplant | aubergine,100.0,True
+zile_202_hat_eng,Anba pye Makennzi King,"At the foot of Mackenzie King,","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Anba pye Makennzi King
+
+English:
+",Under the feet of Mackenzie King,at Mackenzie King’s place | under Mackenzie King’s authority,65.3061224489796,False
+proverb_68_hat_eng,"Douz metye, trèz mizè.","Twelve trades, thirteen miseries.","
+ Translate the following Haitian Creole expression into natural English.
+ Only provide the English translation.
+
+Haitian Creole text:
+Douz metye, trèz mizè.
+
+English:
+","A jack of all trades, master of none.","Jack of all trades, master of none | A little bit of everything, but nothing well",95.77464788732395,True
