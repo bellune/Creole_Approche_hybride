@@ -3,7 +3,7 @@ import torch
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 
 # Chemins
-input_path = Path("datasets/corpus_AHL/filtered/ALH_filtered_all.txt")
+input_path = Path("datasets/corpus_AHL/filtered/ALH_filtered_semantic.txt")
 
 output_dir = Path("datasets/corpus_AHL/final")
 output_dir.mkdir(parents=True, exist_ok=True)
