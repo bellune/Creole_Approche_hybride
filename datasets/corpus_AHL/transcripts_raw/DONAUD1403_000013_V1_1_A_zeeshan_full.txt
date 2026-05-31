@@ -1,11 +1,11 @@
-[chunk_0000.wav] Alò, ou konnen nan denyèz zòn nan pou e gen gen moun ki rete, alò peyi sa a tout moun ki rete a, kiv an rele Dayiti, se byen. Si fa egzanp ou ta rankontre yon moun,
-[chunk_0001.wav] Moun nan ta mande w la ki kote pa eksanp ou ye, li sòt ap di l: Kote mwen ye? ki kote w ye, pou ta vle di se bò isi a, pou ta vle di bò sòj ekang la? e wi men, w ap di l konsa bon, li mando w ki kote.
-[chunk_0002.wav] Pa egizanp la w ap di m tèl bagay, kison m ta pwa di l? tèl bagay, se ta di si kòm si m te avay ou byen si konn li? Non, e kay kote kote ou ye a menm w ap di l an kòm si m ak di l m te ok, ale non, ou mèt kontinye se sa.
-[chunk_0003.wav] Zòn mwen a, zòn mete a w byen zòn mèt, anmèn Monjis, non, mèt Monjis, pou konn wè bò lanmè, pou konn wè gwo yon seride kote yo monte kay bò lanmè a, ki jan yo rele sa? Kay, kay. Non, nan, tout kote yo monte kay yo, yo pa fò se jaden t gen bò la.
-[chunk_0004.wav] se tè pagon lòd jen yo rele sa, mwen ou pa konpren, a byen bon, pa egzanp la men dlo a kote pechè yo konn konn peche pwason yo, men sou kote li ou rendwa jen nou pa kè tra a
-[chunk_0005.wav] lache moun gen dwat e se kle l yo plante oubyen yo gen dwat bati sou li ki kouki an yo rele tout zòn sa a ki e kote dlwa mwen vòjè li tout dlwa  mò lanmè a m pa tout pran loujou, ou pa konfren loujou an, alò
-[chunk_0006.wav] La, se fasil, pa egzanp m fè sa, lè m fè sa chap m deplase, m ale m lage pye m nan lanmè, men, lè m fè sa m mou choti nan nan men alè m moute, m ka wè jaden, m ka wè kay, m ka wè onan.
-[chunk_0007.wav] Man, yon seride bagay, men, Gonjan yo rele e ti zòn sa a ki tout kote lanmè a, ou pakoun ki jan yo rele li? Si non gade na pou yon pakèt gwo tèt bagay, k ap gade nou la yo plante, men yo ki jan yo rele yo?
+[chunk_0000.wav] Alò, ou konnen nan denye zòn gen moun ki rete, alò peyi sa a tout moun ki rete a, kijan l rele, Dayiti, se byen. Si pa egzanp ou ta rankontre yon moun,
+[chunk_0001.wav] Moun nan ta mande w, la ki kote pa egzanp ou ye, li sòt ap di l: Kote mwen ye? ki kote w ye, pou ta vle di se bò isi a, pou ta vle di bò sòj egzang la? e wi men, w ap di l konsa bon, li mande w ki kote.
+[chunk_0002.wav] Pa egzanp la w ap di m tèl bagay, kijanw  ta pral di l?  se ta di si kòmsim mw travay ou byen sim konn li? Non, e kay  kote ou ye a menm w ap di l an kòm si m ak di l m te ok, ale non, ou mèt kontinye se sa.
+[chunk_0003.wav] Zòn mwen ye a, zòn mw rete a ou byen zòn ou rete a, an Monjis, mw rete Monjis, ou konn wè bò lanmè, pou konn wè gwo yon seri de kote yo monte kay bò lanmè a, kijan yo rele sa? kay. Non, nan, tout kote yo monte kay yo, pafwa se jaden ki gen bò la.
+[chunk_0004.wav] pa egzanp la men dlo a kote pechè yo konn konn peche pwason yo, men sou kote li ou gen dwa jwen n yon pakèt fatra
+[chunk_0005.wav] moun gen dwat sekle l , yo plante oubyen yo gen dwat bati sou li , kijan an yo rele tout zòn sa a ki akote dlo a?
+[chunk_0006.wav] La, se fasil, pa egzanp m fè sa, lè m fè sa tchap m deplase, m ale m lage pye m nan lanmè, men, lè m fè sa m soti nan lanmè m moute, m ka wè jaden, m ka wè kay
+[chunk_0007.wav] Man, yon seride bagay, men, Gonjan yo rele e ti zòn sa a ki tout kote lanmè a, ou pakonn ki jan yo rele li? Si non gade na pou yon pakèt gwo tèt bagay, k ap gade nou la yo plante, men yo ki jan yo rele yo?
 [chunk_0008.wav] Donk, kijan yo di wou di yo rele yo lèt moun? ri, men si sit yo pa rele yo lòd jan ankò, ou pa konn kijan yo rele yo, sa k ap gade nan yo la se pa sèlman jwon dim nan yo rele yo, yo gen lòd jan yo rele yo ankò, men pou w mèt di m yo re.
 [chunk_0009.wav] Kòm si m ta di, sòs ou di m nan se sa, se moun kesyon, men se pandan lò pran sa yo la, ou gade yo, ou sou di m yo rele lè byen wo ou konprann, yo rele lmen gen yo konn rele yo lòd chantou.
 [chunk_0010.wav] Koujou, bon fasyon yo rele l montay, OK, ou rele l ankò, montay, bon apre, ou pa gen lòd jou ankò, nou, an, pou di m yo rele l mòn, n ap kontinye, lè pa egzanp, ou la konsa.
