@@ -86,3 +86,17 @@ Taille totale : 2778
 Train : 2222
 Dev   : 278
 Test  : 278
+
+
+
+ corpus AHL
+===== GLOBAL STATS =====
+Total before: 16050
+Total after: 15629
+Total removed: 421
+Retention rate: 97.38 %
+
+Removal reasons:
+too_long : 380
+repetition : 34
+too_few_letters : 7
