@@ -100,3 +100,103 @@ Removal reasons:
 too_long : 380
 repetition : 34
 too_few_letters : 7
+
+------------------------------------------------
+Fichier : charlemagne
+Lignes source      : 130
+Lignes traduction  : 130
+
+Fichier : cuisine
+Lignes source      : 264
+Lignes traduction  : 264
+
+Fichier : fanm
+Lignes source      : 350
+Lignes traduction  : 347
+
+Fichier : ife
+Lignes source      : 626
+Lignes traduction  : 631
+
+Fichier : zile
+Lignes source      : 230
+Lignes traduction  : 234
+
+Lecture dossier : datasets/corpus_culturel/all_data/bilingue/cr_en
+
+Fichier : cuisine
+Lignes source      : 105
+Lignes traduction  : 105
+
+Fichier : expression
+Lignes source      : 63
+Lignes traduction  : 63
+
+Fichier : proverb
+Lignes source      : 391
+Lignes traduction  : 391
+
+Lecture dossier : datasets/corpus_AHL/final_quality
+
+Fichier : ahl
+Lignes source      : 17033
+Lignes traduction  : 17033
+
+TOTAL hat-eng : 19148 paires
+
+==============================
+SPLIT cr_en
+==============================
+Taille totale : 19148
+Train : 15318
+Dev   : 1915
+Test  : 1915
+
+==============================
+Construction dataset hat-fra
+==============================
+
+Lecture dossier : datasets/corpus_culturel/all_data/trilingue
+
+Fichier : charlemagne
+Lignes source      : 130
+Lignes traduction  : 130
+
+Fichier : cuisine
+Lignes source      : 264
+Lignes traduction  : 265
+
+Fichier : fanm
+Lignes source      : 350
+Lignes traduction  : 348
+
+Fichier : ife
+Lignes source      : 626
+Lignes traduction  : 626
+
+Fichier : zile
+Lignes source      : 230
+Lignes traduction  : 231
+
+Lecture dossier : datasets/corpus_culturel/all_data/bilingue/cr_fr
+
+Fichier : ayitichei
+Lignes source      : 54
+Lignes traduction  : 54
+
+Fichier : proverb1
+Lignes source      : 121
+Lignes traduction  : 121
+
+TOTAL hat-fra : 1757 paires
+
+==============================
+SPLIT cr_fr
+==============================
+Taille totale : 1757
+Train : 1581
+Dev   : 176
+
+==============================
+FIN DU TRAITEMENT
+==============================

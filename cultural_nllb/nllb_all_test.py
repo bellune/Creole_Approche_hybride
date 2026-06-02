@@ -37,10 +37,12 @@ def translate_dataset(model, dataset):
     predictions = []
     references = []
     sources = []
+    ids = []
 
     for example in dataset:
         src = example["translation"]["src_text"]
         ref = example["translation"]["tgt_text"]
+        id = example["id"]
 
         inputs = tokenizer(
             src,
@@ -60,26 +62,27 @@ def translate_dataset(model, dataset):
 
         pred = tokenizer.batch_decode(outputs, skip_special_tokens=True)[0]
 
+        ids.append(id)
         sources.append(src)
         predictions.append(pred)
         references.append(ref)
 
 
 
-    return sources, predictions, references
+    return ids,sources, predictions, references
 
 
 print("Testing baseline...")
 baseline_model = load_model(BASELINE_MODEL)
-sources, baseline_preds, refs = translate_dataset(baseline_model, test_data)
+ids, sources, baseline_preds, refs = translate_dataset(baseline_model, test_data)
 
 print("Testing cultural-adapted model...")
 cultural_model = load_model(CULTURAL_MODEL)
-_, cultural_preds, _, = translate_dataset(cultural_model, test_data)
+_,_, cultural_preds, _, = translate_dataset(cultural_model, test_data)
 
 print("Testing tri-lingual model...")
 tri_model = load_model(CULTURAL_MODEL_TRI)
-_, tri_preds, _, = translate_dataset(tri_model, test_data)
+_, _, tri_preds, _ = translate_dataset(tri_model, test_data)
 
 # -------------------------------
 # Métriques
@@ -196,6 +199,7 @@ df_scores.to_csv(
 
 
 df_results = pd.DataFrame({
+    "id": ids,
     "cr": sources,
     "reference_en": refs,
     "baseline_prediction": baseline_preds,

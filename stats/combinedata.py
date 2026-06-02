@@ -2,7 +2,9 @@ from pathlib import Path
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
+
 BASE_DIR = Path("datasets/corpus_culturel/all_data")
+AHL_DIR = Path("datasets/corpus_AHL/final_quality")
 OUTPUT_DIR = Path("datasets/corpus_culturel")
 
 for split in ["train", "dev", "test"]:
@@ -182,7 +184,8 @@ def split_train_dev(dataframe, name):
 
 cr_en_dirs = [
     BASE_DIR / "trilingue",
-    BASE_DIR / "bilingue/cr_en"
+    BASE_DIR / "bilingue/cr_en",
+    AHL_DIR
 ]
 
 cr_en_df = build_dataset(
