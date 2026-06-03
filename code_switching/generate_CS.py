@@ -20,9 +20,9 @@ FILES = ["datasets/corpus_culturel/train/cr_en.jsonl",
          "datasets/corpus_culturel/dev/cr_en.jsonl",
            "datasets/corpus_culturel/test/cr_en.jsonl" ]
 
-OUTPUT_FILES = [f"{OUTPUT_DIR}/train/cr_cs_en.jsonl",
-                 f"{OUTPUT_DIR}/dev/cr_cs_en.jsonl",
-                   f"{OUTPUT_DIR}/test/cr_cs_en.jsonl"]
+OUTPUT_FILES = [f"{OUTPUT_DIR}/train/cr_CSS_en.jsonl",
+                 f"{OUTPUT_DIR}/dev/cr_CSS_en.jsonl",
+                   f"{OUTPUT_DIR}/test/cr_CSS_en.jsonl"]
 
 
 # =========================

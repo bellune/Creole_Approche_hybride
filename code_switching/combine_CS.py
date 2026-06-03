@@ -45,19 +45,19 @@ for original_file, token_file, OUTPUT_FILE in zip(original_file, token_file, OUT
     # LOAD ORIGINAL DATA
     # =========================
 
-    original_data = load_dataset(
-        "json",
-        data_files={"mydata": original_file}
-    )["mydata"]
+    # original_data = load_dataset(
+    #     "json",
+    #     data_files={"mydata": original_file}
+    # )["mydata"]
 
-    for item in original_data:
-        combined_data.append(dict(item))
+    # for item in original_data:
+    #     combined_data.append(dict(item))
 
     # =========================
     # ADD CODE-SWITCHED DATA
     # =========================
 
-    combined_data.extend(combined_items)
+    # combined_data.extend(combined_items)
 
     # =========================
     # SAVE FINAL DATASET

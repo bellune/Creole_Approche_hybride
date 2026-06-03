@@ -11,7 +11,7 @@ from datasets import load_dataset
 # FICHIERS
 # =========================
 
-TEST_FILE = "datasets/corpus_culturel/code-switching/test/cr_cs_en.jsonl"
+TEST_FILE = "datasets/corpus_culturel/code-switching/test/cr_CSS_en.jsonl"
 OUTPUT_FILE = "result/Code_switching_ldp_with_GPT_predictions.csv"
 
 
