@@ -9,7 +9,7 @@ BASE_MODEL = "facebook/nllb-200-distilled-600M"
 BASELINE_MODEL = "nllb200_baseline4/checkpoint-166260"
 CULTURAL_MODEL_TRI = "model/nllb_cult_tri_CS"
 MODEL = "model/nllb_CS"
-TEST_FILE = "datasets/corpus_culturel/code-switching/test/cr_cs_en.jsonl"
+TEST_FILE = "datasets/corpus_culturel/code-switching/test/cr_CSS_en.jsonl"
 
 SRC_LANG = "hat_Latn"
 TGT_LANG = "eng_Latn"
