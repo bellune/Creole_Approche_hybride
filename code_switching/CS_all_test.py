@@ -79,12 +79,12 @@ model = load_model(MODEL)
 _, n_preds, _, = translate_dataset(model, test_data)
 
 print("Testing tri-lingual model...")
-tri_model = load_model(CULTURAL_MODEL_TRI_CS)
+tri_model = load_model(CULTURAL_MODEL_TRI)
 _, tri_preds, _, = translate_dataset(tri_model, test_data)
 
 print("Testing tri-lingual model CSS...")
-tri_model = load_model(CULTURAL_MODEL_TRI_CS)
-_, tri_preds, _, = translate_dataset(tri_model, test_data)
+tri_model_cs = load_model(CULTURAL_MODEL_TRI_CS)
+_, tri_predscs, _, = translate_dataset(tri_model_cs, test_data)
 
 
 # -------------------------------
@@ -155,6 +155,24 @@ tri_bleurt = bleurt.compute(
     references=refs
 )
 
+tri_cs_bleu = bleu.compute(
+    predictions=tri_predscs,
+    references=[[r] for r in refs]
+)
+tri_cs_chrf = chrf.compute(
+    predictions=tri_predscs,
+    references=refs
+)
+tri_cs_ter = ter.compute(
+    predictions=tri_predscs,
+    references=refs
+)
+tri_cs_bleurt = bleurt.compute(
+    predictions=tri_predscs,
+    references=refs
+)   
+
+
  # -----------------------
     # Calcul de la loss
     # -----------------------
@@ -169,27 +187,30 @@ print("\n===== RESULTS ON CULTURAL TEST SET =====")
 print("Baseline BLEU :", baseline_bleu["score"])
 print("Cultural BLEU :", cultural_bleu["score"])
 print("Tri-lingual BLEU :", tri_bleu["score"])
-
+print("Tri-lingual (CS) BLEU :", tri_cs_bleu["score"])
 print("Baseline chrF :", baseline_chrf["score"])
 print("Cultural chrF :", cultural_chrf["score"])
 print("Tri-lingual chrF :", tri_chrf["score"])
+print("Tri-lingual (CS) chrF :", tri_cs_chrf["score"])
 
 print("Baseline TER :", baseline_ter["score"])
 print("Cultural TER :", cultural_ter["score"])
 print("Tri-lingual TER :", tri_ter["score"])
+print("Tri-lingual (CS) TER :", tri_cs_ter["score"])
 
 print("Baseline BLEURT :", baseline_bleurt["scores"][0])
 print("Cultural BLEURT :", cultural_bleurt["scores"][0])
 print("Tri-lingual BLEURT :", tri_bleurt["scores"][0])
+print("Tri-lingual (CS) BLEURT :", tri_cs_bleurt["scores"][0])
 
 
 
 df_scores = pd.DataFrame({
-    "Model": ["Baseline", "Cultural", "Tri-lingual"],
-    "BLEU": [baseline_bleu["score"], cultural_bleu["score"], tri_bleu["score"]],
-    "chrF": [baseline_chrf["score"], cultural_chrf["score"], tri_chrf["score"]],
-    "TER": [baseline_ter["score"], cultural_ter["score"], tri_ter["score"]],
-    "BLEURT": [baseline_bleurt["scores"][0], cultural_bleurt["scores"][0], tri_bleurt["scores"][0]          ]
+    "Model": ["Baseline", "Cultural", "Tri-lingual", "Tri-lingual (CS)"],
+    "BLEU": [baseline_bleu["score"], cultural_bleu["score"], tri_bleu["score"], tri_cs_bleu["score"]],
+    "chrF": [baseline_chrf["score"], cultural_chrf["score"], tri_chrf["score"], tri_cs_chrf["score"]],
+    "TER": [baseline_ter["score"], cultural_ter["score"], tri_ter["score"], tri_cs_ter["score"]],
+    "BLEURT": [baseline_bleurt["scores"][0], cultural_bleurt["scores"][0], tri_bleurt["scores"][0], tri_cs_bleurt["scores"][0]]
 })
 
 df_scores.to_csv(
@@ -206,7 +227,8 @@ df_results = pd.DataFrame({
     "reference_en": refs,
     "baseline_prediction": baseline_preds,
     "cultural_prediction": n_preds,
-    "tri_prediction": tri_preds
+    "tri_prediction": tri_preds,
+    "tri_cs_prediction": tri_predscs
 })
 
 df_results.to_csv(

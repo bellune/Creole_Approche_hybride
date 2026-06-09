@@ -1,7 +1,7 @@
 prediction_column,number_examples,average_csi_match,success_rate_80,model,source_file,file_type
-baseline_prediction,214,61.83,17.76,baseline,cultural_test_comparison_all.csv,multi_column
-cultural_prediction,214,64.5,20.56,cultural,cultural_test_comparison_all.csv,multi_column
-tri_prediction,214,64.21,21.5,tri,cultural_test_comparison_all.csv,multi_column
-prediction,214,60.46,9.35,ldp_with_GPT_predictions,ldp_with_GPT_predictions.csv,separate_file
-prediction,214,69.04,28.97,test_cr_en_with_GPT_predictions,test_cr_en_with_GPT_predictions.csv,separate_file
-prediction,214,69.76,29.91,cultural_with_GPT_predictions,cultural_with_GPT_predictions.csv,separate_file
+baseline_prediction,18,63.99,22.22,baseline,cultural_test_comparison_all.csv,multi_column
+cultural_prediction,18,64.62,22.22,cultural,cultural_test_comparison_all.csv,multi_column
+tri_prediction,18,65.17,22.22,tri,cultural_test_comparison_all.csv,multi_column
+prediction,18,56.82,11.11,ldp_with_GPT_predictions,ldp_with_GPT_predictions.csv,separate_file
+prediction,18,62.44,16.67,test_cr_en_with_GPT_predictions,test_cr_en_with_GPT_predictions.csv,separate_file
+prediction,18,62.68,16.67,cultural_with_GPT_predictions,cultural_with_GPT_predictions.csv,separate_file
