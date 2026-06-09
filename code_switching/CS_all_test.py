@@ -7,7 +7,8 @@ import pandas as pd
 BASE_MODEL = "facebook/nllb-200-distilled-600M"
 
 BASELINE_MODEL = "nllb200_baseline4/checkpoint-166260"
-CULTURAL_MODEL_TRI = "model/nllb_cult_tri_CS"
+CULTURAL_MODEL_TRI = "model/nllb_cult_tri"
+CULTURAL_MODEL_TRI_CS = "model/nllb_cult_tri_CS"
 MODEL = "model/nllb_CS"
 TEST_FILE = "datasets/corpus_culturel/code-switching/test/cr_CSS_en.jsonl"
 
@@ -78,8 +79,13 @@ model = load_model(MODEL)
 _, n_preds, _, = translate_dataset(model, test_data)
 
 print("Testing tri-lingual model...")
-tri_model = load_model(CULTURAL_MODEL_TRI)
+tri_model = load_model(CULTURAL_MODEL_TRI_CS)
 _, tri_preds, _, = translate_dataset(tri_model, test_data)
+
+print("Testing tri-lingual model CSS...")
+tri_model = load_model(CULTURAL_MODEL_TRI_CS)
+_, tri_preds, _, = translate_dataset(tri_model, test_data)
+
 
 # -------------------------------
 # Métriques
