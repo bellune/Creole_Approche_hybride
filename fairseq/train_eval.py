@@ -1,6 +1,7 @@
 import os
 import subprocess
 from pathlib import Path
+import sentencepiece as spm
 
 
 data_fairseq = "datasets/kreyol-mt-hat-eng/mt-fairseq"
@@ -24,7 +25,11 @@ OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 def run_cmd(cmd: str):
     print(f"\nRunning:\n{cmd}\n")
-    result = subprocess.run(cmd, shell=True)
+    result = subprocess.run(
+        cmd,
+        shell=True,
+        text=True
+    )
     if result.returncode != 0:
         raise RuntimeError(f"Command failed:\n{cmd}")
 
@@ -47,6 +52,8 @@ def check_files():
 
 
 def train_sentencepiece():
+ 
+
     combined_file = SPM_DIR / "train_all.txt"
 
     with open(combined_file, "w", encoding="utf-8") as outfile:
@@ -57,32 +64,51 @@ def train_sentencepiece():
                     if line:
                         outfile.write(line + "\n")
 
-    cmd = f"""
-    spm_train \
-      --input={combined_file} \
-      --model_prefix={SPM_DIR}/ht_en_spm \
-      --vocab_size=32000 \
-      --character_coverage=1.0 \
-      --model_type=bpe
-    """
+    print(f"Training SentencePiece on: {combined_file}")
 
-    run_cmd(cmd)
+    spm.SentencePieceTrainer.train(
+        input=str(combined_file),
+        model_prefix=str(SPM_DIR / "ht_en_spm"),
+        vocab_size=32000,
+        character_coverage=1.0,
+        model_type="bpe"
+    )
+
+    print("SentencePiece training finished.")
 
 
 def apply_sentencepiece():
+
+    sp = spm.SentencePieceProcessor()
+    sp.load(str(SPM_DIR / "ht_en_spm.model"))
+
     for split in ["train", "valid", "test"]:
         for lang in [SRC, TGT]:
             input_file = RAW_DIR / f"{split}.{lang}"
             output_file = RAW_DIR / f"{split}.spm.{lang}"
 
-            cmd = f"""
-            spm_encode \
-              --model={SPM_DIR}/ht_en_spm.model \
-              --output_format=piece \
-              < {input_file} > {output_file}
-            """
+            print(f"Encoding {input_file} -> {output_file}")
 
-            run_cmd(cmd)
+            count = 0
+
+            with open(input_file, "r", encoding="utf-8") as infile, \
+                 open(output_file, "w", encoding="utf-8") as outfile:
+
+                for line in infile:
+                    line = line.strip()
+
+                    if line:
+                        pieces = sp.encode(line, out_type=str)
+                        outfile.write(" ".join(pieces) + "\n")
+                    else:
+                        outfile.write("\n")
+
+                    count += 1
+
+                    if count % 1000 == 0:
+                        print(f"{split}.{lang}: {count} lignes encodées")
+
+            print(f"{split}.{lang}: terminé avec {count} lignes")
 
 
 def fairseq_preprocess():
