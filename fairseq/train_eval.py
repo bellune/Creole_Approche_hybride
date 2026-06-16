@@ -129,7 +129,7 @@ def fairseq_preprocess():
 
 def train_transformer():
     cmd = f"""
-    python3 -m fairseq_cli.train {BIN_DIR} \
+    CUDA_VISIBLE_DEVICES=0,1,2,3 python3 -m fairseq_cli.train {BIN_DIR} \
       --arch transformer \
       --source-lang {SRC} \
       --target-lang {TGT} \
@@ -152,14 +152,15 @@ def train_transformer():
       --lr 0.0005 \
       --lr-scheduler inverse_sqrt \
       --warmup-updates 4000 \
-      --max-tokens 4096 \
-      --update-freq 4 \
+      --max-tokens 2048 \
+      --update-freq 2 \
       --max-epoch 30 \
       --patience 5 \
       --save-dir {CKPT_DIR} \
       --keep-best-checkpoints 1 \
       --best-checkpoint-metric loss \
-      --fp16
+      --distributed-world-size 4 \
+      --ddp-backend no_c10d
     """
 
     run_cmd(cmd)
