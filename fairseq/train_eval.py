@@ -113,7 +113,7 @@ def apply_sentencepiece():
 
 def fairseq_preprocess():
     cmd = f"""
-    fairseq-preprocess \
+    python3 -m fairseq_cli.preprocess \
       --source-lang {SRC} \
       --target-lang {TGT} \
       --trainpref {RAW_DIR}/train.spm \
@@ -129,7 +129,7 @@ def fairseq_preprocess():
 
 def train_transformer():
     cmd = f"""
-    fairseq-train {BIN_DIR} \
+    python3 -m fairseq_cli.train {BIN_DIR} \
       --arch transformer \
       --source-lang {SRC} \
       --target-lang {TGT} \
@@ -169,7 +169,7 @@ def generate_translations():
     output_file = OUT_DIR / "outputs_transformer_base.txt"
 
     cmd = f"""
-    fairseq-generate {BIN_DIR} \
+    python3 -m fairseq_cli.generate {BIN_DIR} \
       --source-lang {SRC} \
       --target-lang {TGT} \
       --path {CKPT_DIR}/checkpoint_best.pt \
@@ -211,9 +211,22 @@ def evaluate():
 
 if __name__ == "__main__":
     check_files()
-    train_sentencepiece()
-    apply_sentencepiece()
-    fairseq_preprocess()
+
+    if not (SPM_DIR / "ht_en_spm.model").exists():
+        train_sentencepiece()
+    else:
+        print("SentencePiece model already exists. Skipping training.")
+
+    if not (RAW_DIR / f"train.spm.{SRC}").exists():
+        apply_sentencepiece()
+    else:
+        print("SentencePiece files already exist. Skipping encoding.")
+
+    if not (BIN_DIR / f"dict.{SRC}.txt").exists():
+        fairseq_preprocess()
+    else:
+        print("Fairseq binary data already exists. Skipping preprocess.")
+
     train_transformer()
     generate_translations()
     extract_predictions()
