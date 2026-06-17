@@ -227,8 +227,12 @@ if __name__ == "__main__":
         fairseq_preprocess()
     else:
         print("Fairseq binary data already exists. Skipping preprocess.")
+    
+    if not (CKPT_DIR / "checkpoint_best.pt").exists():
+        train_transformer()
+    else:      
+        print("Checkpoint already exists. Skipping training.")
 
-    train_transformer()
     generate_translations()
     extract_predictions()
     evaluate()
