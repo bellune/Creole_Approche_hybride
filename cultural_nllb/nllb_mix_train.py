@@ -15,8 +15,8 @@ BASE_MODEL = "facebook/nllb-200-distilled-600M"
 
 CHECKPOINT_PATH = "nllb200_baseline4/checkpoint-166260"  # à modifier
 
-TRAIN_FILE = "datasets/mix_corpus/train/mix_train.jsonl"
-DEV_FILE = "datasets/mix_corpus/dev/mix_dev.jsonl"
+TRAIN_FILE = "datasets/mix_corpus/json/train_mix.jsonl"
+DEV_FILE = "datasets/mix_corpus/json/valid_mix.jsonl"
 # DEV_FILE = "datasets/corpus_culturel/dev/cr_en.jsonl"
 
 OUTPUT_DIR = "model/nllb_cultural_mix"
