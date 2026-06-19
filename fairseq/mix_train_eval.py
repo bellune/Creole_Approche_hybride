@@ -213,8 +213,8 @@ def extract_predictions():
 def evaluate():
     prediction_file = [OUT_DIR / "pred_transformer_base_Culture.en", OUT_DIR / "pred_transformer_base_General.en"]
     reference_file = [
-        RAW_DIR / f"test_culture.{TGT}",
-        RAW_DIR / f"test_general.{TGT}"
+        RAW_DIR / f"test_culture_mix.{TGT}",
+        RAW_DIR / f"test_general_mix.{TGT}"
     ]
 
     for ref ,pred in zip(reference_file, prediction_file):
