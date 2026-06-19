@@ -116,7 +116,7 @@ def apply_sentencepiece():
 
 def fairseq_preprocess():
     cmd = f"""
-    CUDA_VISIBLE_DEVICES=0,1,2,3 python3 -m fairseq_cli.preprocess \
+    CUDA_VISIBLE_DEVICES=3 python3 -m fairseq_cli.preprocess \
       --source-lang {SRC} \
       --target-lang {TGT} \
       --trainpref {RAW_DIR}/train_mix.spm \
@@ -132,7 +132,7 @@ def fairseq_preprocess():
 
 def train_transformer():
     cmd = f"""
-    CUDA_VISIBLE_DEVICES=0,1,2,3 python3 -m fairseq_cli.train {BIN_DIR} \
+    CUDA_VISIBLE_DEVICES=3 python3 -m fairseq_cli.train {BIN_DIR} \
       --arch transformer \
       --source-lang {SRC} \
       --target-lang {TGT} \
@@ -167,9 +167,7 @@ def train_transformer():
       --save-dir {CKPT_DIR} \
       --keep-best-checkpoints 1 \
       --no-epoch-checkpoints \
-      --best-checkpoint-metric loss \
-      --distributed-world-size 4 \
-      --ddp-backend no_c10d
+      --best-checkpoint-metric loss 
     """
 
     run_cmd(cmd)
@@ -181,7 +179,7 @@ def generate_translations():
     
     for file, subset in zip(output_file, test_subset):
         cmd = f"""
-        CUDA_VISIBLE_DEVICES=0,1,2,3 python3 -m fairseq_cli.generate {BIN_DIR} \
+        CUDA_VISIBLE_DEVICES="" python3 -m fairseq_cli.generate {BIN_DIR} \
         --source-lang {SRC} \
         --target-lang {TGT} \
         --path {CKPT_DIR}/checkpoint_best.pt \
