@@ -192,7 +192,7 @@ def generate_translations():
         > {file}
         """
 
-    run_cmd(cmd)
+        run_cmd(cmd)
 
 
 def extract_predictions():
@@ -207,7 +207,7 @@ def extract_predictions():
           > {pred}
         """
 
-    run_cmd(cmd)
+        run_cmd(cmd)
 
 
 def evaluate():
@@ -260,10 +260,10 @@ if __name__ == "__main__":
     else:      
        print("Checkpoint already exists. Skipping training.")
 
-    if not (OUT_DIR / "outputs_transformer_base_Culture.txt").exists() and not (OUT_DIR / "outputs_transformer_base_General.txt").exists():
-      generate_translations()
-    else:       
-         print("Translations already generated. Skipping generation.")
+    # if not (OUT_DIR / "outputs_transformer_base_Culture.txt").exists() and not (OUT_DIR / "outputs_transformer_base_General.txt").exists():
+    generate_translations()
+    # else:       
+        #  print("Translations already generated. Skipping generation.")
 
     # if not (OUT_DIR / "pred_transformer_base_Culture.en").exists() and not (OUT_DIR / "pred_transformer_base_General.en").exists():
     extract_predictions()
