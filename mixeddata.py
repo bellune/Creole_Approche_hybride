@@ -218,8 +218,8 @@ test_culture_tagged = [
 
 # Optionnel : test général seulement
 test_general_tagged = [
-    (id, f"__general__ {src}", tgt)
-    for id, src, tgt in general_test_pairs
+    (f"general_{i}", f"__general__ {src}", tgt)
+    for i, (id, src, tgt) in enumerate(general_test_pairs)
 ]
 
 print("\nCorpus mixte construit :")
