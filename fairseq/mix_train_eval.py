@@ -41,10 +41,10 @@ def check_files():
         RAW_DIR / f"train_mix.{TGT}",
         RAW_DIR / f"valid_mix.{SRC}",
         RAW_DIR / f"valid_mix.{TGT}",
-        RAW_DIR / f"test_culture.{SRC}",
-        RAW_DIR / f"test_culture.{TGT}",
-        RAW_DIR / f"test_general.{SRC}",
-        RAW_DIR / f"test_general.{TGT}",
+        RAW_DIR / f"test_culture_mix.{SRC}",
+        RAW_DIR / f"test_culture_mix.{TGT}",
+        RAW_DIR / f"test_general_mix.{SRC}",
+        RAW_DIR / f"test_general_mix.{TGT}",
     ]
 
     for file in required_files:
