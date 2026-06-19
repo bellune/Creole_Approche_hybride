@@ -1,8 +1,8 @@
 import evaluate
 from pathlib import Path
 
-ref_file = [ Path("datasets/mix_corpus/fairseq/test_culture.en") , Path("datasets/mix_corpus/fairseq/test_general.en") ]
-pred_file = [ Path("results/mix_fairseq/outputs/pred_transformer_base_Culture.en") , Path("results/mix_fairseq/outputs/pred_transformer_base_General.en") ]
+ref_file = [ Path("datasets/mix_corpus/fairseq/test_culture.en") , Path("datasets/mix_corpus/fairseq/test_general.en"), Path("datasets/mix_corpus/fairseq/test_culture.en")]
+pred_file = [ Path("results/mix_fairseq/outputs/pred_transformer_base_Culture.en") , Path("results/mix_fairseq/outputs/pred_transformer_base_General.en"), Path("results/fairseq/outputs/pred_transformer_base_Cultural.en")]
 
 for ref ,pred in zip(ref_file, pred_file):
     references = [line.strip() for line in ref.open(encoding="utf-8")]
