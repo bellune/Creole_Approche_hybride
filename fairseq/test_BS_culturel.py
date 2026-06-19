@@ -17,7 +17,7 @@ TGT = "en"
 
 RAW_DIR = Path(data_fairseq)
 SPM_DIR = Path(f"{base_dir}/spm")
-BIN_DIR = Path(f"{base_dir}/data-bin/ht-en")
+BIN_DIR = Path(f"model/mix_fairseq/data-bin/ht-en")
 CKPT_DIR = Path(f"{base_dir}/checkpoints/transformer_base_ht_en")
 OUT_DIR = Path(f"{results_dir}/outputs")
 
@@ -104,14 +104,15 @@ if __name__ == "__main__":
 
 
 
-    if not (OUT_DIR / "outputs_transformer_base_Cultural.txt").exists():
-      generate_translations()
-    else:       
-        print("Translations already generated. Skipping generation.")
+    # if not (OUT_DIR / "outputs_transformer_base_Cultural.txt").exists():
+    generate_translations()
+    # else:       
+        # print("Translations already generated. Skipping generation.")
 
-    if not (OUT_DIR / "pred_transformer_base_Cultural.en").exists():
-        extract_predictions()
-    else:       
-        print("Predictions already extracted. Skipping extraction.")
+    # if not (OUT_DIR / "pred_transformer_base_Cultural.en").exists():
+    extract_predictions()
+    # else:       
+        # print("Predictions already extracted. Skipping extraction.")
+        # pass
 
     evaluate()
