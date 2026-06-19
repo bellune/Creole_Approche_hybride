@@ -165,11 +165,11 @@ print("Cultural BLEURT :", cultural_bleurt["scores"][0])
 
 
 df_scores = pd.DataFrame({
-    "Model": ["Baseline", "Cultural", "Tri-lingual"],
+    "Model": ["Baseline", "Cultural"],
     "BLEU": [baseline_bleu["score"], cultural_bleu["score"]],
     "chrF": [baseline_chrf["score"], cultural_chrf["score"]],
     "TER": [baseline_ter["score"], cultural_ter["score"]],
-    "BLEURT": [baseline_bleurt["scores"][0], cultural_bleurt["scores"][0]          ]
+    "BLEURT": [baseline_bleurt["scores"][0], cultural_bleurt["scores"][0]     ]
 })
 
 df_scores.to_csv(

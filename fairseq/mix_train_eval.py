@@ -1,7 +1,13 @@
+import json
 import os
 import subprocess
 from pathlib import Path
+from turtle import pd
 import sentencepiece as spm
+import subprocess
+import pandas as pd
+from pathlib import Path
+
 
 
 data_fairseq = "datasets/mix_corpus/fairseq"
@@ -210,55 +216,157 @@ def extract_predictions():
         run_cmd(cmd)
 
 
+
+def run_sacrebleu(ref_file, pred_file):
+    cmd = [
+        "sacrebleu",
+        str(ref_file),
+        "-i", str(pred_file),
+        "-m", "bleu", "chrf", "ter",
+        "-f", "json"
+    ]
+
+    result = subprocess.run(
+        cmd,
+        capture_output=True,
+        text=True,
+        check=True
+    )
+
+    scores_json = json.loads(result.stdout)
+
+    scores = {}
+    for metric in scores_json:
+        name = metric["name"]
+        scores[name] = metric["score"]
+
+    return {
+        "BLEU": scores.get("BLEU"),
+        "chrF2": scores.get("chrF2"),
+        "TER": scores.get("TER")
+    }
+
+
+def read_lines(path):
+    return Path(path).read_text(encoding="utf-8").splitlines()
+
+
 def evaluate():
-    prediction_file = [OUT_DIR / "pred_transformer_base_Culture.en", OUT_DIR / "pred_transformer_base_General.en"]
-    reference_file = [
+    prediction_files = [
+        OUT_DIR / "pred_transformer_base_Culture.en",
+        OUT_DIR / "pred_transformer_base_General.en"
+    ]
+
+    reference_files = [
         RAW_DIR / f"test_culture_mix.{TGT}",
         RAW_DIR / f"test_general_mix.{TGT}"
     ]
 
-    for ref ,pred in zip(reference_file, prediction_file):
+    test_names = [
+        "Cultural test",
+        "General test"
+    ]
+
+    rows = []
+
+    for test_name, ref, pred in zip(test_names, reference_files, prediction_files):
         if not ref.exists():
             raise FileNotFoundError(f"Missing reference file: {ref}")
-        
-        print(f"-----------------------------------------------------")
-        print(f"Evaluating against {ref}")
-        print(f"-----------------------------------------------------")
-        cmd = f"""
-        CUDA_VISIBLE_DEVICES=3 sacrebleu {ref} \
-        -i {pred} \
-        -m bleu chrf ter
-        """
 
-        run_cmd(cmd)
+        if not pred.exists():
+            raise FileNotFoundError(f"Missing prediction file: {pred}")
+
+        print("-----------------------------------------------------")
+        print(f"Evaluating {test_name}")
+        print(f"Reference: {ref}")
+        print(f"Prediction: {pred}")
+        print("-----------------------------------------------------")
+
+        scores = run_sacrebleu(ref, pred)
+
+        rows.append({
+            "Model": "Transformer Fairseq",
+            "Training": "MT-Creole + Cultural Mix",
+            "Test": test_name,
+            "BLEU": scores["BLEU"],
+            "chrF2": scores["chrF2"],
+            "TER": scores["TER"]
+        })
+
+        print(scores)
+
+    df_scores = pd.DataFrame(rows)
+
+    score_path = OUT_DIR / "cultural_MIX_test_scores_all.csv"
+    df_scores.to_csv(score_path, index=False, encoding="utf-8-sig")
+
+    print(f"\nScores sauvegardés : {score_path}")
 
 
+
+
+def save_cultural_comparison():
+        src_file = RAW_DIR / f"test_culture_mix.{SRC}"
+        ref_file = RAW_DIR / f"test_culture_mix.{TGT}"
+        ids  = "datasets/mix_corpus/json/test_culture.jsonl"
+
+        #lire le fichier test jsonl pour recuperer les ids
+        with open(ids, "r") as f:
+            test_data = [json.loads(line) for line in f]
+        ids = [item["id"] for item in test_data]
+
+        general_pred_file = OUT_DIR / "pred_transformer_base_General.en"
+        cultural_pred_file = OUT_DIR / "pred_transformer_base_Culture.en"
+
+        sources = read_lines(src_file)
+        refs = read_lines(ref_file)
+        general_preds = read_lines(general_pred_file)
+        cultural_preds = read_lines(cultural_pred_file)
+
+        n = len(refs)
+
+        assert len(sources) == n, f"sources={len(sources)} refs={n}"
+        assert len(general_preds) == n, f"general={len(general_preds)} refs={n}"
+        assert len(cultural_preds) == n, f"cultural={len(cultural_preds)} refs={n}"
+
+        df_results = pd.DataFrame({
+            "id": ids,
+            "cr": sources,
+            "reference_en": refs,
+            "general_prediction": general_preds,
+            "cultural_prediction": cultural_preds
+        })
+
+        output_path = OUT_DIR / "cultural_MIX_test_comparison_all.csv"
+        df_results.to_csv(output_path, index=False, encoding="utf-8-sig")
+
+        print(f"Comparaison sauvegardée : {output_path}")
 
 
 
 if __name__ == "__main__":
     check_files()
 
-    if not (SPM_DIR / "ht_en_spm.model").exists():
-        train_sentencepiece()
-    else:
-        print("SentencePiece model already exists. Skipping training.")
+    # if not (SPM_DIR / "ht_en_spm.model").exists():
+    train_sentencepiece()
+    # else:
+    #     print("SentencePiece model already exists. Skipping training.")
 
-    if not (RAW_DIR / f"train_mix.spm.{SRC}").exists():
-        apply_sentencepiece()
-    else:
-        print("SentencePiece files already exist. Skipping encoding.")
+    # if not (RAW_DIR / f"train_mix.spm.{SRC}").exists():
+    apply_sentencepiece()
+    # else:
+    #     print("SentencePiece files already exist. Skipping encoding.")
 
 
-    if not (BIN_DIR / f"dict.{SRC}.txt").exists():
-        fairseq_preprocess()
-    else:
-       print("Fairseq binary data already exists. Skipping preprocess.")
+    # if not (BIN_DIR / f"dict.{SRC}.txt").exists():
+    fairseq_preprocess()
+    # else:
+    #    print("Fairseq binary data already exists. Skipping preprocess.")
     
-    if not (CKPT_DIR / "checkpoint_best.pt").exists():
-        train_transformer()
-    else:      
-       print("Checkpoint already exists. Skipping training.")
+    # if not (CKPT_DIR / "checkpoint_best.pt").exists():
+    train_transformer()
+    # else:      
+    #    print("Checkpoint already exists. Skipping training.")
 
     # if not (OUT_DIR / "outputs_transformer_base_Culture.txt").exists() and not (OUT_DIR / "outputs_transformer_base_General.txt").exists():
     generate_translations()
@@ -271,3 +379,5 @@ if __name__ == "__main__":
         # print("Predictions already extracted. Skipping extraction.")
 
     evaluate()
+
+    save_cultural_comparison()
