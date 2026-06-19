@@ -116,7 +116,7 @@ def apply_sentencepiece():
 
 def fairseq_preprocess():
     cmd = f"""
-    python3 -m fairseq_cli.preprocess \
+    CUDA_VISIBLE_DEVICES=0,1,2,3 python3 -m fairseq_cli.preprocess \
       --source-lang {SRC} \
       --target-lang {TGT} \
       --trainpref {RAW_DIR}/train_mix.spm \
@@ -181,7 +181,7 @@ def generate_translations():
     
     for file, subset in zip(output_file, test_subset):
         cmd = f"""
-        CUDA_VISIBLE_DEVICES="" python3 -m fairseq_cli.generate {BIN_DIR} \
+        CUDA_VISIBLE_DEVICES=0,1,2,3 python3 -m fairseq_cli.generate {BIN_DIR} \
         --source-lang {SRC} \
         --target-lang {TGT} \
         --path {CKPT_DIR}/checkpoint_best.pt \
@@ -226,7 +226,7 @@ def evaluate():
         print(f"Evaluating against {ref}")
         print(f"-----------------------------------------------------")
         cmd = f"""
-        sacrebleu {ref} \
+        CUDA_VISIBLE_DEVICES=0,1,2,3 sacrebleu {ref} \
         -i {pred} \
         -m bleu chrf ter
         """
