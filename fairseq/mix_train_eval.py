@@ -4,11 +4,10 @@ from pathlib import Path
 import sentencepiece as spm
 
 
-data_fairseq = "datasets/kreyol-mt-hat-eng/mt-fairseq"
-base_dir = "model/fairseq"
-results_dir = "results/fairseq"
-
-
+data_fairseq = "datasets/mix_corpus/fairseq"
+base_dir = "model/mix_fairseq"
+results_dir = "results/mix_fairseq"
+BASELINE = "model/fairseq/checkpoints/transformer_base_ht_en/checkpoint_best.pt"
 
 SRC = "ht"
 TGT = "en"
@@ -16,7 +15,7 @@ TGT = "en"
 RAW_DIR = Path(data_fairseq)
 SPM_DIR = Path(f"{base_dir}/spm")
 BIN_DIR = Path(f"{base_dir}/data-bin/ht-en")
-CKPT_DIR = Path(f"{base_dir}/checkpoints/transformer_base_ht_en")
+CKPT_DIR = Path(f"{base_dir}/checkpoints/transformer_base_mix_ht_en")
 OUT_DIR = Path(f"{results_dir}/outputs")
 
 SPM_DIR.mkdir(parents=True, exist_ok=True)
@@ -38,12 +37,14 @@ def run_cmd(cmd: str):
 
 def check_files():
     required_files = [
-        RAW_DIR / f"train.{SRC}",
-        RAW_DIR / f"train.{TGT}",
-        RAW_DIR / f"valid.{SRC}",
-        RAW_DIR / f"valid.{TGT}",
-        RAW_DIR / f"test.{SRC}",
-        RAW_DIR / f"test.{TGT}",
+        RAW_DIR / f"train_mix.{SRC}",
+        RAW_DIR / f"train_mix.{TGT}",
+        RAW_DIR / f"valid_mix.{SRC}",
+        RAW_DIR / f"valid_mix.{TGT}",
+        RAW_DIR / f"test_culture.{SRC}",
+        RAW_DIR / f"test_culture.{TGT}",
+        RAW_DIR / f"test_general.{SRC}",
+        RAW_DIR / f"test_general.{TGT}",
     ]
 
     for file in required_files:
@@ -59,7 +60,7 @@ def train_sentencepiece():
     combined_file = SPM_DIR / "train_all.txt"
 
     with open(combined_file, "w", encoding="utf-8") as outfile:
-        for file in [RAW_DIR / f"train.{SRC}", RAW_DIR / f"train.{TGT}"]:
+        for file in [RAW_DIR / f"train_mix.{SRC}", RAW_DIR / f"train_mix.{TGT}"]:
             with open(file, "r", encoding="utf-8") as infile:
                 for line in infile:
                     line = line.strip()
@@ -84,10 +85,10 @@ def apply_sentencepiece():
     sp = spm.SentencePieceProcessor()
     sp.load(str(SPM_DIR / "ht_en_spm.model"))
 
-    for split in ["train", "valid", "test"]:
+    for split in ["train", "valid", "test_culture","test_general"]:
         for lang in [SRC, TGT]:
-            input_file = RAW_DIR / f"{split}.{lang}"
-            output_file = RAW_DIR / f"{split}.spm.{lang}"
+            input_file = RAW_DIR / f"{split}_mix.{lang}"
+            output_file = RAW_DIR / f"{split}_mix.spm.{lang}"
 
             print(f"Encoding {input_file} -> {output_file}")
 
@@ -107,7 +108,7 @@ def apply_sentencepiece():
 
                     count += 1
 
-                    if count % 1000 == 0:
+                    if count % 10000 == 0:
                         print(f"{split}.{lang}: {count} lignes encodées")
 
             print(f"{split}.{lang}: terminé avec {count} lignes")
@@ -118,9 +119,9 @@ def fairseq_preprocess():
     python3 -m fairseq_cli.preprocess \
       --source-lang {SRC} \
       --target-lang {TGT} \
-      --trainpref {RAW_DIR}/train.spm \
-      --validpref {RAW_DIR}/valid.spm \
-      --testpref {RAW_DIR}/test.spm \
+      --trainpref {RAW_DIR}/train_mix.spm \
+      --validpref {RAW_DIR}/valid_mix.spm \
+      --testpref {RAW_DIR}/test_culture_mix.spm,{RAW_DIR}/test_general_mix.spm \
       --destdir {BIN_DIR} \
       --workers 8 \
       --joined-dictionary
@@ -151,15 +152,21 @@ def train_transformer():
       --label-smoothing 0.1 \
       --optimizer adam \
       --adam-betas '(0.9,0.98)' \
-      --lr 0.0005 \
+      --lr 0.0001 \
       --lr-scheduler inverse_sqrt \
-      --warmup-updates 4000 \
+      --warmup-updates 5000 \
       --max-tokens 2048 \
       --update-freq 2 \
-      --max-epoch 30 \
-      --patience 5 \
+      --max-epoch 10 \
+      --patience 3 \
+      --restore-file {BASELINE} \
+      --reset-optimizer \
+      --reset-dataloader \
+      --reset-meters \
+      --reset-lr-scheduler \
       --save-dir {CKPT_DIR} \
       --keep-best-checkpoints 1 \
+      --no-epoch-checkpoints \
       --best-checkpoint-metric loss \
       --distributed-world-size 4 \
       --ddp-backend no_c10d
@@ -169,47 +176,62 @@ def train_transformer():
 
 
 def generate_translations():
-    output_file = OUT_DIR / "outputs_transformer_base.txt"
-
-    cmd = f"""
-    CUDA_VISIBLE_DEVICES="" python3 -m fairseq_cli.generate {BIN_DIR} \
-      --source-lang {SRC} \
-      --target-lang {TGT} \
-      --path {CKPT_DIR}/checkpoint_best.pt \
-      --beam 5 \
-      --batch-size 64 \
-      --remove-bpe=sentencepiece \
-      > {output_file}
-    """
+    output_file = [ OUT_DIR / "outputs_transformer_base_Culture.txt", OUT_DIR / "outputs_transformer_base_General.txt" ]
+    test_subset = [ "test_culture_mix", "test_general_mix" ]
+    
+    for file, subset in zip(output_file, test_subset):
+        cmd = f"""
+        CUDA_VISIBLE_DEVICES="" python3 -m fairseq_cli.generate {BIN_DIR} \
+        --source-lang {SRC} \
+        --target-lang {TGT} \
+        --path {CKPT_DIR}/checkpoint_best.pt \
+        --gen-subset {subset} \
+        --beam 5 \
+        --batch-size 64 \
+        --remove-bpe=sentencepiece \
+        --cpu \
+        > {file}
+        """
 
     run_cmd(cmd)
 
 
 def extract_predictions():
-    fairseq_output = OUT_DIR / "outputs_transformer_base.txt"
-    prediction_file = OUT_DIR / "pred_transformer_base.en"
+    fairseq_output = [OUT_DIR / "outputs_transformer_base_Culture.txt", OUT_DIR / "outputs_transformer_base_General.txt"]
+    prediction_file = [OUT_DIR / "pred_transformer_base_Culture.en", OUT_DIR / "pred_transformer_base_General.en"]
 
-    cmd = f"""
-    grep '^H-' {fairseq_output} \
-      | sort -V \
-      | cut -f3- \
-      > {prediction_file}
-    """
+    for output, pred in zip(fairseq_output, prediction_file):
+        cmd = f"""
+        grep '^H-' {output} \
+          | sort -V \
+          | cut -f3- \
+          > {pred}
+        """
 
     run_cmd(cmd)
 
 
 def evaluate():
-    prediction_file = OUT_DIR / "pred_transformer_base.en"
-    reference_file = RAW_DIR / f"test.{TGT}"
+    prediction_file = [OUT_DIR / "pred_transformer_base_Culture.en", OUT_DIR / "pred_transformer_base_General.en"]
+    reference_file = [
+        RAW_DIR / f"test_culture.{TGT}",
+        RAW_DIR / f"test_general.{TGT}"
+    ]
 
-    cmd = f"""
-    sacrebleu {reference_file} \
-      -i {prediction_file} \
-      -m bleu chrf ter
-    """
+    for ref ,pred in zip(reference_file, prediction_file):
+        if not ref.exists():
+            raise FileNotFoundError(f"Missing reference file: {ref}")
+        
+        print(f"-----------------------------------------------------")
+        print(f"Evaluating against {ref}")
+        print(f"-----------------------------------------------------")
+        cmd = f"""
+        sacrebleu {ref} \
+        -i {pred} \
+        -m bleu chrf ter
+        """
 
-    run_cmd(cmd)
+        run_cmd(cmd)
 
 
 

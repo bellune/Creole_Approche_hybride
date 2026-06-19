@@ -202,6 +202,7 @@ FIN DU TRAITEMENT
 ==============================
 
 
+Fairseq
 [
 {
  "name": "BLEU",
@@ -226,5 +227,21 @@ FIN DU TRAITEMENT
  "nw": "0",
  "space": "no",
  "version": "2.6.0"
+},
+{
+ "name": "TER",
+ "score": 45.0,
+ "signature": "nrefs:1|case:lc|tok:tercom|norm:no|punct:yes|asian:no|version:2.6.0",
+ "nrefs": "1",
+ "case": "lc",
+ "tok": "tercom",
+ "norm": "no",
+ "punct": "yes",
+ "asian": "no",
+ "version": "2.6.0"
 }
 ]
+
+BLEURT: 0.0866
+Nombre de phrases évaluées: 1228
+
