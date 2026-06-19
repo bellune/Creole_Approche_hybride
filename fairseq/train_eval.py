@@ -170,7 +170,7 @@ def generate_translations():
     output_file = OUT_DIR / "outputs_transformer_base.txt"
 
     cmd = f"""
-    python3 -m fairseq_cli.generate {BIN_DIR} \
+    CUDA_VISIBLE_DEVICES="" python3 -m fairseq_cli.generate {BIN_DIR} \
       --source-lang {SRC} \
       --target-lang {TGT} \
       --path {CKPT_DIR}/checkpoint_best.pt \
