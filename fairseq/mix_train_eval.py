@@ -123,6 +123,8 @@ def fairseq_preprocess():
       --validpref {RAW_DIR}/valid_mix.spm \
       --testpref {RAW_DIR}/test_culture_mix.spm,{RAW_DIR}/test_general_mix.spm \
       --destdir {BIN_DIR} \
+      --srcdict model/fairseq/data-bin/ht-en/dict.ht.txt \
+      --tgtdict model/fairseq/data-bin/ht-en/dict.en.txt \
       --workers 8 \
       --joined-dictionary
     """
@@ -243,27 +245,28 @@ if __name__ == "__main__":
     else:
         print("SentencePiece model already exists. Skipping training.")
 
-    if not (RAW_DIR / f"train.spm.{SRC}").exists():
+    if not (RAW_DIR / f"train_mix.spm.{SRC}").exists():
         apply_sentencepiece()
     else:
         print("SentencePiece files already exist. Skipping encoding.")
 
-    if not (BIN_DIR / f"dict.{SRC}.txt").exists():
+
+    # if not (BIN_DIR / f"dict.{SRC}.txt").exists():
         fairseq_preprocess()
-    else:
-        print("Fairseq binary data already exists. Skipping preprocess.")
+    # else:
+    #     print("Fairseq binary data already exists. Skipping preprocess.")
     
-    if not (CKPT_DIR / "checkpoint_best.pt").exists():
+    # if not (CKPT_DIR / "checkpoint_best.pt").exists():
         train_transformer()
-    else:      
-        print("Checkpoint already exists. Skipping training.")
+    # else:      
+    #     print("Checkpoint already exists. Skipping training.")
 
-    if not (OUT_DIR / "outputs_transformer_base.txt").exists():
-      generate_translations()
-    else:       
-        print("Translations already generated. Skipping generation.")
+    # if not (OUT_DIR / "outputs_transformer_base_Culture.txt").exists() and not (OUT_DIR / "outputs_transformer_base_General.txt").exists():
+        generate_translations()
+    # else:       
+    #     print("Translations already generated. Skipping generation.")
 
-    if not (OUT_DIR / "pred_transformer_base.en").exists():
+    if not (OUT_DIR / "pred_transformer_base_Culture.en").exists() and not (OUT_DIR / "pred_transformer_base_General.en").exists():
         extract_predictions()
     else:       
         print("Predictions already extracted. Skipping extraction.")
