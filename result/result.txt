@@ -340,3 +340,28 @@ Running:
  "version": "2.6.0"
 }
 ]
+
+
+===== RESULTS ON CULTURAL Mix TEST SET =====
+Baseline BLEU : 13.466676730877627
+Cultural BLEU : 27.928190672094477
+Baseline chrF : 34.15716972800968
+Cultural chrF : 49.69402329676045
+Baseline TER : 77.11091497499265
+Cultural TER : 56.62694910267726
+Baseline BLEURT : -0.013012055307626724
+Cultural BLEURT : -0.5149117708206177
+
+-----------------------------------------------------
+Evaluating Cultural test
+Reference: datasets/mix_corpus/fairseq/test_culture_mix.en
+Prediction: results/mix_fairseq/outputs/pred_transformer_base_Culture.en
+-----------------------------------------------------
+{'BLEU': 20.3, 'chrF2': 42.7, 'TER': 63.2}
+-----------------------------------------------------
+Evaluating General test
+Reference: datasets/mix_corpus/fairseq/test_general_mix.en
+Prediction: results/mix_fairseq/outputs/pred_transformer_base_General.en
+-----------------------------------------------------
+{'BLEU': 37.7, 'chrF2': 61.2, 'TER': 48.5}
+

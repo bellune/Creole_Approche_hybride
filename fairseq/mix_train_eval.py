@@ -308,6 +308,8 @@ def evaluate():
 def save_cultural_comparison():
         src_file = RAW_DIR / f"test_culture_mix.{SRC}"
         ref_file = RAW_DIR / f"test_culture_mix.{TGT}"
+        src_fileG = RAW_DIR / f"test_general_mix.{SRC}"
+        ref_fileG = RAW_DIR / f"test_general_mix.{TGT}"
         ids  = "datasets/mix_corpus/json/test_culture.jsonl"
 
         #lire le fichier test jsonl pour recuperer les ids
@@ -319,26 +321,42 @@ def save_cultural_comparison():
         cultural_pred_file = OUT_DIR / "pred_transformer_base_Culture.en"
 
         sources = read_lines(src_file)
+        sourcesG = read_lines(src_fileG)
         refs = read_lines(ref_file)
+        refsG = read_lines(ref_fileG)
+
         general_preds = read_lines(general_pred_file)
         cultural_preds = read_lines(cultural_pred_file)
 
         n = len(refs)
+        ng = len(refsG)
 
         assert len(sources) == n, f"sources={len(sources)} refs={n}"
-        assert len(general_preds) == n, f"general={len(general_preds)} refs={n}"
+        assert len(sourcesG) == ng, f"sourcesG={len(sourcesG)} refsG={ng}"
+        assert len(general_preds) == ng, f"general={len(general_preds)} refsG={ng}"
         assert len(cultural_preds) == n, f"cultural={len(cultural_preds)} refs={n}"
 
         df_results = pd.DataFrame({
             "id": ids,
             "cr": sources,
             "reference_en": refs,
-            "general_prediction": general_preds,
             "cultural_prediction": cultural_preds
         })
 
+
         output_path = OUT_DIR / "cultural_MIX_test_comparison_all.csv"
         df_results.to_csv(output_path, index=False, encoding="utf-8-sig")
+
+
+        df_results2 = pd.DataFrame({
+            "cr": sourcesG,
+            "reference_en": refsG,
+            "general_prediction": general_preds
+        })
+
+        output_path = OUT_DIR / "general_MIX_test_comparison_all.csv"
+        df_results2.to_csv(output_path, index=False, encoding="utf-8-sig")
+
 
         print(f"Comparaison sauvegardée : {output_path}")
 
@@ -347,36 +365,36 @@ def save_cultural_comparison():
 if __name__ == "__main__":
     check_files()
 
-    # if not (SPM_DIR / "ht_en_spm.model").exists():
-    train_sentencepiece()
-    # else:
-    #     print("SentencePiece model already exists. Skipping training.")
+    if not (SPM_DIR / "ht_en_spm.model").exists():
+     train_sentencepiece()
+    else:
+        print("SentencePiece model already exists. Skipping training.")
 
-    # if not (RAW_DIR / f"train_mix.spm.{SRC}").exists():
-    apply_sentencepiece()
-    # else:
-    #     print("SentencePiece files already exist. Skipping encoding.")
+    if not (RAW_DIR / f"train_mix.spm.{SRC}").exists():
+     apply_sentencepiece()
+    else:
+        print("SentencePiece files already exist. Skipping encoding.")
 
 
-    # if not (BIN_DIR / f"dict.{SRC}.txt").exists():
-    fairseq_preprocess()
-    # else:
-    #    print("Fairseq binary data already exists. Skipping preprocess.")
+    if not (BIN_DIR / f"dict.{SRC}.txt").exists():
+     fairseq_preprocess()
+    else:
+       print("Fairseq binary data already exists. Skipping preprocess.")
     
-    # if not (CKPT_DIR / "checkpoint_best.pt").exists():
-    train_transformer()
-    # else:      
-    #    print("Checkpoint already exists. Skipping training.")
+    if not (CKPT_DIR / "checkpoint_best.pt").exists():
+     train_transformer()
+    else:      
+       print("Checkpoint already exists. Skipping training.")
 
-    # if not (OUT_DIR / "outputs_transformer_base_Culture.txt").exists() and not (OUT_DIR / "outputs_transformer_base_General.txt").exists():
-    generate_translations()
-    # else:       
-        #  print("Translations already generated. Skipping generation.")
+    if not (OUT_DIR / "outputs_transformer_base_Culture.txt").exists() and not (OUT_DIR / "outputs_transformer_base_General.txt").exists():
+     generate_translations()
+    else:       
+         print("Translations already generated. Skipping generation.")
 
-    # if not (OUT_DIR / "pred_transformer_base_Culture.en").exists() and not (OUT_DIR / "pred_transformer_base_General.en").exists():
-    extract_predictions()
-    # else:       
-        # print("Predictions already extracted. Skipping extraction.")
+    if not (OUT_DIR / "pred_transformer_base_Culture.en").exists() and not (OUT_DIR / "pred_transformer_base_General.en").exists():
+     extract_predictions()
+    else:       
+        print("Predictions already extracted. Skipping extraction.")
 
     evaluate()
 
