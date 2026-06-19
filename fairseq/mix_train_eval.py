@@ -176,7 +176,7 @@ def train_transformer():
 
 def generate_translations():
     output_file = [ OUT_DIR / "outputs_transformer_base_Culture.txt", OUT_DIR / "outputs_transformer_base_General.txt" ]
-    test_subset = [ "test_culture_mix", "test_general_mix" ]
+    test_subset = [ "test", "test1" ]
     
     for file, subset in zip(output_file, test_subset):
         cmd = f"""
@@ -250,20 +250,20 @@ if __name__ == "__main__":
         print("SentencePiece files already exist. Skipping encoding.")
 
 
-    # if not (BIN_DIR / f"dict.{SRC}.txt").exists():
+    if not (BIN_DIR / f"dict.{SRC}.txt").exists():
         fairseq_preprocess()
-    # else:
-    #     print("Fairseq binary data already exists. Skipping preprocess.")
+    else:
+       print("Fairseq binary data already exists. Skipping preprocess.")
     
-    # if not (CKPT_DIR / "checkpoint_best.pt").exists():
+    if not (CKPT_DIR / "checkpoint_best.pt").exists():
         train_transformer()
-    # else:      
-    #     print("Checkpoint already exists. Skipping training.")
+    else:      
+       print("Checkpoint already exists. Skipping training.")
 
-    # if not (OUT_DIR / "outputs_transformer_base_Culture.txt").exists() and not (OUT_DIR / "outputs_transformer_base_General.txt").exists():
+    if not (OUT_DIR / "outputs_transformer_base_Culture.txt").exists() and not (OUT_DIR / "outputs_transformer_base_General.txt").exists():
         generate_translations()
-    # else:       
-    #     print("Translations already generated. Skipping generation.")
+    else:       
+         print("Translations already generated. Skipping generation.")
 
     if not (OUT_DIR / "pred_transformer_base_Culture.en").exists() and not (OUT_DIR / "pred_transformer_base_General.en").exists():
         extract_predictions()
