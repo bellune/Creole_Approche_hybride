@@ -225,7 +225,7 @@ def evaluate():
         print(f"Evaluating against {ref}")
         print(f"-----------------------------------------------------")
         cmd = f"""
-        CUDA_VISIBLE_DEVICES=0,1,2,3 sacrebleu {ref} \
+        CUDA_VISIBLE_DEVICES=3 sacrebleu {ref} \
         -i {pred} \
         -m bleu chrf ter
         """
