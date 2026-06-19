@@ -125,8 +125,7 @@ def fairseq_preprocess():
       --destdir {BIN_DIR} \
       --srcdict model/fairseq/data-bin/ht-en/dict.ht.txt \
       --tgtdict model/fairseq/data-bin/ht-en/dict.en.txt \
-      --workers 8 \
-      --joined-dictionary
+      --workers 8 
     """
 
     run_cmd(cmd)
