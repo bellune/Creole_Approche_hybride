@@ -122,7 +122,7 @@ def read_lines(path):
 
 def evaluate():
     prediction_files = [
-        OUT_DIR / "pred_transformer_base_Culture.en"
+        OUT_DIR / "pred_transformer_base_Cultural.en"
     ]
 
     reference_files = [
@@ -183,7 +183,7 @@ def save_cultural_comparison():
         ids = [item["id"] for item in test_data]
 
         general_pred_file = OUT_DIR / "pred_transformer_base_General.en"
-        cultural_pred_file = OUT_DIR / "pred_transformer_base_Culture.en"
+        cultural_pred_file = OUT_DIR / "pred_transformer_base_Cultural.en"
 
         sources = read_lines(src_file)
         refs = read_lines(ref_file)
