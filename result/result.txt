@@ -365,3 +365,15 @@ Prediction: results/mix_fairseq/outputs/pred_transformer_base_General.en
 -----------------------------------------------------
 {'BLEU': 37.7, 'chrF2': 61.2, 'TER': 48.5}
 
+
+===== RESULTS ON CULTURAL Mix TEST SET =====
+Baseline BLEU : 13.466676730877627
+Cultural BLEU : 32.577962741123436
+Baseline chrF : 34.15716972800968
+Cultural chrF : 53.63528210693912
+Baseline TER : 77.11091497499265
+Cultural TER : 53.640776699029125
+Baseline BLEURT : -0.013012055307626724
+Cultural BLEURT : -0.7223840951919556
+
+

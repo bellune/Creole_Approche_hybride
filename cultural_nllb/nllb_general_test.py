@@ -7,8 +7,8 @@ from datasets import load_from_disk
 
 BASE_MODEL = "facebook/nllb-200-distilled-600M"
 
-CULTURAL_MODEL = "model/nllb_cultural_cr_en"
-CULTURAL_MODEL_TRI = "model/nllb_cultural_tri"
+CULTURAL_MODEL = "model/nllb_cultural_mix"
+# CULTURAL_MODEL_TRI = "model/nllb_cultural_tri"
 
 SRC_LANG = "hat_Latn"
 TGT_LANG = "eng_Latn"
@@ -82,9 +82,9 @@ print("Testing cultural-adapted model....")
 cultural_model = load_model(CULTURAL_MODEL)
 sources, cultural_preds, refs = translate_dataset(cultural_model, test_data)
 
-print("Testing cultural-adapted model Trilingue...")
-cultural_model_fr = load_model(CULTURAL_MODEL_TRI)
-_, cultural_fr_preds, _, = translate_dataset(cultural_model_fr, test_data)
+# print("Testing cultural-adapted model Trilingue...")
+# cultural_model_fr = load_model(CULTURAL_MODEL_TRI)
+# _, cultural_fr_preds, _, = translate_dataset(cultural_model_fr, test_data)
 
 # -------------------------------
 # Métriques
@@ -100,20 +100,21 @@ cultural_bleu = bleu.compute(
     references=[[r] for r in refs]
 )
 
-cultural_fr_bleu = bleu.compute(
-    predictions=cultural_fr_preds,
-    references=[[r] for r in refs]
-)
+# cultural_fr_bleu = bleu.compute(
+#     predictions=cultural_fr_preds,
+#     references=[[r] for r in refs]
+# )
 
 cultural_chrf = chrf.compute(
     predictions=cultural_preds,
     references=refs
 )
 
-cultural_fr_chrf = chrf.compute(
-    predictions=cultural_fr_preds,
-    references=refs
-)
+# cultural_fr_chrf = chrf.compute(
+#     predictions=cultural_fr_preds,
+#     references=refs
+# )
+#)
 
 
 cultural_ter = ter.compute(
@@ -121,20 +122,20 @@ cultural_ter = ter.compute(
     references=refs
 )
 
-cultural_fr_ter = ter.compute(
-    predictions=cultural_fr_preds,
-    references=refs
-)
+# cultural_fr_ter = ter.compute(
+#     predictions=cultural_fr_preds,
+#     references=refs
+# )
 
 cultural_bleurt = bleurt.compute(
     predictions=cultural_preds,
     references=refs
 )
 
-cultural_fr_bleurt = bleurt.compute(
-    predictions=cultural_fr_preds,
-    references=refs
-)
+# cultural_fr_bleurt = bleurt.compute(
+#     predictions=cultural_fr_preds,
+#     references=refs
+# )
 
  # -----------------------
     # Calcul de la loss
@@ -148,26 +149,26 @@ cultural_fr_bleurt = bleurt.compute(
 
 print("\n===== RESULTS ON MTCreole Test SET =====")
 print("cultural BLEU :", cultural_bleu["score"])
-print("Cultural FR BLEU :", cultural_fr_bleu["score"])
+# print("Cultural FR BLEU :", cultural_fr_bleu["score"])
 
 print("Cultural chrF :", cultural_chrf["score"])
-print("Cultural FR chrF :", cultural_fr_chrf["score"])
+# print("Cultural FR chrF :", cultural_fr_chrf["score"])
 
 print("Cultural TER :", cultural_ter["score"])
-print("Cultural FR TER :", cultural_fr_ter["score"])
+# print("Cultural FR TER :", cultural_fr_ter["score"])
 
 print("Cultural BLEURT :", cultural_bleurt["scores"][0])
-print("Cultural FR BLEURT :", cultural_fr_bleurt["scores"][0])
+# print("Cultural FR BLEURT :", cultural_fr_bleurt["scores"][0])
 
 
 
 
 df_scores = pd.DataFrame({
-    "Model": ["Cultural Adapted", "Cultural Adapted FR"],
-    "BLEU": [cultural_bleu["score"], cultural_fr_bleu["score"]],
-    "chrF": [cultural_chrf["score"], cultural_fr_chrf["score"]],
-    "TER": [cultural_ter["score"], cultural_fr_ter["score"]],
-    "BLEURT": [cultural_bleurt["scores"][0], cultural_fr_bleurt["scores"][0]]
+    "Model": ["Cultural Adapted"],
+    "BLEU": [cultural_bleu["score"]],
+    "chrF": [cultural_chrf["score"]],
+    "TER": [cultural_ter["score"]],
+    "BLEURT": [cultural_bleurt["scores"][0]]
 })
 
 df_scores.to_csv(
@@ -179,15 +180,14 @@ df_scores.to_csv(
 df_results = pd.DataFrame({
     "cr": sources,
     "reference_en": refs,
-    "_prediction": cultural_preds,
-    "cultural_prediction": cultural_fr_preds,
+    "_prediction": cultural_preds
 
 })
 
 df_results.to_csv(
-    "result/MTcreole_test_comparison_cultural_vs_adapted.csv",
+    "result/MTcreoleMi_test_comparison_cultural.csv",
     index=False,
     encoding="utf-8-sig"
 )
 
-print("\nComparaison sauvegardée : result/MTcreole_test_comparison_cultural_vs_adapted.csv")
+print("\nComparaison sauvegardée : result/MTcreoleMi_test_comparison_cultural.csv")
