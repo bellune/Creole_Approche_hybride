@@ -1,0 +1,3 @@
+﻿Model,Training,Test,BLEU,chrF2,TER
+Transformer Fairseq,MT-Creole + Cultural Mix,Cultural test,20.4,42.7,63.2
+Transformer Fairseq,MT-Creole + Cultural Mix,General test,37.8,61.3,48.3
