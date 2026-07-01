@@ -377,3 +377,10 @@ Baseline BLEURT : -0.013012055307626724
 Cultural BLEURT : -0.7223840951919556
 
 
+-----------------------------------------------------
+Evaluating Cultural test sur la baseline
+Reference: datasets/mix_corpus/fairseq/test_culture_mix.en
+Prediction: results/fairseq/outputs/pred_transformer_base_Cultural.en
+-----------------------------------------------------
+{'BLEU': 9.9, 'chrF2': 30.9, 'TER': 76.6}
+

@@ -207,12 +207,28 @@ def evaluate():
     sacrebleu {reference_file} \
       -i {prediction_file} \
       -m bleu chrf ter
+      -m chrf \
+      --chrf-word-order 2 \
     """
 
     run_cmd(cmd)
 
 
+def generate_attentions():
+    output_file = OUT_DIR / "outputs_transformer_base.txt"
 
+    cmd = f"""
+    CUDA_VISIBLE_DEVICES="" python3 -m fairseq_cli.generate {BIN_DIR} \
+      --source-lang {SRC} \
+      --target-lang {TGT} \
+      --path {CKPT_DIR}/checkpoint_best.pt \
+      --beam 5 \
+      --batch-size 64 \
+      --remove-bpe=sentencepiece \
+      > {output_file}
+    """
+
+    run_cmd(cmd)
 
 
 if __name__ == "__main__":
