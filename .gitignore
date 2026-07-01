@@ -20,7 +20,7 @@ nllb200_*/
 model_*/
 runs/
 outputs/
-
+model*/
 # datasets
 data/
 datasets/kreyol-mt-hat-eng
