@@ -249,9 +249,9 @@ df_results = pd.DataFrame({
 })
 
 df_results.to_csv(
-    "Shared_task2026/result/code-switching_test_comparison_all.csv",
+    "Shared_task2026/result/task2026_HAT_EN_test_comparison_all.csv",
     index=False,
     encoding="utf-8-sig"
 )
 
-print("\nComparaison sauvegardée : Shared_task2026/result/code-switching_test_comparison_all.csv")
+print("\nComparaison sauvegardée : Shared_task2026/result/task2026_HAT_EN_test_comparison_all.csv")
