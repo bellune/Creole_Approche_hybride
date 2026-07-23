@@ -15,3 +15,14 @@ python cultural_nllb/csi_match_eval.py \
   --id_col id \
   --csi_col expected_translation \
   --separate_prediction_col prediction
+
+
+
+  python cultural_nllb/csi_match_eval.py \
+  --csi_file datasets/corpus_culturel/cr_en_with_explain.csv \
+  --multi_file result/cultural/cultural_MIX_test_comparison_all.csv \
+  --separate_dir result/cultural \
+  --output_dir result/csi_results \
+  --id_col id \
+  --csi_col expected_translation \
+  --separate_prediction_col prediction
