@@ -237,7 +237,7 @@ print("Baseline BLEURT :", baseline_bleurt["scores"][0])
 df_scores = pd.DataFrame({
     "cr": ["hat-eng"],
     "reference_en": ["google translate"],
-    "Model": ["NLLB Baseline", "NLLB (CS)"],
+    "Model": ["NLLB Baseline"],
     "BLEU": [baseline_bleu["score"]],
     "chrF": [baseline_chrf["score"]],
     "TER": [baseline_ter["score"]],
