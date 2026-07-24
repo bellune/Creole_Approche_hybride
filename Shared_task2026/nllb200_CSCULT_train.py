@@ -217,7 +217,13 @@ trainer = Seq2SeqTrainer(
     eval_dataset=tok_val,
     processing_class=tokenizer,
     data_collator=data_collator,
-    compute_metrics=compute_metrics
+    compute_metrics=compute_metrics,
+       callbacks=[
+        EarlyStoppingCallback(
+            early_stopping_patience=3,
+            early_stopping_threshold=0.05
+        )
+    ]
 )
 
 trainer.train()
