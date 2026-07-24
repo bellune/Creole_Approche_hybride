@@ -63,6 +63,8 @@ client = OpenAI(
 # for split in ["train", "dev", "test"]:
 #     (OUTPUT_DIR / split).mkdir(parents=True, exist_ok=True)
 
+Path(f"{OUTPUT_DIR}/train").parent.mkdir(parents=True, exist_ok=True)
+
 
 for data, OUTPUT_FILE in zip([train_ds], OUTPUT_FILES):  
 
@@ -134,6 +136,8 @@ for data, OUTPUT_FILE in zip([train_ds], OUTPUT_FILES):
     # =========================
     # SAVE JSON
     # =========================
+
+  
 
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         json.dump(results, f, ensure_ascii=False, indent=2)
