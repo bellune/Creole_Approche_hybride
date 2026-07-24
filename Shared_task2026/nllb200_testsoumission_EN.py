@@ -5,6 +5,7 @@ from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 import torch
 import evaluate
 import pandas as pd
+from pathlib import Path
 
 BASE_MODEL = "facebook/nllb-200-distilled-600M"
 
@@ -18,14 +19,17 @@ TEST = "uqam_eval_srcs/hat-eng.hat"
 # Les fichiers A SOUMETTRE HAT-EN
 # ------------------------------
 
+output_dir = Path("Shared_task2026/soumission/EN")
+output_dir.mkdir(parents=True, exist_ok=True)
+
 # NLLB + MT-Kreyòl +Code-switching + Culture
-FILE_CS_CULT = "Shared_task2026/soumission/EN/uqam.1a.primary.hat-eng.txt" 
+FILE_CS_CULT = output_dir/"uqam.1a.primary.hat-eng.txt" 
 
 # NLLB + MT-Kreyòl +Code-switching
-FILE_CS = "Shared_task2026/soumission/EN/uqam.1a.contrastive1.hat-eng.txt"
+FILE_CS = output_dir/"uqam.1a.contrastive1.hat-eng.txt"
 
 # NLLB + MT-Kreyòl
-FILE_BS = "Shared_task2026/soumission/EN/uqam.1a.contrastive2.hat-eng.txt"
+FILE_BS = output_dir/"uqam.1a.contrastive2.hat-eng.txt"
 
 
 # -------------------------------
