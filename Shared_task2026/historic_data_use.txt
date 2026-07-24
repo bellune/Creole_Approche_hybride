@@ -1,0 +1,8 @@
+# NLLB + MT-Kreyòl
+Train: 665033 Val: 646 Test: 1228
+
+# NLLB + MT-Kreyòl +Code-switching
+Train: 731536 Val: 646 Test: 1228
+
+# NLLB + MT-Kreyòl +Code-switching + Culture
+Train: 746854 Val: 2561 Test: 1228

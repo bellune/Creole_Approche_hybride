@@ -50,8 +50,9 @@ train_ds = train_ds.shuffle(seed=42)
 print("Train:", len(train_ds))
 
 
-val_ds   = concatenate_datasets([ds["validation"], dataset_CULT["validation"]])
+val_ds = concatenate_datasets([ds["validation"], dataset_CULT["validation"]])
 val_ds = val_ds.shuffle(seed=42)
+
 print("Val:", len(val_ds))
 
 test_ds  = ds["test"]
@@ -81,7 +82,7 @@ model.generation_config.forced_bos_token_id = tokenizer.convert_tokens_to_ids("e
 
 def keep_hat_en(example):
     t = example["translation"]
-    return (t["src_lang"] == "hat") and (t["tgt_lang"] == "eng")
+    return (t["src_lang"] == "hat") and (t["tgt_lang"] == "eng") or (t["src_lang"] == "hat_Latn") and (t["tgt_lang"] == "eng_Latn")
 
 train_f = train_ds.filter(keep_hat_en)
 val_f   = val_ds.filter(keep_hat_en)
