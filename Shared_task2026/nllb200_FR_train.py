@@ -6,7 +6,7 @@ from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, NllbTokenizer, Ea
 
 from datasets import load_from_disk
 
-
+OUTPUT_DIR = "model/nllb200-baseline-fra"
 path_data = "datasets"
 save_path = path_data + "/kreyol-mt-hat-fra"
 
@@ -144,12 +144,12 @@ def compute_metrics(eval_preds):
 
 
 training_args = Seq2SeqTrainingArguments(
-    output_dir="nllb200_baseline4",
+      output_dir=OUTPUT_DIR,
 
     eval_strategy="steps",
-    eval_steps=1000,
+    eval_steps=5000,
     save_strategy="steps",
-    save_steps=1000,
+    save_steps=10000,
     logging_steps=200,
 
     learning_rate=4e-5,
@@ -157,14 +157,15 @@ training_args = Seq2SeqTrainingArguments(
     per_device_eval_batch_size=4,
     weight_decay=0.01,
 
-    num_train_epochs=4,
+    num_train_epochs=3,
 
     predict_with_generate=True,
     generation_max_length=128,
     generation_num_beams=4,
 
     fp16=True,
-    save_total_limit=2,
+    save_total_limit=1,
+    save_only_model=True,
 
     load_best_model_at_end=True,
     metric_for_best_model="bleu",
@@ -181,7 +182,14 @@ trainer = Seq2SeqTrainer(
     eval_dataset=tok_val,
     processing_class=tokenizer,
     data_collator=data_collator,
-    compute_metrics=compute_metrics
+    compute_metrics=compute_metrics,
+       callbacks=[
+        EarlyStoppingCallback(
+            early_stopping_patience=3,
+            early_stopping_threshold=0.05
+        )
+    ]
 )
+
 
 trainer.train()
