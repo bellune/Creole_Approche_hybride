@@ -3,6 +3,7 @@ import evaluate
 import numpy as np
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, NllbTokenizer, EarlyStoppingCallback
 from datasets import concatenate_datasets, load_dataset
+from transformers.trainer_utils import get_last_checkpoint
 
 
 from datasets import load_from_disk
@@ -227,6 +228,10 @@ trainer = Seq2SeqTrainer(
 )
 
 # trainer.train()
+last_checkpoint = get_last_checkpoint(OUTPUT_DIR)
+
 trainer.train(
-    resume_from_checkpoint="./model/nllb_CSCULT/checkpoint-50000"
+    resume_from_checkpoint=last_checkpoint
+    if last_checkpoint
+    else None
 )
