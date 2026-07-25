@@ -199,7 +199,7 @@ training_args = Seq2SeqTrainingArguments(
     generation_num_beams=4,
 
     fp16=True,
-    save_total_limit=1,
+    save_total_limit=2,
     save_only_model=True,
 
     load_best_model_at_end=True,
