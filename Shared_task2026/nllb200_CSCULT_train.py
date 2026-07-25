@@ -226,4 +226,7 @@ trainer = Seq2SeqTrainer(
     ]
 )
 
-trainer.train()
+# trainer.train()
+trainer.train(
+    resume_from_checkpoint="./model/nllb_CSCULT/checkpoint-50000"
+)
