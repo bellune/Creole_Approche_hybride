@@ -1,4 +1,5 @@
 from pathlib import Path
+from xml.parsers.expat import model
 
 from datasets import load_dataset, load_from_disk
 
@@ -6,17 +7,27 @@ from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 import torch
 import evaluate
 import pandas as pd
+import numpy as np
 
 BASE_MODEL = "facebook/nllb-200-distilled-600M"
 
 BASELINE_MODEL = "nllb200_baseline4/checkpoint-166260"
-# CULTURAL_MODEL_TRI = "model/nllb_cultural_tri"
-# MODELCS = "model/nllb_CS_MT"
+MODEL_CS = "model/nllb_CSSHT"
+MODELCSCULT= "model/nllb_CSCULT"
+BASELINE_MODEL_FR = "model/nllb200-baseline-fra"
+MODEL_CS_FR= "model/nllb200-CS-fra"
+
 
 TESTSRC = "uqam_eval_srcs/hat-eng.hat"
 TESTREF = "uqam_eval_srcs/eval.generale.uqam.googletranslate.hat-eng.hat.txt"
-
-
+TESTSRCFR = "uqam_eval_srcs/hat-fra.hat"
+TESTREFFR = "uqam_eval_srcs/eval.generale.uqam.googletranslate.hat-fra.hat.txt"
+SRC_LANG = "hat_Latn"
+TGT_LANG = "eng_Latn"
+SRC_LANG_FR = "hat_Latn"
+TGT_LANG_FR= "fra_Latn"
+DIRECTION = "hat-eng"
+DIRECTION_FR = "hat-fra"
 
 # -------------------------------
 # Les fichiers A SOUMETTRE HAT-EN
@@ -33,27 +44,43 @@ FILE_CS = output_dir/"uqam.1a.contrastive1.hat-eng.txt"
 
 # NLLB + MT-Kreyòl
 FILE_BS = output_dir/"uqam.1a.contrastive2.hat-eng.txt"
+
+#HAT-FRA
+
+# NLLB + MT-Kreyòl +Code-switching + Culture
+FILE_CS_FR = output_dir/"uqam.1a.primary.hat-fra.txt" 
+
+# NLLB + MT-Kreyòl +Code-switching
+FILE_BS_FR = output_dir/"uqam.1a.contrastive1.hat-fra.txt"
+
+
+# path. score
+
+scores_file = Path(
+    "Shared_task2026/result/code-switching_test_scores_all.csv"
+)
+
+scores_file.parent.mkdir(parents=True, exist_ok=True)
+
+# Construisons les propriete asscie au model
+
+Models = [
+    {"id":"BASELINE01", "model": {BASELINE_MODEL}, "test":{TESTSRC}, "testref":{TESTREF}, "scr":{SRC_LANG}, "tgt":{TGT_LANG}, "submitfile":{FILE_BS}},
+    {"id":"MODCS01", "model": {MODEL_CS}, "test":{TESTSRC}, "testref":{TESTREF}, "scr":{SRC_LANG}, "tgt":{TGT_LANG},"submitfile":{FILE_CS}},
+    {"id":"MODELCSCULT01", "model": {MODELCSCULT}, "test":{TESTSRC}, "testref":{TESTREF}, "scr":{SRC_LANG}, "tgt":{TGT_LANG}, "submitfile":{FILE_CS_CULT}},
+    {"id":"BASELINEFR02", "model": {BASELINE_MODEL_FR}, "test":{TESTSRCFR}, "testref":{TESTREFFR}, "scr":{SRC_LANG_FR}, "tgt":{TGT_LANG_FR}, "submitfile":{FILE_BS_FR}},
+    {"id":"MODCSFR02", "model": {MODEL_CS_FR}, "test":{TESTSRCFR}, "testref":{TESTREFFR}, "scr":{SRC_LANG_FR}, "tgt":{TGT_LANG_FR},"submitfile":{FILE_CS_FR}}
+]
+
+
 # -------------------------------
-# Chargement du modèle et tokenizer
+# Métriques
 # -------------------------------
-with open(TESTSRC, encoding="utf-8") as f:
-    test_sentences = [x.strip() for x in f]
-
-with open(TESTREF, encoding="utf-8") as f:
-    refs = [x.strip() for x in f]
-
-SRC_LANG = "hat_Latn"
-TGT_LANG = "eng_Latn"
-
-
-device = "cuda" if torch.cuda.is_available() else "cpu"
-
-tokenizer = AutoTokenizer.from_pretrained(BASE_MODEL)
-tokenizer.src_lang = SRC_LANG
-forced_bos_token_id = tokenizer.convert_tokens_to_ids(TGT_LANG)
-
 bleu = evaluate.load("sacrebleu")
 chrf = evaluate.load("chrf")
+ter = evaluate.load("ter")
+bleurt = evaluate.load("bleurt", config_name="bleurt-base-128")
+
 
 
 def load_model(path):
@@ -99,180 +126,167 @@ def translate_dataset(model, test_sentences, refs):
     return sources, predictions, references
 
 
-print("Testing baseline...")
-baseline_model = load_model(BASELINE_MODEL)
-sources, baseline_preds, refs = translate_dataset(baseline_model, test_sentences, refs)
+for model_info in Models:
+    id = model_info["id"]
+    best_model = model_info["model"]
+    test_file = model_info["test"]
+    test_ref_file = model_info["testref"]
+    src_lang = model_info["scr"]
+    tgt_lang = model_info["tgt"]
+    submit_file = model_info["submitfile"]
 
-# print("Testing  model...")
-# model = load_model(MODEL)
-# _, n_preds, _, = translate_dataset(model, test_sentences, refs)
+    if not best_model or not Path(best_model).exists():
+            print(
+                f"Modèle introuvable : "
+                f"{best_model or ' ce modele se trouve pas dans ce environement'}"
+            )
+            continue
 
-# print("Testing tri-lingual model...")
-# tri_model = load_model(CULTURAL_MODEL_TRI)
-# _, tri_preds, _, = translate_dataset(tri_model, test_sentences, refs)
-
-# print("Testing tri-lingual model CSS...")
-# model_cs = load_model(MODELCS)
-# _, predscs, _, = translate_dataset(model_cs, test_sentences, refs)
-
-
-# -------------------------------
-# Métriques
-# -------------------------------
-bleu = evaluate.load("sacrebleu")
-chrf = evaluate.load("chrf")
-ter = evaluate.load("ter")
-bleurt = evaluate.load("bleurt", config_name="bleurt-base-128")
-
-
-baseline_bleu = bleu.compute(
-    predictions=baseline_preds,
-    references=[[r] for r in refs]
-)
-
-# cultural_bleu = bleu.compute(
-#     predictions=n_preds,
-#     references=[[r] for r in refs]
-# )
-
-# tri_bleu = bleu.compute(
-#     predictions=tri_preds,
-#     references=[[r] for r in refs]
-# )
-
-baseline_chrf = chrf.compute(
-    predictions=baseline_preds,
-    references=refs
-)
-
-# cultural_chrf = chrf.compute(
-#     predictions=n_preds,
-#     references=refs
-# )
-
-# tri_chrf = chrf.compute(
-#     predictions=tri_preds,
-#     references=refs
-# )
-
-baseline_ter = ter.compute(
-    predictions=baseline_preds,
-    references=refs
-)
-
-# cultural_ter = ter.compute(
-#     predictions=n_preds,
-#     references=refs
-# )
-
-# tri_ter = ter.compute(
-#     predictions=tri_preds,
-#     references=refs
-# )
-
-baseline_bleurt = bleurt.compute(
-    predictions=baseline_preds,
-    references=refs
-)
-
-# cultural_bleurt = bleurt.compute(
-#     predictions=n_preds,
-#     references=refs
-# )
-# tri_bleurt = bleurt.compute(
-#     predictions=tri_preds,
-#     references=refs
-# )
-
-# cs_bleu = bleu.compute(
-#     predictions=predscs,
-#     references=[[r] for r in refs]
-# )
-# cs_chrf = chrf.compute(
-#     predictions=predscs,
-#     references=refs
-# )
-# cs_ter = ter.compute(
-#     predictions=predscs,
-#     references=refs
-# )
-# cs_bleurt = bleurt.compute(
-#     predictions=predscs,
-#     references=refs
-# )   
-
-
- # -----------------------
-    # Calcul de la loss
-    # -----------------------
-
-
+        # Suite du traitement
+    print("Modèle trouvé :", best_model)
 
 
 # -------------------------------
+# Chargement du modèle et tokenizer
+# -------------------------------
+    with open(test_file, encoding="utf-8") as f:
+        test_sentences = [x.strip() for x in f]
+
+    with open(test_ref_file, encoding="utf-8") as f:
+        refs = [x.strip() for x in f]
+
+    SRC_LANG = src_lang
+    TGT_LANG = tgt_lang
 
 
-print("\n===== RESULTS ON code-switching TEST SET =====")
-print("Baseline BLEU :", baseline_bleu["score"])
-# print("Cultural BLEU :", cultural_bleu["score"])
-# print("Tri-lingual BLEU :", tri_bleu["score"])
-# print("(CS) BLEU :", cs_bleu["score"])
-print("Baseline chrF :", baseline_chrf["score"])
-# print("Cultural chrF :", cultural_chrf["score"])
-# print("Tri-lingual chrF :", tri_chrf["score"])
-# print("(CS) chrF :", cs_chrf["score"])
+    device = "cuda" if torch.cuda.is_available() else "cpu"
 
-print("Baseline TER :", baseline_ter["score"])
-# print("Cultural TER :", cultural_ter["score"])
-# print("Tri-lingual TER :", tri_ter["score"])
-# print("(CS) TER :", cs_ter["score"])
-
-print("Baseline BLEURT :", baseline_bleurt["scores"][0])
-# print("Cultural BLEURT :", cultural_bleurt["scores"][0])
-# print("Tri-lingual BLEURT :", tri_bleurt["scores"][0])
-# print("(CS) BLEURT :", cs_bleurt["scores"][0])
+    tokenizer = AutoTokenizer.from_pretrained(BASE_MODEL)
+    tokenizer.src_lang = SRC_LANG
+    forced_bos_token_id = tokenizer.convert_tokens_to_ids(TGT_LANG)
 
 
+    print(f"Testing {id}...")
+    mymodel = load_model(best_model)
+    sources, preds, refs = translate_dataset(mymodel, test_sentences, refs)
 
-df_scores = pd.DataFrame({
-    "cr": ["hat-eng"],
-    "reference_en": ["google translate"],
-    "Model": ["NLLB Baseline"],
-    "BLEU": [baseline_bleu["score"]],
-    "chrF": [baseline_chrf["score"]],
-    "TER": [baseline_ter["score"]],
-    "BLEURT": [baseline_bleurt["scores"][0]]
-})
+# -------------------------------
+# Calcul des métriques
+# -------------------------------   
 
-df_scores.to_csv(
-    "Shared_task2026/result/code-switching_test_scores_all.csv",
-    index=False,
-    encoding="utf-8-sig"
+    bleu = bleu.compute(
+        predictions=preds,
+        references=[[r] for r in refs]
+    )
+
+
+    chrf = chrf.compute(
+        predictions=preds,
+        references=refs
+    )
+
+    ter = ter.compute(
+        predictions=preds,
+        references=refs
+    )
+
+    bleurt = bleurt.compute(
+        predictions=preds,
+        references=refs
+    )
+
+    # Moyenne BLEURT sur toutes les phrases
+    bleurt_scores = bleurt.get("scores", [])
+    bleurt_mean = (
+    float(np.mean(bleurt_scores))
+    if len(bleurt_scores) > 0
+    else None
 )
 
+    print(f"\n===== RESULTS ON {id} TEST SET =====")
+    print(f"{id} BLEU :", bleu["score"])
+    print(f"{id} chrF :", chrf["score"])
+    print(f"{id} TER :", ter["score"])
+    print(f"{id} BLEURT :", bleurt["scores"][0])
+    
 
 
 
-df_results = pd.DataFrame({
-    "cr": sources,
-    "reference_en": refs,
-    "baseline_prediction": baseline_preds,
-    # "nllb_cs_prediction": n_preds,
-    # "tri_prediction": tri_preds,
-    # "cs_prediction": predscs
-})
+    df_scor = pd.DataFrame({
+        "ID": [id],
+        "src": [DIRECTION],
+        "reference_en": ["google translate"],
+        "Model": ["NLLB"],
+        "BLEU": [bleu["score"]],
+        "chrF": [chrf["score"]],
+        "TER": [ter["score"]],
+        "BLEURT": [bleurt["scores"][0]],
+        "SUBMITFILE" : [submit_file]
+    })
 
-for filename, translations in [ (FILE_BS, baseline_preds)]:
-    with open(filename,"w",encoding="utf-8") as f:
+    
+    if scores_file.exists():
+        df_scores = pd.read_csv(scores_file)
 
-        for t in translations:
-            f.write(t+"\n")
+        # Comparaison uniforme des identifiants
+        df_scores["ID"] = df_scores["ID"].astype(str)
+        mask = df_scores["ID"] == id
+
+        if mask.any():
+            # Modifier toutes les colonnes de la ligne existante
+            for column, value in df_scor.items():
+                df_scores.loc[mask, column] = value
+
+            print(f"Ligne mise à jour : ID={id}")
+
+        else:
+            # Ajouter une nouvelle ligne
+            df_scores = pd.concat(
+                [df_scores, pd.DataFrame([df_scor])],
+                ignore_index=True
+            )
+
+            print(f"Nouvelle ligne ajoutée : ID={id}")
+
+    else:
+        # Créer le fichier avec la première ligne
+        df_scores = pd.DataFrame([df_scor])
+        print(f"Fichier créé : ID={id}")
+
+    df_scores.to_csv(
+        scores_file,
+        index=False,
+        encoding="utf-8-sig"
+    )
 
 
-df_results.to_csv(
-    "Shared_task2026/result/task2026_HAT_EN_test_comparison_all.csv",
-    index=False,
-    encoding="utf-8-sig"
-)
+    df_scores.to_csv(
+        "Shared_task2026/result/code-switching_test_scores_all.csv",
+        index=False,
+        encoding="utf-8-sig"
+    )
 
-print("\nComparaison sauvegardée : Shared_task2026/result/task2026_HAT_EN_test_comparison_all.csv")
+    # preds
+
+    df_results = pd.DataFrame({
+        "cr": sources,
+        "reference_en": refs,
+        "prediction": preds,
+    })
+
+    for filename, translations in [ (submit_file, preds)]:
+        with open(filename,"w",encoding="utf-8") as f:
+
+            for t in translations:
+                f.write(t+"\n")
+
+
+    df_results.to_csv(
+        "Shared_task2026/result/task2026_preds_{id}.csv",
+        index=False,
+        encoding="utf-8-sig"
+    )
+
+    print("\nComparaison sauvegardée : Shared_task2026/result/task2026_preds_{id}.csv")
+
+
