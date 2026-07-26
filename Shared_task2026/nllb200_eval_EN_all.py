@@ -82,16 +82,18 @@ ter = evaluate.load("ter")
 bleurt = evaluate.load("bleurt", config_name="bleurt-base-128")
 
 
-
 def load_model(path):
     model = AutoModelForSeq2SeqLM.from_pretrained(
         path,
         torch_dtype=torch.float16,
+        device_map="balanced_low_0",
         low_cpu_mem_usage=True
     )
 
-    model = model.to(device)
     model.eval()
+
+    print("Répartition du modèle sur les GPU :")
+    print(model.hf_device_map)
 
     return model
 
@@ -101,18 +103,28 @@ def translate_dataset(model, test_sentences, refs):
     references = []
     sources = []
 
+    # GPU sur lequel se trouve la couche d'entrée du modèle
+    input_device = model.get_input_embeddings().weight.device
+
+    print("GPU utilisé pour les entrées :", input_device)
+
     for example, ref in zip(test_sentences, refs):
         src = example
-        ref = ref
-
+        
         inputs = tokenizer(
             src,
             return_tensors="pt",
             max_length=128,
             truncation=True
-        ).to(device)
+        )
 
-        with torch.no_grad():
+        # Envoyer les entrées sur le GPU de la couche d'entrée
+        inputs = {
+            key: value.to(input_device)
+            for key, value in inputs.items()
+        }
+
+        with torch.inference_mode():
             outputs = model.generate(
                 **inputs,
                 forced_bos_token_id=forced_bos_token_id,
@@ -120,14 +132,17 @@ def translate_dataset(model, test_sentences, refs):
                 num_beams=4
             )
 
-
-        pred = tokenizer.batch_decode(outputs, skip_special_tokens=True)[0]
+        pred = tokenizer.batch_decode(
+            outputs.cpu(),
+            skip_special_tokens=True
+        )[0]
 
         sources.append(src)
         predictions.append(pred)
         references.append(ref)
 
-
+        del inputs
+        del outputs
 
     return sources, predictions, references
 
