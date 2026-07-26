@@ -1,2 +1,3 @@
 ﻿ID,src,reference_en,Model,BLEU,chrF,TER,BLEURT,SUBMITFILE
-BASELINE01,hat-eng,google translate,NLLB,54.022502976511475,73.09568487272746,34.872430900070874,0.5735026001930237,Shared_task2026/soumission/EN/uqam.1a.contrastive2.hat-eng.txt
+BASELINE01,hat-eng,google translate,NLLB,54.02250297651148,73.09568487272746,34.872430900070874,0.5735026001930237,Shared_task2026/soumission/EN/uqam.1a.contrastive2.hat-eng.txt
+MODCS01,hat-eng,google translate,NLLB,51.52109857208033,71.41419962749153,37.827781715095675,0.5260848999023438,Shared_task2026/soumission/EN/uqam.1a.contrastive1.hat-eng.txt
