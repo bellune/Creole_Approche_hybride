@@ -1,2 +1,2 @@
-﻿cr,reference_en,Model,BLEU,chrF,TER,BLEURT
-hat-eng,google translate,NLLB Baseline,54.0342753976664,73.09811036822815,34.88660524450744,0.5735026001930237
+﻿ID,src,reference_en,Model,BLEU,chrF,TER,BLEURT,SUBMITFILE
+BASELINE01,hat-eng,google translate,NLLB,54.022502976511475,73.09568487272746,34.872430900070874,0.5735026001930237,Shared_task2026/soumission/EN/uqam.1a.contrastive2.hat-eng.txt
