@@ -15,7 +15,7 @@ from tqdm.auto import tqdm
 
 BASE_MODEL = "facebook/nllb-200-distilled-600M"
 
-BASELINE_MODEL = "nllb200_baseline4/checkpoint-166260"
+BASELINE_MODEL = "nllb200_baseline4"
 MODEL_CS = "model/nllb_CSSHT"
 MODELCSCULT= "model/nllb_CSCULT"
 BASELINE_MODEL_FR = "model/nllb200-baseline-fra"
