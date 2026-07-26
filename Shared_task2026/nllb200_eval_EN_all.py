@@ -77,14 +77,6 @@ Models = [
 ]
 
 
-# -------------------------------
-# Métriques
-# -------------------------------
-bleu = evaluate.load("sacrebleu")
-chrf = evaluate.load("chrf")
-ter = evaluate.load("ter")
-bleurt = evaluate.load("bleurt", config_name="bleurt-base-128")
-
 
 def load_model(path):
     model = AutoModelForSeq2SeqLM.from_pretrained(
@@ -263,6 +255,16 @@ for model_info in Models:
 # -------------------------------
 # Calcul des métriques
 # -------------------------------   
+
+
+    # -------------------------------
+    # Métriques
+    # -------------------------------
+    bleu = evaluate.load("sacrebleu")
+    chrf = evaluate.load("chrf")
+    ter = evaluate.load("ter")
+    bleurt = evaluate.load("bleurt", config_name="bleurt-base-128")
+
 
     bleu = bleu.compute(
         predictions=preds,
