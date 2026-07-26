@@ -69,11 +69,11 @@ scores_file.parent.mkdir(parents=True, exist_ok=True)
 # Construisons les propriete asscie au model
 
 Models = [
-    {"id":"BASELINE01", "model": BASELINE_MODEL, "test":TESTSRC, "testref":TESTREF, "scr":SRC_LANG, "tgt":TGT_LANG, "submitfile":FILE_BS, "is_val":False},
-    {"id":"MODCS01", "model": MODEL_CS, "test":TESTSRC, "testref":TESTREF, "scr":SRC_LANG, "tgt":TGT_LANG, "submitfile":FILE_CS, "is_val":False},
-    {"id":"MODELCSCULT01", "model": MODELCSCULT, "test":TESTSRC, "testref":TESTREF, "scr":SRC_LANG, "tgt":TGT_LANG, "submitfile":FILE_CS_CULT, "is_val":True},
-    {"id":"BASELINEFR02", "model": BASELINE_MODEL_FR, "test":TESTSRCFR, "testref":TESTREFFR, "scr":SRC_LANG_FR, "tgt":TGT_LANG_FR, "submitfile":FILE_BS_FR, "is_val":True},
-    {"id":"MODCSFR02", "model": MODEL_CS_FR, "test":TESTSRCFR, "testref":TESTREFFR, "scr":SRC_LANG_FR, "tgt":TGT_LANG_FR, "submitfile":FILE_CS_FR, "is_val":True},
+    {"id":"BASELINE01", "model": BASELINE_MODEL, "test":TESTSRC, "testref":TESTREF, "scr":SRC_LANG, "tgt":TGT_LANG, "submitfile":FILE_BS, "is_val":True},
+    {"id":"MODCS01", "model": MODEL_CS, "test":TESTSRC, "testref":TESTREF, "scr":SRC_LANG, "tgt":TGT_LANG, "submitfile":FILE_CS, "is_val":True},
+    {"id":"MODELCSCULT01", "model": MODELCSCULT, "test":TESTSRC, "testref":TESTREF, "scr":SRC_LANG, "tgt":TGT_LANG, "submitfile":FILE_CS_CULT, "is_val":False},
+    {"id":"BASELINEFR02", "model": BASELINE_MODEL_FR, "test":TESTSRCFR, "testref":TESTREFFR, "scr":SRC_LANG_FR, "tgt":TGT_LANG_FR, "submitfile":FILE_BS_FR, "is_val":False},
+    {"id":"MODCSFR02", "model": MODEL_CS_FR, "test":TESTSRCFR, "testref":TESTREFFR, "scr":SRC_LANG_FR, "tgt":TGT_LANG_FR, "submitfile":FILE_CS_FR, "is_val":False},
 ]
 
 
@@ -208,7 +208,7 @@ def resolve_model_path(path):
 
 for model_info in Models:
 
-    if model_info.get("is_val"):
+    if not model_info.get("is_val"):
         print(f"\n===== Évaluation sur l'ensemble de validation pour {model_info['id']} =====")
         id = model_info["id"]
         best_model = model_info["model"]
@@ -415,5 +415,6 @@ for model_info in Models:
         )
 
         print(f"\nComparaison sauvegardée : Shared_task2026/result/task2026_preds_{id}.csv")
-
-
+    else:
+        print(f"Ce modèle a déjà été évalué. Vérifiez que `is_val` pour {model_info['id']} est False. Aucun traitement effectué.")
+     
