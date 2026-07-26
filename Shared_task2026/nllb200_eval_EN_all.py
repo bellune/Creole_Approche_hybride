@@ -9,6 +9,10 @@ import evaluate
 import pandas as pd
 import numpy as np
 
+from tqdm.auto import tqdm
+
+
+
 BASE_MODEL = "facebook/nllb-200-distilled-600M"
 
 BASELINE_MODEL = "nllb200_baseline4/checkpoint-166260"
@@ -112,12 +116,16 @@ def translate_dataset(model, test_sentences, refs):
     references = []
     sources = []
 
-    # GPU sur lequel se trouve la couche d'entrée du modèle
     input_device = model.get_input_embeddings().weight.device
-
     print("GPU utilisé pour les entrées :", input_device)
 
-    for example, ref in zip(test_sentences, refs):
+    total = min(len(test_sentences), len(refs))
+
+    for example, ref in tqdm(
+        zip(test_sentences, refs),
+        total=total,
+        desc="Traduction"
+    ):
         src = example
 
         inputs = tokenizer(
@@ -127,7 +135,6 @@ def translate_dataset(model, test_sentences, refs):
             truncation=True
         )
 
-        # Envoyer les entrées sur le GPU de la couche d'entrée
         inputs = {
             key: value.to(input_device)
             for key, value in inputs.items()
@@ -154,6 +161,7 @@ def translate_dataset(model, test_sentences, refs):
         del outputs
 
     return sources, predictions, references
+
 
 
 for model_info in Models:
@@ -254,29 +262,67 @@ for model_info in Models:
         "SUBMITFILE" : [submit_file]
     })
 
-    
-    if scores_file.exists():
-        df_scores = pd.read_csv(scores_file)
 
-        # Comparaison uniforme des identifiants
-        df_scores["ID"] = df_scores["ID"].astype(str)
-        mask = df_scores["ID"] == id
+    if scores_file.exists() and scores_file.stat().st_size > 0:
 
-        if mask.any():
-            # Modifier toutes les colonnes de la ligne existante
-            for column, value in df_scor.items():
-                df_scores.loc[mask, column] = value
+        df_scores = pd.read_csv(
+            scores_file,
+            encoding="utf-8-sig",
+            sep=None,
+            engine="python"
+        )
 
-            print(f"Ligne mise à jour : ID={id}")
+        # Nettoyer les noms des colonnes
+        df_scores.columns = (
+            df_scores.columns
+            .astype(str)
+            .str.replace("\ufeff", "", regex=False)
+            .str.strip()
+        )
+
+        # Accepter aussi id, Id, iD, etc.
+        id_column = next(
+            (
+                column
+                for column in df_scores.columns
+                if column.lower() == "id"
+            ),
+            None
+        )
+
+        if id_column is None:
+            # Pas de colonne ID : écraser complètement l'ancien fichier
+            print("Aucune colonne ID trouvée : remplacement du fichier.")
+            df_scores = pd.DataFrame([df_scor])
 
         else:
-            # Ajouter une nouvelle ligne
-            df_scores = pd.concat(
-                [df_scores, pd.DataFrame([df_scor])],
-                ignore_index=True
-            )
+            # Renommer la colonne en ID si nécessaire
+            if id_column != "ID":
+                df_scores.rename(
+                    columns={id_column: "ID"},
+                    inplace=True
+                )
 
-            print(f"Nouvelle ligne ajoutée : ID={id}")
+    
+            # Comparaison uniforme des identifiants
+            df_scores["ID"] = df_scores["ID"].astype(str)
+            mask = df_scores["ID"] == id
+
+            if mask.any():
+                # Modifier toutes les colonnes de la ligne existante
+                for column, value in df_scor.items():
+                    df_scores.loc[mask, column] = value
+
+                print(f"Ligne mise à jour : ID={id}")
+
+            else:
+                # Ajouter une nouvelle ligne
+                df_scores = pd.concat(
+                    [df_scores, pd.DataFrame([df_scor])],
+                    ignore_index=True
+                )
+
+                print(f"Nouvelle ligne ajoutée : ID={id}")
 
     else:
         # Créer le fichier avec la première ligne
