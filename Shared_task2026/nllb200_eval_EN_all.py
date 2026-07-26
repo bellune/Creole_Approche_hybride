@@ -69,11 +69,11 @@ scores_file.parent.mkdir(parents=True, exist_ok=True)
 # Construisons les propriete asscie au model
 
 Models = [
-    {"id":"BASELINE01", "model": BASELINE_MODEL, "test":TESTSRC, "testref":TESTREF, "scr":SRC_LANG, "tgt":TGT_LANG, "submitfile":FILE_BS},
-    {"id":"MODCS01", "model": MODEL_CS, "test":TESTSRC, "testref":TESTREF, "scr":SRC_LANG, "tgt":TGT_LANG, "submitfile":FILE_CS},
-    {"id":"MODELCSCULT01", "model": MODELCSCULT, "test":TESTSRC, "testref":TESTREF, "scr":SRC_LANG, "tgt":TGT_LANG, "submitfile":FILE_CS_CULT},
-    {"id":"BASELINEFR02", "model": BASELINE_MODEL_FR, "test":TESTSRCFR, "testref":TESTREFFR, "scr":SRC_LANG_FR, "tgt":TGT_LANG_FR, "submitfile":FILE_BS_FR},
-    {"id":"MODCSFR02", "model": MODEL_CS_FR, "test":TESTSRCFR, "testref":TESTREFFR, "scr":SRC_LANG_FR, "tgt":TGT_LANG_FR, "submitfile":FILE_CS_FR}
+    {"id":"BASELINE01", "model": BASELINE_MODEL, "test":TESTSRC, "testref":TESTREF, "scr":SRC_LANG, "tgt":TGT_LANG, "submitfile":FILE_BS, "is_val":False},
+    {"id":"MODCS01", "model": MODEL_CS, "test":TESTSRC, "testref":TESTREF, "scr":SRC_LANG, "tgt":TGT_LANG, "submitfile":FILE_CS, "is_val":False},
+    {"id":"MODELCSCULT01", "model": MODELCSCULT, "test":TESTSRC, "testref":TESTREF, "scr":SRC_LANG, "tgt":TGT_LANG, "submitfile":FILE_CS_CULT, "is_val":True},
+    {"id":"BASELINEFR02", "model": BASELINE_MODEL_FR, "test":TESTSRCFR, "testref":TESTREFFR, "scr":SRC_LANG_FR, "tgt":TGT_LANG_FR, "submitfile":FILE_BS_FR, "is_val":True},
+    {"id":"MODCSFR02", "model": MODEL_CS_FR, "test":TESTSRCFR, "testref":TESTREFFR, "scr":SRC_LANG_FR, "tgt":TGT_LANG_FR, "submitfile":FILE_CS_FR, "is_val":True},
 ]
 
 
@@ -207,210 +207,213 @@ def resolve_model_path(path):
 
 
 for model_info in Models:
-    id = model_info["id"]
-    best_model = model_info["model"]
-    test_file = model_info["test"]
-    test_ref_file = model_info["testref"]
-    src_lang = model_info["scr"]
-    tgt_lang = model_info["tgt"]
-    submit_file = model_info["submitfile"]
 
-    best_model = resolve_model_path(best_model)
+    if model_info.get("is_val"):
+        print(f"\n===== Évaluation sur l'ensemble de validation pour {model_info['id']} =====")
+        id = model_info["id"]
+        best_model = model_info["model"]
+        test_file = model_info["test"]
+        test_ref_file = model_info["testref"]
+        src_lang = model_info["scr"]
+        tgt_lang = model_info["tgt"]
+        submit_file = model_info["submitfile"]
 
-    if not best_model:
-        print(
-            f"Modèle introuvable : "
-            f"{best_model or ' ce modele se trouve pas dans ce environement'}"
-        )
-        continue
+        best_model = resolve_model_path(best_model)
 
-        # Suite du traitement
-    print("Modèle trouvé :", best_model)
+        if not best_model:
+            print(
+                f"Modèle introuvable : "
+                f"{best_model or ' ce modele se trouve pas dans ce environement'}"
+            )
+            continue
 
-
-# -------------------------------
-# Chargement du modèle et tokenizer
-# -------------------------------
-    with open(test_file, encoding="utf-8") as f:
-        test_sentences = [x.strip() for x in f]
-
-    with open(test_ref_file, encoding="utf-8") as f:
-        refs = [x.strip() for x in f]
-
-    SRC_LANG = src_lang
-    TGT_LANG = tgt_lang
-
-
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-
-    tokenizer = AutoTokenizer.from_pretrained(BASE_MODEL)
-    tokenizer.src_lang = SRC_LANG
-    forced_bos_token_id = tokenizer.convert_tokens_to_ids(TGT_LANG)
-
-
-    print(f"Testing {id}...")
-    mymodel = load_model(best_model)
-    sources, preds, refs = translate_dataset(mymodel, test_sentences, refs)
-
-# -------------------------------
-# Calcul des métriques
-# -------------------------------   
+            # Suite du traitement
+        print("Modèle trouvé :", best_model)
 
 
     # -------------------------------
-    # Métriques
+    # Chargement du modèle et tokenizer
     # -------------------------------
-    bleu = evaluate.load("sacrebleu")
-    chrf = evaluate.load("chrf")
-    ter = evaluate.load("ter")
-    bleurt = evaluate.load("bleurt", config_name="bleurt-base-128")
+        with open(test_file, encoding="utf-8") as f:
+            test_sentences = [x.strip() for x in f]
+
+        with open(test_ref_file, encoding="utf-8") as f:
+            refs = [x.strip() for x in f]
+
+        SRC_LANG = src_lang
+        TGT_LANG = tgt_lang
 
 
-    bleu = bleu.compute(
-        predictions=preds,
-        references=[[r] for r in refs]
-    )
+        device = "cuda" if torch.cuda.is_available() else "cpu"
+
+        tokenizer = AutoTokenizer.from_pretrained(BASE_MODEL)
+        tokenizer.src_lang = SRC_LANG
+        forced_bos_token_id = tokenizer.convert_tokens_to_ids(TGT_LANG)
 
 
-    chrf = chrf.compute(
-        predictions=preds,
-        references=refs
-    )
+        print(f"Testing {id}...")
+        mymodel = load_model(best_model)
+        sources, preds, refs = translate_dataset(mymodel, test_sentences, refs)
 
-    ter = ter.compute(
-        predictions=preds,
-        references=refs
-    )
-
-    bleurt = bleurt.compute(
-        predictions=preds,
-        references=refs
-    )
-
-    # Moyenne BLEURT sur toutes les phrases
-    bleurt_scores = bleurt.get("scores", [])
-    bleurt_mean = (
-    float(np.mean(bleurt_scores))
-    if len(bleurt_scores) > 0
-    else None
-)
-
-    print(f"\n===== RESULTS ON {id} TEST SET =====")
-    print(f"{id} BLEU :", bleu["score"])
-    print(f"{id} chrF :", chrf["score"])
-    print(f"{id} TER :", ter["score"])
-    print(f"{id} BLEURT :", bleurt["scores"][0])
-    
+    # -------------------------------
+    # Calcul des métriques
+    # -------------------------------   
 
 
-    df_scor = pd.DataFrame({
-    "ID": [id],
-    "src": [DIRECTION],
-    "reference_en": ["google translate"],
-    "Model": ["NLLB"],
-    "BLEU": [bleu["score"]],
-    "chrF": [chrf["score"]],
-    "TER": [ter["score"]],
-    "BLEURT": [bleurt["scores"][0]],
-    "SUBMITFILE": [str(submit_file)]
-    })
+        # -------------------------------
+        # Métriques
+        # -------------------------------
+        bleu = evaluate.load("sacrebleu")
+        chrf = evaluate.load("chrf")
+        ter = evaluate.load("ter")
+        bleurt = evaluate.load("bleurt", config_name="bleurt-base-128")
 
-    if scores_file.exists() and scores_file.stat().st_size > 0:
 
-        df_scores = pd.read_csv(
-            scores_file,
-            encoding="utf-8-sig",
-            sep=None,
-            engine="python"
+        bleu = bleu.compute(
+            predictions=preds,
+            references=[[r] for r in refs]
         )
 
-        # Nettoyer les noms de colonnes
-        df_scores.columns = (
-            df_scores.columns
-            .astype(str)
-            .str.replace("\ufeff", "", regex=False)
-            .str.strip()
+
+        chrf = chrf.compute(
+            predictions=preds,
+            references=refs
         )
 
-        # Trouver une éventuelle colonne id, ID, Id, etc.
-        id_column = next(
-            (
-                column
-                for column in df_scores.columns
-                if column.lower() == "id"
-            ),
-            None
+        ter = ter.compute(
+            predictions=preds,
+            references=refs
         )
 
-        if id_column is None:
-            print("Aucune colonne ID trouvée : remplacement du fichier.")
+        bleurt = bleurt.compute(
+            predictions=preds,
+            references=refs
+        )
 
-            # df_scor est déjà un DataFrame
-            df_scores = df_scor.copy()
+        # Moyenne BLEURT sur toutes les phrases
+        bleurt_scores = bleurt.get("scores", [])
+        bleurt_mean = (
+        float(np.mean(bleurt_scores))
+        if len(bleurt_scores) > 0
+        else None
+    )
 
-        else:
-            if id_column != "ID":
-                df_scores.rename(
-                    columns={id_column: "ID"},
-                    inplace=True
-                )
+        print(f"\n===== RESULTS ON {id} TEST SET =====")
+        print(f"{id} BLEU :", bleu["score"])
+        print(f"{id} chrF :", chrf["score"])
+        print(f"{id} TER :", ter["score"])
+        print(f"{id} BLEURT :", bleurt["scores"][0])
+        
 
-            df_scores["ID"] = df_scores["ID"].astype(str)
 
-            # Supprimer l'ancienne ligne ayant le même ID
-            id_exists = (df_scores["ID"] == id).any()
+        df_scor = pd.DataFrame({
+        "ID": [id],
+        "src": [DIRECTION],
+        "reference_en": ["google translate"],
+        "Model": ["NLLB"],
+        "BLEU": [bleu["score"]],
+        "chrF": [chrf["score"]],
+        "TER": [ter["score"]],
+        "BLEURT": [bleurt["scores"][0]],
+        "SUBMITFILE": [str(submit_file)]
+        })
 
-            df_scores = df_scores[
-                df_scores["ID"] != id
-            ]
+        if scores_file.exists() and scores_file.stat().st_size > 0:
 
-            # Ajouter la nouvelle version de la ligne
-            df_scores = pd.concat(
-                [df_scores, df_scor],
-                ignore_index=True
+            df_scores = pd.read_csv(
+                scores_file,
+                encoding="utf-8-sig",
+                sep=None,
+                engine="python"
             )
 
-            if id_exists:
-                print(f"Ligne remplacée : ID={id}")
+            # Nettoyer les noms de colonnes
+            df_scores.columns = (
+                df_scores.columns
+                .astype(str)
+                .str.replace("\ufeff", "", regex=False)
+                .str.strip()
+            )
+
+            # Trouver une éventuelle colonne id, ID, Id, etc.
+            id_column = next(
+                (
+                    column
+                    for column in df_scores.columns
+                    if column.lower() == "id"
+                ),
+                None
+            )
+
+            if id_column is None:
+                print("Aucune colonne ID trouvée : remplacement du fichier.")
+
+                # df_scor est déjà un DataFrame
+                df_scores = df_scor.copy()
+
             else:
-                print(f"Nouvelle ligne ajoutée : ID={id}")
+                if id_column != "ID":
+                    df_scores.rename(
+                        columns={id_column: "ID"},
+                        inplace=True
+                    )
 
-    else:
-        df_scores = df_scor.copy()
-        print("Nouveau fichier créé.")
+                df_scores["ID"] = df_scores["ID"].astype(str)
 
-    df_scores.to_csv(
-        scores_file,
-        index=False,
-        encoding="utf-8-sig"
-    )
+                # Supprimer l'ancienne ligne ayant le même ID
+                id_exists = (df_scores["ID"] == id).any()
 
-    print(f"Résultats enregistrés dans : {scores_file}")
+                df_scores = df_scores[
+                    df_scores["ID"] != id
+                ]
+
+                # Ajouter la nouvelle version de la ligne
+                df_scores = pd.concat(
+                    [df_scores, df_scor],
+                    ignore_index=True
+                )
+
+                if id_exists:
+                    print(f"Ligne remplacée : ID={id}")
+                else:
+                    print(f"Nouvelle ligne ajoutée : ID={id}")
+
+        else:
+            df_scores = df_scor.copy()
+            print("Nouveau fichier créé.")
+
+        df_scores.to_csv(
+            scores_file,
+            index=False,
+            encoding="utf-8-sig"
+        )
+
+        print(f"Résultats enregistrés dans : {scores_file}")
 
 
-    
+        
 
-    # preds
+        # preds
 
-    df_results = pd.DataFrame({
-        "cr": sources,
-        "reference_en": refs,
-        "prediction": preds,
-    })
+        df_results = pd.DataFrame({
+            "cr": sources,
+            "reference_en": refs,
+            "prediction": preds,
+        })
 
-    for filename, translations in [ (submit_file, preds)]:
-        with open(filename,"w",encoding="utf-8") as f:
+        for filename, translations in [ (submit_file, preds)]:
+            with open(filename,"w",encoding="utf-8") as f:
 
-            for t in translations:
-                f.write(t+"\n")
+                for t in translations:
+                    f.write(t+"\n")
 
 
-    df_results.to_csv(
-        f"Shared_task2026/result/task2026_preds_{id}.csv",
-        index=False,
-        encoding="utf-8-sig"
-    )
+        df_results.to_csv(
+            f"Shared_task2026/result/task2026_preds_{id}.csv",
+            index=False,
+            encoding="utf-8-sig"
+        )
 
-    print(f"\nComparaison sauvegardée : Shared_task2026/result/task2026_preds_{id}.csv")
+        print(f"\nComparaison sauvegardée : Shared_task2026/result/task2026_preds_{id}.csv")
 
 
