@@ -39,7 +39,6 @@ train_ds = train_ds.shuffle(seed=42)
 print("Train:", len(train_ds))
 
 
-train_ds = ds["train"]
 val_ds   = ds["validation"]
 test_ds  = ds["test"]
 
@@ -68,7 +67,7 @@ model.generation_config.forced_bos_token_id = tokenizer.convert_tokens_to_ids("f
 
 def keep_hat_fra(example):
     t = example["translation"]
-    return (t["src_lang"] == "hat") and (t["tgt_lang"] == "fra")
+    return (t["src_lang"] == "hat") and (t["tgt_lang"] == "fra") or (t["src_lang"] == "hat_Latn") and (t["tgt_lang"] == "fra_Latn")
 
 train_f = train_ds.filter(keep_hat_fra)
 val_f   = val_ds.filter(keep_hat_fra)

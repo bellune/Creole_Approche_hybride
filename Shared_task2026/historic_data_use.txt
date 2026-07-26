@@ -15,4 +15,4 @@ Train: 746854 Val: 2561 Test: 1228
 Train: 342720 Val: 1007 Test: 966
 
 # NLLB + MT-Kreyòl +Code-switching
-Train:  Val:  Test: 
+Train: 387992  Val: 1007  Test: 966

@@ -84,9 +84,15 @@ bleurt = evaluate.load("bleurt", config_name="bleurt-base-128")
 
 
 def load_model(path):
-    model = AutoModelForSeq2SeqLM.from_pretrained(path)
-    model.to(device)
+    model = AutoModelForSeq2SeqLM.from_pretrained(
+        path,
+        torch_dtype=torch.float16,
+        low_cpu_mem_usage=True
+    )
+
+    model = model.to(device)
     model.eval()
+
     return model
 
 
