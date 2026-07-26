@@ -164,6 +164,56 @@ def translate_dataset(model, test_sentences, refs):
 
 
 
+
+
+from pathlib import Path
+import json
+
+
+def resolve_model_path(path):
+    path = Path(path)
+
+    if not path.exists():
+        print(f"Chemin inexistant : {path}")
+        return None
+
+    # Tester d'abord le chemin donné, puis les checkpoints du plus récent au plus ancien
+    checkpoints = sorted(
+        path.glob("checkpoint-*"),
+        key=lambda p: int(p.name.split("-")[-1])
+        if p.name.split("-")[-1].isdigit()
+        else -1,
+        reverse=True
+    )
+
+    candidates = [path] + checkpoints
+
+    for candidate in candidates:
+        config_file = candidate / "config.json"
+
+        has_weights = (
+            any(candidate.glob("model*.safetensors"))
+            or any(candidate.glob("pytorch_model*.bin"))
+        )
+
+        if not config_file.exists() or not has_weights:
+            continue
+
+        try:
+            with open(config_file, "r", encoding="utf-8") as file:
+                config = json.load(file)
+
+            if config.get("model_type"):
+                print(f"Modèle valide trouvé : {candidate}")
+                return str(candidate)
+
+        except (json.JSONDecodeError, OSError) as error:
+            print(f"Config invalide dans {candidate} : {error}")
+
+    print(f"Aucun checkpoint valide trouvé dans : {path}")
+    return None
+
+
 for model_info in Models:
     id = model_info["id"]
     best_model = model_info["model"]
@@ -173,12 +223,14 @@ for model_info in Models:
     tgt_lang = model_info["tgt"]
     submit_file = model_info["submitfile"]
 
-    if not best_model or not Path(best_model).exists():
-            print(
-                f"Modèle introuvable : "
-                f"{best_model or ' ce modele se trouve pas dans ce environement'}"
-            )
-            continue
+    best_model = resolve_model_path(best_model)
+
+    if not best_model:
+        print(
+            f"Modèle introuvable : "
+            f"{best_model or ' ce modele se trouve pas dans ce environement'}"
+        )
+        continue
 
         # Suite du traitement
     print("Modèle trouvé :", best_model)
@@ -352,11 +404,11 @@ for model_info in Models:
 
 
     df_results.to_csv(
-        "Shared_task2026/result/task2026_preds_{id}.csv",
+        f"Shared_task2026/result/task2026_preds_{id}.csv",
         index=False,
         encoding="utf-8-sig"
     )
 
-    print("\nComparaison sauvegardée : Shared_task2026/result/task2026_preds_{id}.csv")
+    print(f"\nComparaison sauvegardée : Shared_task2026/result/task2026_preds_{id}.csv")
 
 
