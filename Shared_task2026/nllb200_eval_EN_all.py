@@ -85,7 +85,7 @@ bleurt = evaluate.load("bleurt", config_name="bleurt-base-128")
 def load_model(path):
     model = AutoModelForSeq2SeqLM.from_pretrained(
         path,
-        torch_dtype=torch.float16,
+        dtype=torch.float16,
         device_map="balanced_low_0",
         low_cpu_mem_usage=True
     )
@@ -93,7 +93,16 @@ def load_model(path):
     model.eval()
 
     print("Répartition du modèle sur les GPU :")
-    print(model.hf_device_map)
+
+    device_map = getattr(model, "hf_device_map", None)
+
+    if device_map is not None:
+        print(device_map)
+    else:
+        print(
+            "hf_device_map non disponible. "
+            f"Premier paramètre placé sur : {next(model.parameters()).device}"
+        )
 
     return model
 
@@ -110,7 +119,7 @@ def translate_dataset(model, test_sentences, refs):
 
     for example, ref in zip(test_sentences, refs):
         src = example
-        
+
         inputs = tokenizer(
             src,
             return_tensors="pt",
