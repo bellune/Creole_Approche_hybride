@@ -249,19 +249,17 @@ for model_info in Models:
     
 
 
-
     df_scor = pd.DataFrame({
-        "ID": [id],
-        "src": [DIRECTION],
-        "reference_en": ["google translate"],
-        "Model": ["NLLB"],
-        "BLEU": [bleu["score"]],
-        "chrF": [chrf["score"]],
-        "TER": [ter["score"]],
-        "BLEURT": [bleurt["scores"][0]],
-        "SUBMITFILE" : [submit_file]
+    "ID": [id],
+    "src": [DIRECTION],
+    "reference_en": ["google translate"],
+    "Model": ["NLLB"],
+    "BLEU": [bleu["score"]],
+    "chrF": [chrf["score"]],
+    "TER": [ter["score"]],
+    "BLEURT": [bleurt["scores"][0]],
+    "SUBMITFILE": [str(submit_file)]
     })
-
 
     if scores_file.exists() and scores_file.stat().st_size > 0:
 
@@ -272,7 +270,7 @@ for model_info in Models:
             engine="python"
         )
 
-        # Nettoyer les noms des colonnes
+        # Nettoyer les noms de colonnes
         df_scores.columns = (
             df_scores.columns
             .astype(str)
@@ -280,7 +278,7 @@ for model_info in Models:
             .str.strip()
         )
 
-        # Accepter aussi id, Id, iD, etc.
+        # Trouver une éventuelle colonne id, ID, Id, etc.
         id_column = next(
             (
                 column
@@ -291,43 +289,41 @@ for model_info in Models:
         )
 
         if id_column is None:
-            # Pas de colonne ID : écraser complètement l'ancien fichier
             print("Aucune colonne ID trouvée : remplacement du fichier.")
-            df_scores = pd.DataFrame([df_scor])
+
+            # df_scor est déjà un DataFrame
+            df_scores = df_scor.copy()
 
         else:
-            # Renommer la colonne en ID si nécessaire
             if id_column != "ID":
                 df_scores.rename(
                     columns={id_column: "ID"},
                     inplace=True
                 )
 
-    
-            # Comparaison uniforme des identifiants
             df_scores["ID"] = df_scores["ID"].astype(str)
-            mask = df_scores["ID"] == id
 
-            if mask.any():
-                # Modifier toutes les colonnes de la ligne existante
-                for column, value in df_scor.items():
-                    df_scores.loc[mask, column] = value
+            # Supprimer l'ancienne ligne ayant le même ID
+            id_exists = (df_scores["ID"] == id).any()
 
-                print(f"Ligne mise à jour : ID={id}")
+            df_scores = df_scores[
+                df_scores["ID"] != id
+            ]
 
+            # Ajouter la nouvelle version de la ligne
+            df_scores = pd.concat(
+                [df_scores, df_scor],
+                ignore_index=True
+            )
+
+            if id_exists:
+                print(f"Ligne remplacée : ID={id}")
             else:
-                # Ajouter une nouvelle ligne
-                df_scores = pd.concat(
-                    [df_scores, pd.DataFrame([df_scor])],
-                    ignore_index=True
-                )
-
                 print(f"Nouvelle ligne ajoutée : ID={id}")
 
     else:
-        # Créer le fichier avec la première ligne
-        df_scores = pd.DataFrame([df_scor])
-        print(f"Fichier créé : ID={id}")
+        df_scores = df_scor.copy()
+        print("Nouveau fichier créé.")
 
     df_scores.to_csv(
         scores_file,
@@ -335,12 +331,10 @@ for model_info in Models:
         encoding="utf-8-sig"
     )
 
+    print(f"Résultats enregistrés dans : {scores_file}")
 
-    df_scores.to_csv(
-        "Shared_task2026/result/code-switching_test_scores_all.csv",
-        index=False,
-        encoding="utf-8-sig"
-    )
+
+    
 
     # preds
 
