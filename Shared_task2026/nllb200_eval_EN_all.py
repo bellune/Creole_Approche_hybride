@@ -303,8 +303,8 @@ for model_info in Models:
         print(f"{id} BLEU :", bleu["score"])
         print(f"{id} chrF :", chrf["score"])
         print(f"{id} TER :", ter["score"])
-        print(f"{id} BLEURT :", bleurt["scores"][0])
-        
+        print(f"{id} BLEURT :", bleurt_mean)
+
 
 
         df_scor = pd.DataFrame({
@@ -313,10 +313,10 @@ for model_info in Models:
         "reference_en": ["google translate"],
         "data": [model_info["data"]],
         "Model": ["NLLB"],
-        "BLEU": [bleu["score"]],
-        "chrF": [chrf["score"]],
-        "TER": [ter["score"]],
-        "BLEURT": [bleurt["scores"][0]],
+        "BLEU": [round(float(bleu["score"]), 2)],
+        "chrF": [round(float(chrf["score"]), 2)],
+        "TER": [round(float(ter["score"]), 2)],
+        "BLEURT": [round(float(bleurt_mean), 4)],
         "SUBMITFILE": [str(submit_file)]
         })
 
