@@ -221,7 +221,7 @@ trainer = Seq2SeqTrainer(
     compute_metrics=compute_metrics,
        callbacks=[
         EarlyStoppingCallback(
-            early_stopping_patience=3,
+            early_stopping_patience=5,
             early_stopping_threshold=0.05
         )
     ]
