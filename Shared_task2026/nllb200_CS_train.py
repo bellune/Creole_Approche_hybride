@@ -1,5 +1,3 @@
-from pathlib import Path
-
 from transformers import DataCollatorForSeq2Seq, Seq2SeqTrainingArguments, Seq2SeqTrainer
 import evaluate
 import numpy as np
@@ -214,32 +212,20 @@ trainer = Seq2SeqTrainer(
         ]
 )
 
+last_checkpoint = get_last_checkpoint(OUTPUT_DIR)
 
-checkpoints = sorted(
-    Path(OUTPUT_DIR).glob("checkpoint-*"),
-    key=lambda p: int(p.name.split("-")[-1]),
-    reverse=True
-)
+# CHECKPOINT_WEIGHTS = "model/nllb_CSSHT/checkpoint-50000"
 
-valid_checkpoint = next(
-    (
-        str(checkpoint)
-        for checkpoint in checkpoints
-        if (checkpoint / "trainer_state.json").exists()
-        and (checkpoint / "optimizer.pt").exists()
-        and (checkpoint / "scheduler.pt").exists()
-    ),
-    None
-)
+# tokenizer = AutoTokenizer.from_pretrained(
+#     CHECKPOINT_WEIGHTS
+# )
 
-if valid_checkpoint is None:
-    raise RuntimeError(
-        "Aucun checkpoint complet trouvé. "
-        "La reprise exacte est impossible."
-    )
-
-print("Reprise depuis :", valid_checkpoint)
+# model = AutoModelForSeq2SeqLM.from_pretrained(
+#     CHECKPOINT_WEIGHTS
+# )
 
 trainer.train(
-    resume_from_checkpoint=valid_checkpoint
+    resume_from_checkpoint=last_checkpoint
+    if last_checkpoint
+    else None
 )
