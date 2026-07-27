@@ -69,8 +69,8 @@ scores_file.parent.mkdir(parents=True, exist_ok=True)
 # Construisons les propriete asscie au model
 
 Models = [
-    {"id":"BASELINE01", "model": BASELINE_MODEL, "test":TESTSRC, "testref":TESTREF, "scr":SRC_LANG, "tgt":TGT_LANG, "submitfile":FILE_BS, "is_val":True, "direction":DIRECTION, "data":"Mt-Kreyol"},
-    {"id":"MODCS01", "model": MODEL_CS, "test":TESTSRC, "testref":TESTREF, "scr":SRC_LANG, "tgt":TGT_LANG, "submitfile":FILE_CS, "is_val":True, "direction":DIRECTION, "data":"Mt-Kreyol+Code-switching"},
+    {"id":"BASELINE01", "model": BASELINE_MODEL, "test":TESTSRC, "testref":TESTREF, "scr":SRC_LANG, "tgt":TGT_LANG, "submitfile":FILE_BS, "is_val":False, "direction":DIRECTION, "data":"Mt-Kreyol"},
+    {"id":"MODCS01", "model": MODEL_CS, "test":TESTSRC, "testref":TESTREF, "scr":SRC_LANG, "tgt":TGT_LANG, "submitfile":FILE_CS, "is_val":False, "direction":DIRECTION, "data":"Mt-Kreyol+Code-switching"},
     {"id":"MODELCSCULT01", "model": MODELCSCULT, "test":TESTSRC, "testref":TESTREF, "scr":SRC_LANG, "tgt":TGT_LANG, "submitfile":FILE_CS_CULT, "is_val":False, "direction":DIRECTION, "data":"Mt-Kreyol+Code-switching+Culture"},
     {"id":"BASELINEFR02", "model": BASELINE_MODEL_FR, "test":TESTSRCFR, "testref":TESTREFFR, "scr":SRC_LANG_FR, "tgt":TGT_LANG_FR, "submitfile":FILE_BS_FR, "is_val":False, "direction":DIRECTION_FR, "data":"Mt-Kreyol"},
     {"id":"MODCSFR02", "model": MODEL_CS_FR, "test":TESTSRCFR, "testref":TESTREFFR, "scr":SRC_LANG_FR, "tgt":TGT_LANG_FR, "submitfile":FILE_CS_FR, "is_val":False, "direction":DIRECTION_FR, "data":"Mt-Kreyol+Code-switching"},
