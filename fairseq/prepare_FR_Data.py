@@ -66,4 +66,4 @@ def save_translation_split_for_fairseq(dataset, output_name):
 
 save_translation_split_for_fairseq(train_ds, "train")
 save_translation_split_for_fairseq(val_ds, "valid")
-save_translation_split_for_fairseq(test_ds, "test")
+# save_translation_split_for_fairseq(test_ds, "test")
