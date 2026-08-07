@@ -199,16 +199,29 @@ def extract_predictions():
     run_cmd(cmd)
 
 
+# def evaluate():
+#     prediction_file = OUT_DIR / "pred_transformer_base.fr"
+#     reference_file = RAW_DIR / f"test.{TGT}"
+
+#     cmd = f"""
+#     sacrebleu {reference_file} \
+#       -i {prediction_file} \
+#       -m bleu chrf ter
+#       --chrf-word-order 2 \
+#     """
+
+#     run_cmd(cmd)
+
 def evaluate():
     prediction_file = OUT_DIR / "pred_transformer_base.fr"
     reference_file = RAW_DIR / f"test.{TGT}"
 
-    cmd = f"""
-    sacrebleu {reference_file} \
-      -i {prediction_file} \
-      -m bleu chrf ter
-      --chrf-word-order 2 \
-    """
+    cmd = (
+        f"sacrebleu {reference_file} "
+        f"-i {prediction_file} "
+        f"-m bleu chrf ter "
+        f"--chrf-word-order 2"
+    )
 
     run_cmd(cmd)
 
