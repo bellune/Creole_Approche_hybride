@@ -19,7 +19,6 @@ nllb200_baseline/
 nllb200_*/
 model_*/
 runs/
-outputs/
 model*/
 # datasets
 data/
