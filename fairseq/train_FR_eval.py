@@ -206,8 +206,7 @@ def evaluate():
     cmd = f"""
     sacrebleu {reference_file} \
       -i {prediction_file} \
-      -m bleu chrF ter
-      -m chrF \
+      -m bleu chrf ter
       --chrf-word-order 2 \
     """
 
