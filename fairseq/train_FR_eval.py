@@ -234,34 +234,34 @@ def generate_attentions():
 if __name__ == "__main__":
     check_files()
 
-    if not (SPM_DIR / "ht_fr_spm.model").exists():
-        train_sentencepiece()
-    else:
-        print("SentencePiece model already exists. Skipping training.")
+    # if not (SPM_DIR / "ht_fr_spm.model").exists():
+    #     train_sentencepiece()
+    # else:
+    #     print("SentencePiece model already exists. Skipping training.")
 
-    if not (RAW_DIR / f"train.spm.{SRC}").exists():
-        apply_sentencepiece()
-    else:
-        print("SentencePiece files already exist. Skipping encoding.")
+    # if not (RAW_DIR / f"train.spm.{SRC}").exists():
+    #     apply_sentencepiece()
+    # else:
+    #     print("SentencePiece files already exist. Skipping encoding.")
 
-    if not (BIN_DIR / f"dict.{SRC}.txt").exists():
-        fairseq_preprocess()
-    else:
-        print("Fairseq binary data already exists. Skipping preprocess.")
+    # if not (BIN_DIR / f"dict.{SRC}.txt").exists():
+    #     fairseq_preprocess()
+    # else:
+    #     print("Fairseq binary data already exists. Skipping preprocess.")
     
-    if not (CKPT_DIR / "checkpoint_best.pt").exists():
-        train_transformer()
-    else:      
-        print("Checkpoint already exists. Skipping training.")
+    # if not (CKPT_DIR / "checkpoint_best.pt").exists():
+    #     train_transformer()
+    # else:      
+    #     print("Checkpoint already exists. Skipping training.")
 
-    if not (OUT_DIR / "outputs_transformer_base.txt").exists():
-      generate_translations()
-    else:       
-        print("Translations already generated. Skipping generation.")
+    # if not (OUT_DIR / "outputs_transformer_base.txt").exists():
+    #   generate_translations()
+    # else:       
+    #     print("Translations already generated. Skipping generation.")
 
-    if not (OUT_DIR / "pred_transformer_base.fr").exists():
-        extract_predictions()
-    else:       
-        print("Predictions already extracted. Skipping extraction.")
+    # if not (OUT_DIR / "pred_transformer_base.fr").exists():
+    #     extract_predictions()
+    # else:       
+    #     print("Predictions already extracted. Skipping extraction.")
 
     evaluate()
