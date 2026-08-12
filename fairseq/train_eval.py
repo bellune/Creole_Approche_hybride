@@ -8,7 +8,7 @@ data_fairseq = "datasets/kreyol-mt-hat-eng/mt-fairseq"
 base_dir = "model/fairseq"
 results_dir = "results/fairseq"
 base_dir_checkpoints = "/root/model/fairseq"
-last_checkpoint = "/root/model/fairseq/transformer_base_ht_en/checkpoint_best.pt"
+# last_checkpoint = "/root/model/fairseq/transformer_base_ht_en/checkpoint_best.pt"
 
 
 
@@ -166,9 +166,7 @@ def train_transformer():
 --keep-best-checkpoints 1 \
 --best-checkpoint-metric loss \
 --distributed-world-size 1
---reset-optimizer \
---reset-lr-scheduler \
---reset-meters
+
     """
 
     run_cmd(cmd)
