@@ -197,10 +197,11 @@ trainer = Seq2SeqTrainer(
         ]
 )
 
-last_checkpoint = get_last_checkpoint(OUTPUT_DIR)
+trainer.train()
+# last_checkpoint = get_last_checkpoint(OUTPUT_DIR)
 
-trainer.train(
-    resume_from_checkpoint=last_checkpoint
-    if last_checkpoint
-    else None
-)
+# trainer.train(
+#     resume_from_checkpoint=last_checkpoint
+#     if last_checkpoint
+#     else None
+# )
