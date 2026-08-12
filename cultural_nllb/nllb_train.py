@@ -16,12 +16,14 @@ import numpy as np
 
 BASE_MODEL = "facebook/nllb-200-distilled-600M"
 
-CHECKPOINT_PATH = "/root/model/nllb200Baseline/checkpoint-45000"  # à modifier
+CHECKPOINT_PATH = "backup_model/nllb_cultural_cr_en/checkpoint-7980"  # à modifier
 
 TRAIN_FILE = "datasets/mix_corpus/json/train_mix.jsonl"
 DEV_FILE = "datasets/mix_corpus/json/valid_mix.jsonl"
 
 OUTPUT_DIR = "/root/model/nllb_cultural_cr_en"
+
+# /root/model/nllb200Baseline
 
 
 # ============================
@@ -131,7 +133,7 @@ training_args = Seq2SeqTrainingArguments(
      gradient_accumulation_steps=1,
      weight_decay=0.01,
  
-     num_train_epochs=5,
+     num_train_epochs=20,
  
      predict_with_generate=True,
      generation_max_length=128,
