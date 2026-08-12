@@ -5,9 +5,9 @@ from transformers import (
     DataCollatorForSeq2Seq,
     Seq2SeqTrainingArguments,
     Seq2SeqTrainer,
-    EarlyStoppingCallback,
-    evaluate
+    EarlyStoppingCallback
 )
+import evaluate
 
 # ============================
 # 1. Chemins
