@@ -1,0 +1,43 @@
+NLLB-200
+------------------------
+E1:Train: 665033 Val: 646 Test: 1228
+
+E2: Train: 680351 Val: 2561 Test: 1228
+
+
+Fairseq
+----------------
+
+E1:Train: 665033 Val: 646 Test: 1228
+
+E2: Train: 680351 Val: 2561 Test: 1228
+
+
+
+Resultats
+-----------------------
+NLLB-200
+------------------------
+
+Baseline :
+
+
+Culturel:
+
+
+Code-switching :
+ 
+
+
+-----------------
+Fairseq
+----------------
+
+Baseline :
+
+
+Cultuurel:
+
+
+Code-switching :
+ 
