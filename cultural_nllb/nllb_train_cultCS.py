@@ -13,7 +13,7 @@ path_data = "datasets"
 save_path = path_data + "/kreyol-mt-hat-eng"
 
 TRAIN_FILE_CULT = "datasets/corpus_culturel/train/cr_en.jsonl"
-TRAIN_FILE_CULT_CS = "datasets/corpus_culturel/train/cr_CSS_en.jsonl"
+TRAIN_FILE_CULT_CS = "datasets/corpus_culturel/code-switching/train/cr_CSS_en.jsonl"
 TRAIN_FILE_CS = "datasets/corpus_culturel/code-switching/train/cr_codeS_en.jsonl"
 
 
