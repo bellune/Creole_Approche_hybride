@@ -155,17 +155,22 @@ training_args = Seq2SeqTrainingArguments(
     logging_steps=200,
 
     learning_rate=4e-5,
-    per_device_train_batch_size=4,
-    per_device_eval_batch_size=4,
+   # A100 80 GB : exploiter davantage le GPU
+    per_device_train_batch_size=16,
+    per_device_eval_batch_size=32,
+    gradient_accumulation_steps=1,
     weight_decay=0.01,
 
-    num_train_epochs=4,
+    num_train_epochs=10,
 
     predict_with_generate=True,
     generation_max_length=128,
     generation_num_beams=4,
 
-    fp16=True,
+    # accélération A100
+    bf16=True,
+    fp16=False,
+    tf32=True,
     save_total_limit=2,
 
     load_best_model_at_end=True,
