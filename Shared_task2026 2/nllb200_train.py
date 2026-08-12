@@ -2,7 +2,6 @@ from transformers import DataCollatorForSeq2Seq, Seq2SeqTrainingArguments, Seq2S
 import evaluate
 import numpy as np
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, NllbTokenizer, EarlyStoppingCallback
-from transformers.trainer_utils import get_last_checkpoint
 
 
 from datasets import load_from_disk
@@ -10,7 +9,6 @@ from datasets import load_from_disk
 
 path_data = "datasets"
 save_path = path_data + "/kreyol-mt-hat-eng"
-OUTPUT_DIR = "model/nllb200Baseline"
 
 # -------------------------------
 # Chargement des données
@@ -146,7 +144,7 @@ def compute_metrics(eval_preds):
 
 
 training_args = Seq2SeqTrainingArguments(
-    output_dir=OUTPUT_DIR,
+    output_dir="nllb200_baseline4",
 
     eval_strategy="steps",
     eval_steps=1000,
@@ -183,19 +181,7 @@ trainer = Seq2SeqTrainer(
     eval_dataset=tok_val,
     processing_class=tokenizer,
     data_collator=data_collator,
-    compute_metrics=compute_metrics,
-      callbacks=[
-            EarlyStoppingCallback(
-                early_stopping_patience=5,
-                early_stopping_threshold=0.05
-            )
-        ]
+    compute_metrics=compute_metrics
 )
 
-last_checkpoint = get_last_checkpoint(OUTPUT_DIR)
-
-trainer.train(
-    resume_from_checkpoint=last_checkpoint
-    if last_checkpoint
-    else None
-)
+trainer.train()

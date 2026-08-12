@@ -3,14 +3,17 @@ import evaluate
 import numpy as np
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, NllbTokenizer, EarlyStoppingCallback
 from transformers.trainer_utils import get_last_checkpoint
+from datasets import concatenate_datasets, load_dataset
 
 
 from datasets import load_from_disk
 
-
+OUTPUT_DIR = "model/nllb200-CS-fra"
 path_data = "datasets"
-save_path = path_data + "/kreyol-mt-hat-eng"
-OUTPUT_DIR = "model/nllb200Baseline"
+save_path = path_data + "/kreyol-mt-hat-fra"
+
+TRAIN_FILE = "datasets/code-switching/FR_MT_CS/train/cr_codeS_fra.jsonl"
+
 
 # -------------------------------
 # Chargement des données
@@ -20,7 +23,22 @@ OUTPUT_DIR = "model/nllb200Baseline"
 ds = load_from_disk(save_path)
 print(ds)
 
-train_ds = ds["train"]
+dataset_CS = load_dataset(
+    "json",
+    data_files={
+        "train": TRAIN_FILE
+    }
+)
+
+train_ds = concatenate_datasets([
+    ds["train"],
+    dataset_CS["train"]
+])
+    
+train_ds = train_ds.shuffle(seed=42)
+print("Train:", len(train_ds))
+
+
 val_ds   = ds["validation"]
 test_ds  = ds["test"]
 
@@ -36,24 +54,24 @@ model_name = "facebook/nllb-200-distilled-600M"
 tokenizer = NllbTokenizer.from_pretrained(
     model_name,
     src_lang="hat_Latn",
-    tgt_lang="eng_Latn",
+    tgt_lang="fra_Latn",
 )
 
 model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
-model.generation_config.forced_bos_token_id = tokenizer.convert_tokens_to_ids("eng_Latn")
+model.generation_config.forced_bos_token_id = tokenizer.convert_tokens_to_ids("fra_Latn")
 
 
 # --------------------------------
 # Traitement des données
 # --------------------------------
 
-def keep_hat_en(example):
+def keep_hat_fra(example):
     t = example["translation"]
-    return (t["src_lang"] == "hat") and (t["tgt_lang"] == "eng")
+    return (t["src_lang"] == "hat") and (t["tgt_lang"] == "fra") or (t["src_lang"] == "hat_Latn") and (t["tgt_lang"] == "fra_Latn")
 
-train_f = train_ds.filter(keep_hat_en)
-val_f   = val_ds.filter(keep_hat_en)
-test_f  = test_ds.filter(keep_hat_en)
+train_f = train_ds.filter(keep_hat_fra)
+val_f   = val_ds.filter(keep_hat_fra)
+test_f  = test_ds.filter(keep_hat_fra)
 
 print("Train:", len(train_f), "Val:", len(val_f), "Test:", len(test_f))
 print(train_f)
@@ -93,7 +111,7 @@ tok_test  = test_f.map(preprocess, batched=True, remove_columns=["translation"])
 print("src_lang:", tokenizer.src_lang)
 print("tgt_lang:", tokenizer.tgt_lang)
 print("hat_Latn:", tokenizer.convert_tokens_to_ids("hat_Latn"))
-print("eng_Latn:", tokenizer.convert_tokens_to_ids("eng_Latn"))
+print("fra_Latn:", tokenizer.convert_tokens_to_ids("fra_Latn"))
 
 
 # -------------------------------
@@ -146,12 +164,12 @@ def compute_metrics(eval_preds):
 
 
 training_args = Seq2SeqTrainingArguments(
-    output_dir=OUTPUT_DIR,
+      output_dir=OUTPUT_DIR,
 
     eval_strategy="steps",
-    eval_steps=1000,
+    eval_steps=5000,
     save_strategy="steps",
-    save_steps=1000,
+    save_steps=10000,
     logging_steps=200,
 
     learning_rate=4e-5,
@@ -159,14 +177,15 @@ training_args = Seq2SeqTrainingArguments(
     per_device_eval_batch_size=4,
     weight_decay=0.01,
 
-    num_train_epochs=4,
+    num_train_epochs=3,
 
     predict_with_generate=True,
     generation_max_length=128,
     generation_num_beams=4,
 
     fp16=True,
-    save_total_limit=2,
+    save_total_limit=1,
+    save_only_model=True,
 
     load_best_model_at_end=True,
     metric_for_best_model="bleu",
@@ -184,13 +203,14 @@ trainer = Seq2SeqTrainer(
     processing_class=tokenizer,
     data_collator=data_collator,
     compute_metrics=compute_metrics,
-      callbacks=[
-            EarlyStoppingCallback(
-                early_stopping_patience=5,
-                early_stopping_threshold=0.05
-            )
-        ]
+       callbacks=[
+        EarlyStoppingCallback(
+            early_stopping_patience=5,
+            early_stopping_threshold=0.05
+        )
+    ]
 )
+
 
 last_checkpoint = get_last_checkpoint(OUTPUT_DIR)
 

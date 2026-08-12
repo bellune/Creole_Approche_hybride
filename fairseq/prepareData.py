@@ -1,10 +1,12 @@
 from pathlib import Path
-from datasets import load_from_disk
+from datasets import concatenate_datasets, load_from_disk, load_dataset
 
 
 path_data = "datasets"
 save_path = path_data + "/kreyol-mt-hat-eng"
 data_fairseq = save_path + "/mt-fairseq"
+
+TEST_FILE  = "datasets/corpus_culturel/test/cr_en.jsonl"
 
 # -------------------------------
 # Chargement des données
@@ -18,7 +20,22 @@ train_ds = ds["train"]
 val_ds   = ds["validation"]
 test_ds  = ds["test"]
 
-print(train_ds[0])
+
+dataset = load_dataset(
+    "json",
+    data_files={
+        "test": TEST_FILE
+    }
+)
+
+print(dataset["test"][0])
+
+# concatenate the test dataset with the existing test split
+
+test_ds = concatenate_datasets([
+    dataset["test"],
+    ds["test"]
+])
 
 
 SRC_LANG = "ht"
@@ -64,6 +81,6 @@ def save_translation_split_for_fairseq(dataset, output_name):
 
     print(f"{output_name}: terminé avec {count} paires enregistrées")
 
-save_translation_split_for_fairseq(train_ds, "train")
-save_translation_split_for_fairseq(val_ds, "valid")
+# save_translation_split_for_fairseq(train_ds, "train")
+# save_translation_split_for_fairseq(val_ds, "valid")
 save_translation_split_for_fairseq(test_ds, "test")

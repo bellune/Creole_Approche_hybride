@@ -206,9 +206,8 @@ def evaluate():
     cmd = f"""
     sacrebleu {reference_file} \
       -i {prediction_file} \
-      -m bleu chrf ter
-      -m chrf \
-      --chrf-word-order 2 \
+       f"-m bleu chrf ter "
+       f"--chrf-word-order 2"
     """
 
     run_cmd(cmd)
@@ -255,9 +254,9 @@ if __name__ == "__main__":
         print("Checkpoint already exists. Skipping training.")
 
     if not (OUT_DIR / "outputs_transformer_base.txt").exists():
-      generate_translations()
+        generate_translations()
     else:       
-        print("Translations already generated. Skipping generation.")
+       print("Translations already generated. Skipping generation.")
 
     if not (OUT_DIR / "pred_transformer_base.en").exists():
         extract_predictions()

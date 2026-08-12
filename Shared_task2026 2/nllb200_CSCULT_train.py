@@ -2,6 +2,7 @@ from transformers import DataCollatorForSeq2Seq, Seq2SeqTrainingArguments, Seq2S
 import evaluate
 import numpy as np
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, NllbTokenizer, EarlyStoppingCallback
+from datasets import concatenate_datasets, load_dataset
 from transformers.trainer_utils import get_last_checkpoint
 
 
@@ -10,21 +11,54 @@ from datasets import load_from_disk
 
 path_data = "datasets"
 save_path = path_data + "/kreyol-mt-hat-eng"
-OUTPUT_DIR = "model/nllb200Baseline"
+
+TRAIN_FILE = "datasets/corpus_culturel/code-switching/train/cr_codeS_en.jsonl"
+TRAIN_FILE_CULT = "datasets/corpus_culturel/train/cr_en.jsonl"
+
+DEV_FILE_CULT = "datasets/corpus_culturel/dev/cr_en.jsonl"
+OUTPUT_DIR = "model/nllb_CSCULT"
 
 # -------------------------------
 # Chargement des données
 # -------------------------------
 
+dataset_CS = load_dataset(
+    "json",
+    data_files={
+        "train": TRAIN_FILE
+    }
+)
+
+dataset_CULT = load_dataset(
+    "json",
+    data_files={
+        "train": TRAIN_FILE_CULT,
+        "validation": DEV_FILE_CULT
+    }
+)
 
 ds = load_from_disk(save_path)
 print(ds)
 
-train_ds = ds["train"]
-val_ds   = ds["validation"]
+
+train_ds = concatenate_datasets([
+    ds["train"],
+    dataset_CS["train"],
+    dataset_CULT["train"]
+])
+    
+train_ds = train_ds.shuffle(seed=42)
+print("Train:", len(train_ds))
+
+
+val_ds = concatenate_datasets([ds["validation"], dataset_CULT["validation"]])
+val_ds = val_ds.shuffle(seed=42)
+
+print("Val:", len(val_ds))
+
 test_ds  = ds["test"]
 
-print(train_ds[0])
+
 
 
 # -------------------------------
@@ -49,7 +83,7 @@ model.generation_config.forced_bos_token_id = tokenizer.convert_tokens_to_ids("e
 
 def keep_hat_en(example):
     t = example["translation"]
-    return (t["src_lang"] == "hat") and (t["tgt_lang"] == "eng")
+    return (t["src_lang"] == "hat") and (t["tgt_lang"] == "eng") or (t["src_lang"] == "hat_Latn") and (t["tgt_lang"] == "eng_Latn")
 
 train_f = train_ds.filter(keep_hat_en)
 val_f   = val_ds.filter(keep_hat_en)
@@ -149,9 +183,9 @@ training_args = Seq2SeqTrainingArguments(
     output_dir=OUTPUT_DIR,
 
     eval_strategy="steps",
-    eval_steps=1000,
+    eval_steps=5000,
     save_strategy="steps",
-    save_steps=1000,
+    save_steps=10000,
     logging_steps=200,
 
     learning_rate=4e-5,
@@ -159,7 +193,7 @@ training_args = Seq2SeqTrainingArguments(
     per_device_eval_batch_size=4,
     weight_decay=0.01,
 
-    num_train_epochs=4,
+    num_train_epochs=3,
 
     predict_with_generate=True,
     generation_max_length=128,
@@ -167,6 +201,7 @@ training_args = Seq2SeqTrainingArguments(
 
     fp16=True,
     save_total_limit=2,
+    save_only_model=True,
 
     load_best_model_at_end=True,
     metric_for_best_model="bleu",
@@ -184,14 +219,15 @@ trainer = Seq2SeqTrainer(
     processing_class=tokenizer,
     data_collator=data_collator,
     compute_metrics=compute_metrics,
-      callbacks=[
-            EarlyStoppingCallback(
-                early_stopping_patience=5,
-                early_stopping_threshold=0.05
-            )
-        ]
+       callbacks=[
+        EarlyStoppingCallback(
+            early_stopping_patience=5,
+            early_stopping_threshold=0.05
+        )
+    ]
 )
 
+# trainer.train()
 last_checkpoint = get_last_checkpoint(OUTPUT_DIR)
 
 trainer.train(

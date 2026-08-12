@@ -1,0 +1,6 @@
+﻿ID,src,reference_en,data,Model,BLEU,chrF,TER,BLEURT,SUBMITFILE
+MODELCSCULT01,hat-eng,google translate,Mt-Kreyol+Code-switching+Culture,NLLB,53.61,72.66,35.04,0.4127,Shared_task2026/soumission/EN/uqam.1a.primary.hat-eng.txt
+BASELINEFR02,hat-fra,google translate,Mt-Kreyol,NLLB,30.49,58.65,62.19,0.1288,Shared_task2026/soumission/EN/uqam.1a.contrastive1.hat-fra.txt
+MODCSFR02,hat-fra,google translate,Mt-Kreyol+Code-switching,NLLB,30.69,58.86,61.35,0.1204,Shared_task2026/soumission/EN/uqam.1a.primary.hat-fra.txt
+BASELINE01,hat-eng,google translate,Mt-Kreyol,NLLB,54.02,73.1,34.87,0.4017,Shared_task2026/soumission/EN/uqam.1a.contrastive2.hat-eng.txt
+MODCS01,hat-eng,google translate,Mt-Kreyol+Code-switching,NLLB,51.52,71.41,37.83,0.3232,Shared_task2026/soumission/EN/uqam.1a.contrastive1.hat-eng.txt

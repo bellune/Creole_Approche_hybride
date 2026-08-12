@@ -1,0 +1,18 @@
+#HAT-ENG
+
+# NLLB + MT-Kreyòl
+Train: 665033 Val: 646 Test: 1682
+
+# NLLB + MT-Kreyòl +Code-switching
+Train: 731536 Val: 646 Test: 1682
+
+# NLLB + MT-Kreyòl +Code-switching + Culture
+Train: 746854 Val: 2561 Test: 1682
+
+
+#HAT-FRA
+# NLLB + MT-Kreyòl
+Train: 342720 Val: 1007 Test: 966
+
+# NLLB + MT-Kreyòl +Code-switching
+Train: 387992  Val: 1007  Test: 966

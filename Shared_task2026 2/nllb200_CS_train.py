@@ -2,6 +2,7 @@ from transformers import DataCollatorForSeq2Seq, Seq2SeqTrainingArguments, Seq2S
 import evaluate
 import numpy as np
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, NllbTokenizer, EarlyStoppingCallback
+from datasets import concatenate_datasets, load_dataset
 from transformers.trainer_utils import get_last_checkpoint
 
 
@@ -10,17 +11,35 @@ from datasets import load_from_disk
 
 path_data = "datasets"
 save_path = path_data + "/kreyol-mt-hat-eng"
-OUTPUT_DIR = "model/nllb200Baseline"
+
+TRAIN_FILE = "datasets/corpus_culturel/code-switching/train/cr_codeS_en.jsonl"
+OUTPUT_DIR = "model/nllb_CSSHT"
 
 # -------------------------------
 # Chargement des données
 # -------------------------------
 
+dataset = load_dataset(
+    "json",
+    data_files={
+        "train": TRAIN_FILE
+    }
+)
+
+
 
 ds = load_from_disk(save_path)
 print(ds)
 
-train_ds = ds["train"]
+
+train_ds = concatenate_datasets([
+    ds["train"],
+    dataset["train"]
+])
+    
+train_ds = train_ds.shuffle(seed=42)
+print("Train:", len(train_ds))
+
 val_ds   = ds["validation"]
 test_ds  = ds["test"]
 
@@ -149,9 +168,9 @@ training_args = Seq2SeqTrainingArguments(
     output_dir=OUTPUT_DIR,
 
     eval_strategy="steps",
-    eval_steps=1000,
+    eval_steps=5000,
     save_strategy="steps",
-    save_steps=1000,
+    save_steps=10000,
     logging_steps=200,
 
     learning_rate=4e-5,
@@ -167,6 +186,7 @@ training_args = Seq2SeqTrainingArguments(
 
     fp16=True,
     save_total_limit=2,
+    save_only_model=True,
 
     load_best_model_at_end=True,
     metric_for_best_model="bleu",
@@ -193,6 +213,16 @@ trainer = Seq2SeqTrainer(
 )
 
 last_checkpoint = get_last_checkpoint(OUTPUT_DIR)
+
+# CHECKPOINT_WEIGHTS = "model/nllb_CSSHT/checkpoint-50000"
+
+# tokenizer = AutoTokenizer.from_pretrained(
+#     CHECKPOINT_WEIGHTS
+# )
+
+# model = AutoModelForSeq2SeqLM.from_pretrained(
+#     CHECKPOINT_WEIGHTS
+# )
 
 trainer.train(
     resume_from_checkpoint=last_checkpoint
