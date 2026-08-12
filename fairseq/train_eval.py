@@ -134,38 +134,38 @@ def fairseq_preprocess():
 def train_transformer():
     cmd = f"""
     CUDA_VISIBLE_DEVICES=0 python3 -m fairseq_cli.train {BIN_DIR} \
-      --arch transformer \
-      --source-lang {SRC} \
-      --target-lang {TGT} \
-      --share-decoder-input-output-embed \
-      --encoder-layers 6 \
-      --decoder-layers 6 \
-      --encoder-embed-dim 512 \
-      --decoder-embed-dim 512 \
-      --encoder-attention-heads 8 \
-      --decoder-attention-heads 8 \
-      --encoder-ffn-embed-dim 2048 \
-      --decoder-ffn-embed-dim 2048 \
-      --dropout 0.3 \
-      --attention-dropout 0.1 \
-      --activation-dropout 0.1 \
-      --criterion label_smoothed_cross_entropy \
-      --label-smoothing 0.1 \
-      --optimizer adam \
-      --adam-betas '(0.9,0.98)' \
-      --lr 0.0005 \
-      --lr-scheduler inverse_sqrt \
-      --warmup-updates 4000 \
-      --max-tokens 2048 \
-      --update-freq 2 \
-      --max-epoch 30 \
-      --patience 5 \
-      --save-dir {CKPT_DIR} \
-      --keep-last-epochs 2\
-      --keep-best-checkpoints 1 \
-      --best-checkpoint-metric loss \
-      --distributed-world-size 1 \
-      --bf16 
+     --arch transformer \
+--source-lang {SRC} \
+--target-lang {TGT} \
+--share-decoder-input-output-embed \
+--encoder-layers 6 \
+--decoder-layers 6 \
+--encoder-embed-dim 512 \
+--decoder-embed-dim 512 \
+--encoder-attention-heads 8 \
+--decoder-attention-heads 8 \
+--encoder-ffn-embed-dim 2048 \
+--decoder-ffn-embed-dim 2048 \
+--dropout 0.3 \
+--attention-dropout 0.1 \
+--activation-dropout 0.1 \
+--criterion label_smoothed_cross_entropy \
+--label-smoothing 0.1 \
+--optimizer adam \
+--adam-betas '(0.9,0.98)' \
+--lr 0.0005 \
+--lr-scheduler inverse_sqrt \
+--warmup-updates 4000 \
+--clip-norm 1.0 \
+--max-tokens 2048 \
+--update-freq 2 \
+--max-epoch 30 \
+--patience 5 \
+--save-dir {CKPT_DIR} \
+--keep-last-epochs 2 \
+--keep-best-checkpoints 1 \
+--best-checkpoint-metric loss \
+--distributed-world-size 1
     """
 
     run_cmd(cmd)
