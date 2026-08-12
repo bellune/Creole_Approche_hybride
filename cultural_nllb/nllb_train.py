@@ -8,6 +8,7 @@ from transformers import (
     EarlyStoppingCallback
 )
 import evaluate
+import numpy as np
 
 # ============================
 # 1. Chemins
