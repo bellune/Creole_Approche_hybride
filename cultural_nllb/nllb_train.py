@@ -1,156 +1,124 @@
-from datasets import load_dataset
-from transformers import (
-    AutoTokenizer,
-    AutoModelForSeq2SeqLM,
-    DataCollatorForSeq2Seq,
-    Seq2SeqTrainingArguments,
-    Seq2SeqTrainer,
-    EarlyStoppingCallback
-)
+from transformers import DataCollatorForSeq2Seq, Seq2SeqTrainingArguments, Seq2SeqTrainer
 import evaluate
 import numpy as np
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, NllbTokenizer, EarlyStoppingCallback
+from datasets import concatenate_datasets, load_dataset
+from transformers.trainer_utils import get_last_checkpoint
 
-# ============================
-# 1. Chemins
-# ============================
 
-BASE_MODEL = "facebook/nllb-200-distilled-600M"
+from datasets import load_from_disk
 
-CHECKPOINT_PATH = "backup_model/nllb_cultural_cr_en/checkpoint-7980"  # à modifier
 
-TRAIN_FILE = "datasets/mix_corpus/json/train_mix.jsonl"
-DEV_FILE = "datasets/mix_corpus/json/valid_mix.jsonl"
+path_data = "datasets"
+save_path = path_data + "/kreyol-mt-hat-eng"
 
+TRAIN_FILE_CULT = "datasets/corpus_culturel/train/cr_en.jsonl"
+
+DEV_FILE_CULT = "datasets/corpus_culturel/dev/cr_en.jsonl"
 OUTPUT_DIR = "/root/model/nllb_cultural_cr_en"
 
-# /root/model/nllb200Baseline
+# -------------------------------
+# Chargement des données
+# -------------------------------
 
-
-# ============================
-# 2. Charger dataset
-# ============================
-
-dataset = load_dataset(
+dataset_CULT = load_dataset(
     "json",
     data_files={
-        "train": TRAIN_FILE,
-        "validation": DEV_FILE
+        "train": TRAIN_FILE_CULT,
+        "validation": DEV_FILE_CULT
     }
 )
 
-print(dataset)
+ds = load_from_disk(save_path)
+print(ds)
 
 
-# ============================
-# 3. Charger tokenizer + modèle
-# ============================
-
-tokenizer = AutoTokenizer.from_pretrained(BASE_MODEL)
-model = AutoModelForSeq2SeqLM.from_pretrained(CHECKPOINT_PATH)
-
-SRC_LANG = "hat_Latn"
-TGT_LANG = "eng_Latn"
-
-tokenizer.src_lang = SRC_LANG
-forced_bos_token_id = tokenizer.convert_tokens_to_ids(TGT_LANG)
-
-model.generation_config.forced_bos_token_id = forced_bos_token_id
+train_ds = concatenate_datasets([
+    ds["train"],
+    dataset_CULT["train"]
+])
+    
+train_ds = train_ds.shuffle(seed=42)
+print("Train:", len(train_ds))
 
 
-# ============================
-# 4. Prétraitement
-# ============================
+val_ds = concatenate_datasets([ds["validation"], dataset_CULT["validation"]])
+val_ds = val_ds.shuffle(seed=42)
+
+print("Val:", len(val_ds))
+
+test_ds  = ds["test"]
+
+
+
+
+# -------------------------------
+# Chargement du modèle et du tokenizer
+# -------------------------------
+
+model_name = "facebook/nllb-200-distilled-600M"
+
+tokenizer = NllbTokenizer.from_pretrained(
+    model_name,
+    src_lang="hat_Latn",
+    tgt_lang="eng_Latn",
+)
+
+model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
+model.generation_config.forced_bos_token_id = tokenizer.convert_tokens_to_ids("eng_Latn")
+
+
+# --------------------------------
+# Traitement des données
+# --------------------------------
+
+def keep_hat_en(example):
+    t = example["translation"]
+    return (t["src_lang"] == "hat") and (t["tgt_lang"] == "eng") or (t["src_lang"] == "hat_Latn") and (t["tgt_lang"] == "eng_Latn")
+
+train_f = train_ds.filter(keep_hat_en)
+val_f   = val_ds.filter(keep_hat_en)
+test_f  = test_ds.filter(keep_hat_en)
+
+print("Train:", len(train_f), "Val:", len(val_f), "Test:", len(test_f))
+print(train_f)
+
 
 MAX_LEN = 128
 
-def preprocess(batch):
-    src_texts = [item["src_text"] for item in batch["translation"]]
-    tgt_texts = [item["tgt_text"] for item in batch["translation"]]
+def preprocess(examples):
+    src_texts = [item["src_text"] for item in examples["translation"]]
+    tgt_texts = [item["tgt_text"] for item in examples["translation"]]
 
-    tokenizer.src_lang = SRC_LANG
-
-    inputs = tokenizer(
+    model_inputs = tokenizer(
         src_texts,
         max_length=MAX_LEN,
-        truncation=True
+        truncation=True,
+        padding="max_length"
     )
 
     labels = tokenizer(
-        tgt_texts,
+        text_target=tgt_texts,
         max_length=MAX_LEN,
-        truncation=True
-    )
+        truncation=True,
+        padding="max_length"
+    )["input_ids"]
 
-    labels_ids = labels["input_ids"]
+    pad = tokenizer.pad_token_id
+    labels = [[tok if tok != pad else -100 for tok in seq] for seq in labels]
 
-    labels_ids = [
-        [
-            token if token != tokenizer.pad_token_id else -100
-            for token in label
-        ]
-        for label in labels_ids
-    ]
+    model_inputs["labels"] = labels
+    return model_inputs
 
-    inputs["labels"] = labels_ids
-
-    return inputs
+tok_train = train_f.map(preprocess, batched=True, remove_columns=["translation"])
+tok_val   = val_f.map(preprocess, batched=True, remove_columns=["translation"])
+tok_test  = test_f.map(preprocess, batched=True, remove_columns=["translation"])
 
 
-tokenized_dataset = dataset.map(
-    preprocess,
-    batched=True,
-    remove_columns=dataset["train"].column_names
-)
-
-
-# ============================
-# 5. Data collator
-# ============================
-
-data_collator = DataCollatorForSeq2Seq(
-    tokenizer=tokenizer,
-    model=model
-)
-
-
-# ============================
-# 6. Arguments d'entraînement
-# ============================
-
-training_args = Seq2SeqTrainingArguments(
-    output_dir=OUTPUT_DIR,
-
-   eval_strategy="steps",
-     eval_steps=1000,
-     save_strategy="steps",
-     save_steps=1000,
-     logging_steps=200,
- 
-     learning_rate=4e-5,
-    # A100 80 GB : exploiter davantage le GPU
-     per_device_train_batch_size=32,
-     per_device_eval_batch_size=32,
-     gradient_accumulation_steps=1,
-     weight_decay=0.01,
- 
-     num_train_epochs=20,
- 
-     predict_with_generate=True,
-     generation_max_length=128,
-     generation_num_beams=4,
- 
-     # accélération A100
-     bf16=True,
-     fp16=False,
-     tf32=True,
-     save_total_limit=2,
- 
-     load_best_model_at_end=True,
-     metric_for_best_model="bleu",
-     greater_is_better=True,
- 
-     report_to="none"
-)
+print("src_lang:", tokenizer.src_lang)
+print("tgt_lang:", tokenizer.tgt_lang)
+print("hat_Latn:", tokenizer.convert_tokens_to_ids("hat_Latn"))
+print("eng_Latn:", tokenizer.convert_tokens_to_ids("eng_Latn"))
 
 
 # -------------------------------
@@ -202,36 +170,63 @@ def compute_metrics(eval_preds):
     }
 
 
+training_args = Seq2SeqTrainingArguments(
+    output_dir=OUTPUT_DIR,
 
-# ============================
-# 7. Trainer
-# ============================
+     eval_strategy="steps",
+     eval_steps=1000,
+     save_strategy="steps",
+     save_steps=1000,
+     logging_steps=200,
+ 
+     learning_rate=4e-5,
+    # A100 80 GB : exploiter davantage le GPU
+     per_device_train_batch_size=32,
+     per_device_eval_batch_size=32,
+     gradient_accumulation_steps=1,
+     weight_decay=0.01,
+ 
+     num_train_epochs=20,
+ 
+     predict_with_generate=True,
+     generation_max_length=128,
+     generation_num_beams=4,
+ 
+     # accélération A100
+     bf16=True,
+     fp16=False,
+     tf32=True,
+     save_total_limit=2,
+ 
+     load_best_model_at_end=True,
+     metric_for_best_model="bleu",
+     greater_is_better=True,
+ 
+     report_to="none"
+)
+
 
 trainer = Seq2SeqTrainer(
     model=model,
     args=training_args,
-
-    train_dataset=tokenized_dataset["train"],
-    eval_dataset=tokenized_dataset["validation"],
-
+    train_dataset=tok_train,
+    eval_dataset=tok_val,
+    processing_class=tokenizer,
     data_collator=data_collator,
     compute_metrics=compute_metrics,
-    callbacks=[
-                EarlyStoppingCallback(
-                    early_stopping_patience=5,
-                    early_stopping_threshold=0.05
-                )
-            ]
+       callbacks=[
+        EarlyStoppingCallback(
+            early_stopping_patience=5,
+            early_stopping_threshold=0.05
+        )
+    ]
 )
 
+# trainer.train()
+last_checkpoint = get_last_checkpoint(OUTPUT_DIR)
 
-# ============================
-# 8. Entraîner
-# ============================
-
-trainer.train()
-
-trainer.save_model(OUTPUT_DIR)
-tokenizer.save_pretrained(OUTPUT_DIR)
-
-print("Modèle culturel sauvegardé dans :", OUTPUT_DIR)
+trainer.train(
+    resume_from_checkpoint=last_checkpoint
+    if last_checkpoint
+    else None
+)
