@@ -170,7 +170,7 @@ def train_transformer():
       --keep-best-checkpoints 1 \
       --best-checkpoint-metric loss \
       --distributed-world-size 1 \
-      --fp16 --ddp-backend no_c10d
+      --bf16 
     """
 
     run_cmd(cmd)
