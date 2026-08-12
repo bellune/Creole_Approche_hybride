@@ -7,6 +7,7 @@ import sentencepiece as spm
 data_fairseq = "datasets/kreyol-mt-hat-eng/mt-fairseq"
 base_dir = "model/fairseq"
 results_dir = "results/fairseq"
+base_dir_checkpoints = "root/model/fairseq"
 
 
 
@@ -16,7 +17,7 @@ TGT = "en"
 RAW_DIR = Path(data_fairseq)
 SPM_DIR = Path(f"{base_dir}/spm")
 BIN_DIR = Path(f"{base_dir}/data-bin/ht-en")
-CKPT_DIR = Path(f"{base_dir}/checkpoints/transformer_base_ht_en")
+CKPT_DIR = Path(f"{base_dir_checkpoints}/transformer_base_ht_en")
 OUT_DIR = Path(f"{results_dir}/outputs")
 
 SPM_DIR.mkdir(parents=True, exist_ok=True)
