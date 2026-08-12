@@ -180,7 +180,7 @@ def generate_translations():
     output_file = OUT_DIR / "outputs_transformer_base.txt"
 
     cmd = f"""
-    CUDA_VISIBLE_DEVICES="" python3 -m fairseq_cli.generate {BIN_DIR} \
+    CUDA_VISIBLE_DEVICES=0 python3 -m fairseq_cli.generate {BIN_DIR} \
       --source-lang {SRC} \
       --target-lang {TGT} \
       --path {CKPT_DIR}/checkpoint_best.pt \
@@ -225,7 +225,7 @@ def generate_attentions():
     output_file = OUT_DIR / "outputs_transformer_base.txt"
 
     cmd = f"""
-    CUDA_VISIBLE_DEVICES="" python3 -m fairseq_cli.generate {BIN_DIR} \
+    CUDA_VISIBLE_DEVICES=0 python3 -m fairseq_cli.generate {BIN_DIR} \
       --source-lang {SRC} \
       --target-lang {TGT} \
       --path {CKPT_DIR}/checkpoint_best.pt \
