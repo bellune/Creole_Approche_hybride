@@ -81,6 +81,6 @@ def save_translation_split_for_fairseq(dataset, output_name):
 
     print(f"{output_name}: terminé avec {count} paires enregistrées")
 
-# save_translation_split_for_fairseq(train_ds, "train")
-# save_translation_split_for_fairseq(val_ds, "valid")
+save_translation_split_for_fairseq(train_ds, "train")
+save_translation_split_for_fairseq(val_ds, "valid")
 save_translation_split_for_fairseq(test_ds, "test")
