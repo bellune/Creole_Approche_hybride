@@ -39,14 +39,14 @@ print(ds)
 
 print("Train CULT:", len(dataset_CULT["train"]), "Val CULT:", len(dataset_CULT["validation"]))
 print("Train CULT CS:", len(dataset_CULT["train_cult_CS"]))
-print("Train CULT CS (10%%):", len(dataset_CULT["train_cult_CS"].shuffle(seed=42).select(range(int(0.10 * len(dataset_CULT["train_cult_CS"]))))))
+print("Train CULT CS (50%%):", len(dataset_CULT["train_cult_CS"].shuffle(seed=42).select(range(int(0.50 * len(dataset_CULT["train_cult_CS"]))))))
 print("Train Code Switching:", len(dataset_CULT["train_code_switching"]))
 
 
 train_ds = concatenate_datasets([
     ds["train"],
     dataset_CULT["train"],
-    dataset_CULT["train_cult_CS"].shuffle(seed=42).select(range(int(0.10 * len(dataset_CULT["train_cult_CS"])))),
+    dataset_CULT["train_cult_CS"].shuffle(seed=42).select(range(int(0.50 * len(dataset_CULT["train_cult_CS"])))),
     dataset_CULT["train_code_switching"]
 ])
     
