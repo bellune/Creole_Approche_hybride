@@ -7,7 +7,8 @@ import sentencepiece as spm
 data_fairseq = "datasets/kreyol-mt-hat-eng/mt-fairseq"
 base_dir = "model/fairseq"
 results_dir = "results/fairseq"
-base_dir_checkpoints = "root/model/fairseq"
+base_dir_checkpoints = "/root/model/fairseq"
+last_checkpoint = "root/model/fairseq/transformer_base_ht_en/checkpoint_best.pt"
 
 
 
@@ -153,6 +154,11 @@ def train_transformer():
       --optimizer adam \
       --adam-betas '(0.9,0.98)' \
       --lr 0.0005 \
+    --restore-file {last_checkpoint} \
+    --reset-optimizer \
+    --reset-dataloader \
+    --reset-meters \
+    --reset-lr-scheduler \
       --lr-scheduler inverse_sqrt \
       --warmup-updates 4000 \
       --max-tokens 2048 \
