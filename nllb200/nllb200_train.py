@@ -10,7 +10,7 @@ from datasets import load_from_disk
 
 path_data = "datasets"
 save_path = path_data + "/kreyol-mt-hat-eng"
-OUTPUT_DIR = "model/nllb200Baseline"
+OUTPUT_DIR = "root/model/nllb200Baseline"
 
 # -------------------------------
 # Chargement des données
