@@ -166,6 +166,9 @@ def train_transformer():
 --keep-best-checkpoints 1 \
 --best-checkpoint-metric loss \
 --distributed-world-size 1
+--reset-optimizer \
+--reset-lr-scheduler \
+--reset-meters
     """
 
     run_cmd(cmd)
