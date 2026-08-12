@@ -16,12 +16,14 @@ import numpy as np
 
 BASE_MODEL = "facebook/nllb-200-distilled-600M"
 
-CHECKPOINT_PATH = "/root/model/nllb200Baseline/checkpoint-45000"  # à modifier
+CHECKPOINT_PATH = "backup_model/nllb200Baseline/checkpoint-45000"  # à modifier
 
 TRAIN_FILE = "datasets/mix_corpus/json/train_mix.jsonl"
 DEV_FILE = "datasets/mix_corpus/json/valid_mix.jsonl"
 
 OUTPUT_DIR = "/root/model/nllb_cultural_cr_en"
+
+# /root/model/nllb200Baseline
 
 
 # ============================
