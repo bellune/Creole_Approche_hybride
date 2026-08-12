@@ -156,7 +156,7 @@ training_args = Seq2SeqTrainingArguments(
 
     learning_rate=4e-5,
    # A100 80 GB : exploiter davantage le GPU
-    per_device_train_batch_size=16,
+    per_device_train_batch_size=32,
     per_device_eval_batch_size=32,
     gradient_accumulation_steps=1,
     weight_decay=0.01,
@@ -197,11 +197,11 @@ trainer = Seq2SeqTrainer(
         ]
 )
 
-# trainer.train()
-last_checkpoint = get_last_checkpoint(OUTPUT_DIR)
+trainer.train()
+# last_checkpoint = get_last_checkpoint(OUTPUT_DIR)
 
-trainer.train(
-    resume_from_checkpoint=last_checkpoint
-    if last_checkpoint
-    else None
-)
+# trainer.train(
+#     resume_from_checkpoint=last_checkpoint
+#     if last_checkpoint
+#     else None
+# )
