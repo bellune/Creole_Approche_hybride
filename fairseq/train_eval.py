@@ -154,19 +154,19 @@ def train_transformer():
       --optimizer adam \
       --adam-betas '(0.9,0.98)' \
       --lr 0.0005 \
-    --restore-file {last_checkpoint} \
-    --reset-optimizer \
-    --reset-dataloader \
-    --reset-meters \
-    --reset-lr-scheduler \
       --lr-scheduler inverse_sqrt \
       --warmup-updates 4000 \
       --max-tokens 2048 \
       --update-freq 2 \
       --max-epoch 30 \
       --patience 5 \
+        --restore-file {last_checkpoint} \
+          --reset-optimizer \
+          --reset-dataloader \
+          --reset-meters \
+          --reset-lr-scheduler \
       --save-dir {CKPT_DIR} \
-      --keep-last-epochs 2 \
+      --keep-last-epochs 2\
       --keep-best-checkpoints 1 \
       --best-checkpoint-metric loss \
       --distributed-world-size 1 \
