@@ -37,3 +37,4 @@ datasets/corpus_AHL/audio
 
 # checkpoints
 checkpoint-*/
+backup_model/*
