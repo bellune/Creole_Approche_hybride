@@ -166,6 +166,7 @@ def train_transformer():
       --max-epoch 30 \
       --patience 5 \
       --save-dir {CKPT_DIR} \
+      --keep-last-epochs 2 \
       --keep-best-checkpoints 1 \
       --best-checkpoint-metric loss \
       --distributed-world-size 1 \
