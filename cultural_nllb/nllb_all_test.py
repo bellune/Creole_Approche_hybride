@@ -49,7 +49,7 @@ TGT_LANG = "eng_Latn"
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
-test_data = load_dataset("json", data_files={"test": TEST_FILE})["test"]
+
 
 tokenizer = AutoTokenizer.from_pretrained(BASE_MODEL)
 tokenizer.src_lang = SRC_LANG
@@ -107,15 +107,15 @@ def translate_dataset(model, dataset):
 
 print("Testing baseline...")
 baseline_model = load_model(BASELINE_MODEL)
-ids, sources, baseline_preds, refs = translate_dataset(baseline_model, test_data)
+ids, sources, baseline_preds, refs = translate_dataset(baseline_model, test_ds)
 
 print("Testing cultural-adapted model...")
 cultural_model = load_model(CULTURAL_MODEL)
-_,_, cultural_preds, _, = translate_dataset(cultural_model, test_data)
+_,_, cultural_preds, _, = translate_dataset(cultural_model, test_ds)
 
 print("Testing CS model...")
 cs_model = load_model(CULTURAL_MODEL_CS)
-_, _, cs_preds, _ = translate_dataset(cs_model, test_data)
+_, _, cs_preds, _ = translate_dataset(cs_model, test_ds)
 
 # -------------------------------
 # Métriques
@@ -219,11 +219,11 @@ df_scores = pd.DataFrame({
     "BLEU": [baseline_bleu["score"], cultural_bleu["score"], cs_bleu["score"]],
     "chrF": [baseline_chrf["score"], cultural_chrf["score"], cs_chrf["score"]],
     "TER": [baseline_ter["score"], cultural_ter["score"], cs_ter["score"]],
-    "BLEURT": [baseline_bleurt["scores"][0], cultural_bleurt["scores"][0], cs_bleurt["scores"][0]          ]
+    "BLEURT": [baseline_bleurt["scores"][0], cultural_bleurt["scores"][0], cs_bleurt["scores"][0]   ]
 })
 
 df_scores.to_csv(
-    "result/NLL20_test_scores_all.csv",
+    "result/All_NLL20_test_scores_all.csv",
     index=False,
     encoding="utf-8-sig"
 )
@@ -241,9 +241,9 @@ df_results = pd.DataFrame({
 })
 
 df_results.to_csv(
-    "result/NLL20_test_comparison_all.csv",
+    "result/All_NLL20_test_comparison_all.csv",
     index=False,
     encoding="utf-8-sig"
 )
 
-print("\nComparaison sauvegardée : result/NLL20_test_comparison_all.csv")
+print("\nComparaison sauvegardée : result/All_NLL20_test_comparison_all.csv")
