@@ -30,13 +30,13 @@ datasetest = load_dataset(
 )
 
 
-train_ds = concatenate_datasets([
+test_ds = concatenate_datasets([
     ds["test"],
     datasetest["test"],
 ])
     
-train_ds = train_ds.shuffle(seed=42)
-print("Train:", len(train_ds))
+test_ds = test_ds.shuffle(seed=42)
+print("Test:", len(test_ds))
 
 
 # -------------------------------
