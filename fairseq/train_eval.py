@@ -252,10 +252,10 @@ if __name__ == "__main__":
     else:
         print("Fairseq binary data already exists. Skipping preprocess.")
     
-    # if not (CKPT_DIR / "checkpoint_best.pt").exists():
-    train_transformer()
-    # else:      
-        # print("Checkpoint already exists. Skipping training.")
+    if not (CKPT_DIR / "checkpoint_best.pt").exists():
+      train_transformer()
+    else:      
+      print("Checkpoint already exists. Skipping training.")
 
     # if not (OUT_DIR / "outputs_transformer_base.txt").exists():
     generate_translations()
