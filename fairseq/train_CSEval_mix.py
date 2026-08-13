@@ -242,15 +242,15 @@ if __name__ == "__main__":
     else:
         print("SentencePiece model already exists. Skipping training.")
 
-    if not (RAW_DIR / f"train.spm.{SRC}").exists():
-        apply_sentencepiece()
-    else:
-        print("SentencePiece files already exist. Skipping encoding.")
+    # if not (RAW_DIR / f"train.spm.{SRC}").exists():
+    apply_sentencepiece()
+    # else:
+        # print("SentencePiece files already exist. Skipping encoding.")
 
-    if not (BIN_DIR / f"dict.{SRC}.txt").exists():
-        fairseq_preprocess()
-    else:
-        print("Mix Fairseq binary data already exists. Skipping preprocess.")
+    # if not (BIN_DIR / f"dict.{SRC}.txt").exists():
+    fairseq_preprocess()
+    # else:
+        # print("Mix Fairseq binary data already exists. Skipping preprocess.")
     
     if not (CKPT_DIR / "checkpoint_best.pt").exists():
        train_transformer()
