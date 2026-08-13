@@ -9,7 +9,7 @@ from datasets import load_from_disk
 BASE_MODEL = "facebook/nllb-200-distilled-600M"
 
 BASELINE_MODEL = "backup_model/nllb200Baseline"
-CULTURAL_MODEL = "/backup_model/nllb_cultural_cr_en"
+CULTURAL_MODEL = "backup_model/nllb_cultural_cr_en"
 CULTURAL_MODEL_CS = "/root/model/nllb_CS"
 
 TEST_FILE = "datasets/corpus_culturel/test/cr_en.jsonl"
