@@ -19,8 +19,11 @@ TRAIN_FILE = "datasets/corpus_culturel/train/cr_en.jsonl"
 DEV_FILE   = "datasets/corpus_culturel/dev/cr_en.jsonl"
 TEST_FILE  = "datasets/corpus_culturel/test/cr_en.jsonl"
 
+TRAIN_FILE_CS = "datasets/corpus_culturel/code-switching/train/cr_codeS_en.jsonl"
+TRAIN_FILE_CULT_CS = "datasets/corpus_culturel/code-switching/train/cr_CSS_en.jsonl"
+
 # Dossier de sortie
-output_base = "datasets/mix_corpus_all"
+output_base = "datasets/mixcs_corpus"
 
 json_dir = output_base + "/json"
 fairseq_dir = output_base + "/fairseq"
@@ -41,37 +44,54 @@ general_test  = general_ds["test"]
 
 
 
-
-print("Corpus général :")
-print(general_ds)
-print("Exemple général :")
-print(general_train[0])
-
 # ============================================================
 # 3. Charger le corpus culturel
 # ============================================================
+
+
 
 culture_ds = load_dataset(
     "json",
     data_files={
         "train": TRAIN_FILE,
         "validation": DEV_FILE,
-        "test": TEST_FILE
+        "test": TEST_FILE,
+        "train_cs": TRAIN_FILE_CS,
+        "train_cult_CS": TRAIN_FILE_CULT_CS
+
     }
 )
+
+train_cs = culture_ds["train_cs"]
+train_cult_cs = culture_ds["train_cult_CS"].shuffle(seed=42).select(range(int(0.50 * len(culture_ds["train_cult_CS"]))))
 
 culture_train = culture_ds["train"]
 culture_val   = culture_ds["validation"]
 culture_test  = culture_ds["test"]
 
 
-general_ds = concatenate_datasets([
-    general_ds["test"],
-    culture_test["test"],
+general_train = concatenate_datasets([
+    general_train,
+    train_cult_cs,
+    train_cs
+  
+])
+
+general_test = concatenate_datasets([
+    general_test,
+    culture_test,
 ])
     
 general_ds = general_ds.shuffle(seed=42)
 print("Test:", len(general_ds))
+
+
+
+
+print("Corpus général :")
+print(general_ds)
+print("Exemple général :")
+print(general_train[0])
 
 print("\nCorpus culturel :")
 print(culture_ds)
@@ -179,7 +199,7 @@ def build_mixed_corpus(
     culture_sample = culture_pairs
     n_culture = len(culture_sample)
 
-    n_general = int((general_ratio / culture_ratio) * n_culture)
+    n_general = len(general_pairs)
 
     print(f"Culture : {n_culture} phrases utilisées")
     print(f"Général : {n_general} phrases demandées")
@@ -283,17 +303,17 @@ def save_jsonl(pairs, output_file, src_key="src_text", tgt_key="tgt_text"):
 
 save_jsonl(
     train_mix,
-    f"{json_dir}/train_mix.jsonl"
+    f"{json_dir}/train_mixcs.jsonl"
 )
 
 save_jsonl(
     valid_mix,
-    f"{json_dir}/valid_mix.jsonl"
+    f"{json_dir}/valid_mixcs.jsonl"
 )
 
 save_jsonl(
     test_tagged,
-    f"{json_dir}/test.jsonl"
+    f"{json_dir}/test_mixcs.jsonl"
 )
 
 # save_jsonl(
@@ -308,8 +328,8 @@ save_jsonl(
 def save_fairseq_txt(pairs, src_file, tgt_file):
     """
     Format Fairseq :
-    train_mix.ht
-    train_mix.en
+    train_mixcs.ht
+    train_mixcs.en
     """
 
     os.makedirs(os.path.dirname(src_file), exist_ok=True)
@@ -324,26 +344,26 @@ def save_fairseq_txt(pairs, src_file, tgt_file):
 
 save_fairseq_txt(
     train_mix,
-    f"{fairseq_dir}/train_mix.ht",
-    f"{fairseq_dir}/train_mix.en"
+    f"{fairseq_dir}/train_mixcs.ht",
+    f"{fairseq_dir}/train_mixcs.en"
 )
 
 save_fairseq_txt(
     valid_mix,
-    f"{fairseq_dir}/valid_mix.ht",
-    f"{fairseq_dir}/valid_mix.en"
+    f"{fairseq_dir}/valid_mixcs.ht",
+    f"{fairseq_dir}/valid_mixcs.en"
 )
 
 save_fairseq_txt(
     test_tagged,
-    f"{fairseq_dir}/test_mix.ht",
-    f"{fairseq_dir}/test_mix.en"
+    f"{fairseq_dir}/test_mixcs.ht",
+    f"{fairseq_dir}/test_mixcs.en"
 )
 
 # save_fairseq_txt(
 #     test_general_tagged,
-#     f"{fairseq_dir}/test_general_mix.ht",
-#     f"{fairseq_dir}/test_general_mix.en"
+#     f"{fairseq_dir}/test_general_mixcs.ht",
+#     f"{fairseq_dir}/test_general_mixcs.en"
 # )
 
 # # ============================================================
@@ -353,17 +373,17 @@ save_fairseq_txt(
 print("\nFichiers générés avec succès.")
 
 print("\nJSONL pour NLLB-200 :")
-print(f"{json_dir}/train_mix.jsonl")
-print(f"{json_dir}/valid_mix.jsonl")
-print(f"{json_dir}/test.jsonl")
-# print(f"{json_dir}/test_general.jsonl")
+print(f"{json_dir}/train_mixcs.jsonl")
+print(f"{json_dir}/valid_mixcs.jsonl")
+print(f"{json_dir}/test_mixcs.jsonl")
+# print(f"{json_dir}/test_general_mixcs.jsonl")
 
 print("\nTXT pour Fairseq :")
-print(f"{fairseq_dir}/train_mix.ht")
-print(f"{fairseq_dir}/train_mix.en")
-print(f"{fairseq_dir}/valid_mix.ht")
-print(f"{fairseq_dir}/valid_mix.en")
-print(f"{fairseq_dir}/test_mix.ht")
-print(f"{fairseq_dir}/test_mix.en")
-# print(f"{fairseq_dir}/test_general_mix.ht")
-# print(f"{fairseq_dir}/test_general_mix.en")
+print(f"{fairseq_dir}/train_mixcs.ht")
+print(f"{fairseq_dir}/train_mixcs.en")
+print(f"{fairseq_dir}/valid_mixcs.ht")
+print(f"{fairseq_dir}/valid_mixcs.en")
+print(f"{fairseq_dir}/test_mixcs.ht")
+print(f"{fairseq_dir}/test_mixcs.en")
+# print(f"{fairseq_dir}/test_general_mixcs.ht")
+# print(f"{fairseq_dir}/test_general_mixcs.en")
