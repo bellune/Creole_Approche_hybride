@@ -195,7 +195,7 @@ cs_bleurt = bleurt.compute(
 # -------------------------------
 
 
-print("\n===== RESULTS ON CULTURAL TEST SET =====")
+print("\n===== RESULTS ON NLLB-200 TEST SET =====")
 print("Baseline BLEU :", baseline_bleu["score"])
 print("Cultural BLEU :", cultural_bleu["score"])
 print("CS BLEU :", cs_bleu["score"])
