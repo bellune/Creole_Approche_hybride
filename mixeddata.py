@@ -75,8 +75,9 @@ culture_test  = culture_ds["test"]
 
 general_train = concatenate_datasets([
     general_train,
-    train_cs,
-    train_cult_cs
+    train_cult_cs,
+    train_cs
+  
 ])
 
 general_test = concatenate_datasets([
