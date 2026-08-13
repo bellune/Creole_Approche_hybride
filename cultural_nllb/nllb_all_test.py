@@ -12,7 +12,7 @@ BASELINE_MODEL = "backup_model/nllb200Baseline/checkpoint-45000"
 CULTURAL_MODEL = "backup_model/nllb_cultural_cr_en/checkpoint-22000"
 CULTURAL_MODEL_CS = "/root/model/nllb_CS/checkpoint-26000"
 
-TEST_FILE = "datasets/corpus_culturel/test/cr_en.jsonl"
+TEST_FILE = "datasets/corpus_culturel/test/cr_en_all.jsonl"
 
 
 path_data = "datasets"
@@ -29,16 +29,8 @@ datasetest = load_dataset(
         "test": TEST_FILE    }
 )
 
-
-test_ds = concatenate_datasets([
-    ds["test"],
-    datasetest["test"],
-])
     
-test_ds = test_ds.shuffle(seed=42)
-print("Test:", len(test_ds))
-
-
+test_ds = datasetest["test"]
 # -------------------------------
 # Chargement du modèle et du tokenizer
 # -------------------------------
