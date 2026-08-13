@@ -4,7 +4,7 @@ from pathlib import Path
 import sentencepiece as spm
 
 
-data_fairseq = "datasets/mix_corpus/fairseq"
+data_fairseq = "datasets/mix_corpus_all/fairseq"
 base_dir = "model/mix_fairseq"
 results_dir = "results/mix_fairseq"
 base_dir_checkpoints = "/root/model/mix_fairseq"
