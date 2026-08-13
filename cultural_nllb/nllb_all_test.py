@@ -80,7 +80,7 @@ def translate_dataset(model, dataset):
         inputs = tokenizer(
             src,
             return_tensors="pt",
-            max_length=128,
+            max_length=256,
             truncation=True
         ).to(device)
 
@@ -88,7 +88,7 @@ def translate_dataset(model, dataset):
             outputs = model.generate(
                 **inputs,
                 forced_bos_token_id=forced_bos_token_id,
-                max_length=128,
+                max_length=256,
                 num_beams=4
             )
 
