@@ -56,6 +56,9 @@ sc_ds = load_dataset(
     }
 )
 
+train_cs = sc_ds["train"]
+train_cult_cs = sc_ds["train_cult_CS"].shuffle(seed=42).select(range(int(0.50 * len(sc_ds["train_cult_CS"]))))
+
 culture_ds = load_dataset(
     "json",
     data_files={
@@ -71,9 +74,9 @@ culture_test  = culture_ds["test"]
 
 
 general_train = concatenate_datasets([
-    general_ds["train"],
-    sc_ds["train"],
-    sc_ds["train_cult_CS"].shuffle(seed=42).select(range(int(0.50 * len(sc_ds["train_cult_CS"]))))
+    general_train,
+    train_cs,
+    train_cult_cs
 ])
 
 general_test = concatenate_datasets([
@@ -312,7 +315,7 @@ save_jsonl(
 
 save_jsonl(
     test_tagged,
-    f"{json_dir}/test.jsonl"
+    f"{json_dir}/test_mixcs.jsonl"
 )
 
 # save_jsonl(
