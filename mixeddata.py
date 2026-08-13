@@ -1,7 +1,7 @@
 import os
 import json
 import random
-from datasets import load_from_disk, load_dataset
+from datasets import concatenate_datasets, load_from_disk, load_dataset
 
 random.seed(42)
 
@@ -38,6 +38,10 @@ general_train = general_ds["train"]
 general_val   = general_ds["validation"]
 general_test  = general_ds["test"]
 
+
+
+
+
 print("Corpus général :")
 print(general_ds)
 print("Exemple général :")
@@ -59,6 +63,15 @@ culture_ds = load_dataset(
 culture_train = culture_ds["train"]
 culture_val   = culture_ds["validation"]
 culture_test  = culture_ds["test"]
+
+
+general_ds = concatenate_datasets([
+    general_ds["test"],
+    culture_test["test"],
+])
+    
+general_ds = general_ds.shuffle(seed=42)
+print("Test:", len(general_ds))
 
 print("\nCorpus culturel :")
 print(culture_ds)
@@ -120,7 +133,7 @@ general_test_pairs  = dataset_to_pairs(general_test)
 
 culture_train_pairs = dataset_to_pairs(culture_train)
 culture_val_pairs   = dataset_to_pairs(culture_val)
-culture_test_pairs  = dataset_to_pairs(culture_test)
+# culture_test_pairs  = dataset_to_pairs(culture_test)
 
 print("\nTailles après extraction :")
 print("General train :", len(general_train_pairs))
@@ -128,7 +141,7 @@ print("General val   :", len(general_val_pairs))
 print("General test  :", len(general_test_pairs))
 print("Culture train :", len(culture_train_pairs))
 print("Culture val   :", len(culture_val_pairs))
-print("Culture test  :", len(culture_test_pairs))
+# print("Culture test  :", len(culture_test_pairs))
 
 # Vérification importante
 if len(culture_train_pairs) == 0:
@@ -156,11 +169,11 @@ def build_mixed_corpus(
     - respecte le ratio choisi
 
     Exemple :
-    culture_ratio = 0.30
-    general_ratio = 0.70
+    culture_ratio = 1.0
+    general_ratio = 1.0
 
     Si culture = 10 000 phrases :
-    général ajouté = (0.70 / 0.30) * 10 000 = 23 333 phrases
+    général ajouté = (1.0 / 1.0) * 10 000 = 10 000 phrases
     """
 
     culture_sample = culture_pairs
@@ -194,9 +207,9 @@ def build_mixed_corpus(
 
     return mixed_data, len(culture_sample), len(general_sample)
 
-# Ratio choisi : 30% culturel / 70% général
-culture_ratio = 0.30
-general_ratio = 0.70
+# Ratio choisi : 100% culturel / 100% général
+culture_ratio = 1.0
+general_ratio = 1.0
 
 train_mix, train_culture_used, train_general_used = build_mixed_corpus(
     general_pairs=general_train_pairs,
@@ -214,14 +227,14 @@ valid_mix, valid_culture_used, valid_general_used = build_mixed_corpus(
     use_tags=True
 )
 
-# Test culturel seulement
-test_culture_tagged = [
-    (id, f"{src}", tgt)
-    for id, src, tgt in culture_test_pairs
-]
+# # Test culturel seulement
+# test_culture_tagged = [
+#     (id, f"{src}", tgt)
+#     for id, src, tgt in culture_test_pairs
+# ]
 
 # Optionnel : test général seulement
-test_general_tagged = [
+test_tagged = [
     (f"general_{i}", f"{src}", tgt)
     for i, (id, src, tgt) in enumerate(general_test_pairs)
 ]
@@ -235,7 +248,7 @@ print("Valid mix total :", len(valid_mix))
 print("  Culture valid utilisée :", valid_culture_used)
 print("  Général valid utilisé  :", valid_general_used)
 
-print("Test culturel :", len(test_tagged))
+print("Test :", len(test_tagged))
 # print("Test général  :", len(test_general_tagged))
 
 # ============================================================
