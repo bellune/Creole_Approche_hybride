@@ -26,6 +26,7 @@ datasets/kreyol-mt-hat-eng
 datasets/kreyol-mt-hat-fra
 datasets/corpus_AHL/audio
 datasets/mix_corpus_all
+datasets/mixcs_corpus/
 
 # logs
 *.log
