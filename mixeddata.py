@@ -67,7 +67,7 @@ culture_test  = culture_ds["test"]
 
 general_ds = concatenate_datasets([
     general_ds["test"],
-    culture_test["test"],
+    culture_test,
 ])
     
 general_ds = general_ds.shuffle(seed=42)
