@@ -14,6 +14,16 @@ E1:Train: 665033 Val: 646 Test: 3143
 
 E2: Train: 680351 Val: 2561 Test: 3143
 
+Corpus mixte construit :
+Train mix total : 680351
+  Culture train utilisée : 15318
+  Général train utilisé  : 665033
+Valid mix total : 2561
+  Culture valid utilisée : 1915
+  Général valid utilisé  : 646
+Test : 3143
+
+
 E3 :  Train: 754513 Val: 2561 Test: 3143
 
 
