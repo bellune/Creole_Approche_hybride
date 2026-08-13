@@ -71,7 +71,7 @@ culture_test  = culture_ds["test"]
 
 
 general_train = concatenate_datasets([
-    general_train,
+    general_ds["train"],
     sc_ds["train"],
     sc_ds["train_cult_CS"].shuffle(seed=42).select(range(int(0.50 * len(sc_ds["train_cult_CS"]))))
 ])
