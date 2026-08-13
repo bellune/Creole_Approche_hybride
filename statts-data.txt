@@ -1,19 +1,20 @@
 NLLB-200
 ------------------------
-E1:Train: 665033 Val: 646 Test: 1228
+E1:Train: 665033 Val: 646 Test: 3143
 
-E2: Train: 680351 Val: 2561 Test: 1228
+E2: Train: 680351 Val: 2561 Test: 3143
 
-E3 :  Train: 754513 Val: 2561 Test: 1228
+E3 :  Train: 754513 Val: 2561 Test: 3143
 
 
 Fairseq
 ----------------
 
-E1:Train: 665033 Val: 646 Test: 1228
+E1:Train: 665033 Val: 646 Test: 3143
 
-E2: Train: 680351 Val: 2561 Test: 1228
+E2: Train: 680351 Val: 2561 Test: 3143
 
+E3 :  Train: 754513 Val: 2561 Test: 3143
 
 
 Resultats

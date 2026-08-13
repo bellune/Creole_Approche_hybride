@@ -235,8 +235,8 @@ print("Valid mix total :", len(valid_mix))
 print("  Culture valid utilisée :", valid_culture_used)
 print("  Général valid utilisé  :", valid_general_used)
 
-print("Test culturel :", len(test_culture_tagged))
-print("Test général  :", len(test_general_tagged))
+print("Test culturel :", len(test_tagged))
+# print("Test général  :", len(test_general_tagged))
 
 # ============================================================
 # 6. Sauvegarder en JSONL pour NLLB-200
@@ -279,14 +279,14 @@ save_jsonl(
 )
 
 save_jsonl(
-    test_culture_tagged,
-    f"{json_dir}/test_culture.jsonl"
+    test_tagged,
+    f"{json_dir}/test.jsonl"
 )
 
-save_jsonl(
-    test_general_tagged,
-    f"{json_dir}/test_general.jsonl"
-)
+# save_jsonl(
+#     test_general_tagged,
+#     f"{json_dir}/test.jsonl"
+# )
 
 # ============================================================
 # 7. Sauvegarder en TXT parallèle pour Fairseq
@@ -322,9 +322,9 @@ save_fairseq_txt(
 )
 
 save_fairseq_txt(
-    test_culture_tagged,
-    f"{fairseq_dir}/test_culture_mix.ht",
-    f"{fairseq_dir}/test_culture_mix.en"
+    test_tagged,
+    f"{fairseq_dir}/test_mix.ht",
+    f"{fairseq_dir}/test_mix.en"
 )
 
 # save_fairseq_txt(
@@ -342,8 +342,8 @@ print("\nFichiers générés avec succès.")
 print("\nJSONL pour NLLB-200 :")
 print(f"{json_dir}/train_mix.jsonl")
 print(f"{json_dir}/valid_mix.jsonl")
-print(f"{json_dir}/test_culture.jsonl")
-print(f"{json_dir}/test_general.jsonl")
+print(f"{json_dir}/test.jsonl")
+# print(f"{json_dir}/test_general.jsonl")
 
 print("\nTXT pour Fairseq :")
 print(f"{fairseq_dir}/train_mix.ht")

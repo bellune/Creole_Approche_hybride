@@ -113,7 +113,7 @@ print("Testing cultural-adapted model...")
 cultural_model = load_model(CULTURAL_MODEL)
 _,_, cultural_preds, _, = translate_dataset(cultural_model, test_data)
 
-print("Testing Czech-Slovak model...")
+print("Testing CS model...")
 cs_model = load_model(CULTURAL_MODEL_CS)
 _, _, cs_preds, _ = translate_dataset(cs_model, test_data)
 
@@ -198,24 +198,24 @@ cs_bleurt = bleurt.compute(
 print("\n===== RESULTS ON CULTURAL TEST SET =====")
 print("Baseline BLEU :", baseline_bleu["score"])
 print("Cultural BLEU :", cultural_bleu["score"])
-print("Czech-Slovak BLEU :", cs_bleu["score"])
+print("CS BLEU :", cs_bleu["score"])
 
 print("Baseline chrF :", baseline_chrf["score"])
 print("Cultural chrF :", cultural_chrf["score"])
-print("Czech-Slovak chrF :", cs_chrf["score"])
+print("CS chrF :", cs_chrf["score"])
 
 print("Baseline TER :", baseline_ter["score"])
 print("Cultural TER :", cultural_ter["score"])
-print("Czech-Slovak TER :", cs_ter["score"])
+print("CS TER :", cs_ter["score"])
 
 print("Baseline BLEURT :", baseline_bleurt["scores"][0])
 print("Cultural BLEURT :", cultural_bleurt["scores"][0])
-print("Czech-Slovak BLEURT :", cs_bleurt["scores"][0])
+print("CS BLEURT :", cs_bleurt["scores"][0])
 
 
 
 df_scores = pd.DataFrame({
-    "Model": ["Baseline", "Cultural", "Czech-Slovak"],
+    "Model": ["Baseline", "Cultural", "CS"],
     "BLEU": [baseline_bleu["score"], cultural_bleu["score"], cs_bleu["score"]],
     "chrF": [baseline_chrf["score"], cultural_chrf["score"], cs_chrf["score"]],
     "TER": [baseline_ter["score"], cultural_ter["score"], cs_ter["score"]],
