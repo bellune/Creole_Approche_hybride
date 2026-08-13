@@ -13,7 +13,8 @@ from pathlib import Path
 data_fairseq = "datasets/mix_corpus/fairseq"
 base_dir = "model/mix_fairseq"
 results_dir = "results/mix_fairseq"
-BASELINE = "model/fairseq/checkpoints/transformer_base_ht_en/checkpoint_best.pt"
+# BASELINE = "model/fairseq/checkpoints/transformer_base_ht_en/checkpoint_best.pt"
+base_dir_checkpoints = "/root/model/mix_fairseq"
 
 SRC = "ht"
 TGT = "en"
@@ -21,7 +22,7 @@ TGT = "en"
 RAW_DIR = Path(data_fairseq)
 SPM_DIR = Path(f"{base_dir}/spm")
 BIN_DIR = Path(f"{base_dir}/data-bin/ht-en")
-CKPT_DIR = Path(f"{base_dir}/checkpoints/transformer_base_mix_ht_en")
+CKPT_DIR = Path(f"{base_dir_checkpoints}/checkpoints/transformer_base_mix_ht_en")
 OUT_DIR = Path(f"{results_dir}/outputs")
 
 SPM_DIR.mkdir(parents=True, exist_ok=True)
