@@ -62,7 +62,7 @@ Baseline :
  "name": "BLEU",
  "score": 31.9,
  "signature": "nrefs:1|case:mixed|eff:no|tok:13a|smooth:exp|version:2.4.2",
- "verbose_score": "59.8/37.7/28.1/22.6 (BP = 0.923 ratio = 0.926 hyp_len = 34209 ref_len = 36950)",
+ "verbose_score": "59.8/37.7/28.1/22.6 (BP = 0.923 ratio = 0.926 hyp_len = 34218 ref_len = 36958)",
  "nrefs": "1",
  "case": "mixed",
  "eff": "no",
@@ -179,8 +179,23 @@ Code-switching :
 }
 ]
  
+===== RESULTS ON NLLB-200 TEST SET =====
+Baseline BLEU : 39.05104379411291
+Cultural BLEU : 43.28840597767721
+CS BLEU : 43.846682612747706
+Baseline chrF : 58.726931210195
+Cultural chrF : 63.133282792382275
+CS chrF : 63.68544432882639
+Baseline TER : 53.84875084402431
+Cultural TER : 46.5103431342459
+CS TER : 46.05610459763059
+Baseline BLEURT : 0.13902375102043152
+Cultural BLEURT : 0.16457499563694
+CS BLEURT : 0.14286455512046814
 
- ===== RESULTS ON NLLB-200 TEST SET ===== NLLB-200
+
+
+ ===== RESULTS ON NLLB-200 culturel TEST SET ===== NLLB-200
 Baseline BLEU : 15.595589064851008
 Cultural BLEU : 28.012121169706273
 CS BLEU : 29.457375958567912
