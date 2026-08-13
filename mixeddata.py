@@ -20,7 +20,7 @@ DEV_FILE   = "datasets/corpus_culturel/dev/cr_en.jsonl"
 TEST_FILE  = "datasets/corpus_culturel/test/cr_en.jsonl"
 
 # Dossier de sortie
-output_base = "datasets/mix_corpus"
+output_base = "datasets/mix_corpus_all"
 
 json_dir = output_base + "/json"
 fairseq_dir = output_base + "/fairseq"
@@ -327,11 +327,11 @@ save_fairseq_txt(
     f"{fairseq_dir}/test_culture_mix.en"
 )
 
-save_fairseq_txt(
-    test_general_tagged,
-    f"{fairseq_dir}/test_general_mix.ht",
-    f"{fairseq_dir}/test_general_mix.en"
-)
+# save_fairseq_txt(
+#     test_general_tagged,
+#     f"{fairseq_dir}/test_general_mix.ht",
+#     f"{fairseq_dir}/test_general_mix.en"
+# )
 
 # # ============================================================
 # 8. Résumé final
@@ -350,7 +350,7 @@ print(f"{fairseq_dir}/train_mix.ht")
 print(f"{fairseq_dir}/train_mix.en")
 print(f"{fairseq_dir}/valid_mix.ht")
 print(f"{fairseq_dir}/valid_mix.en")
-print(f"{fairseq_dir}/test_culture_mix.ht")
-print(f"{fairseq_dir}/test_culture_mix.en")
-print(f"{fairseq_dir}/test_general_mix.ht")
-print(f"{fairseq_dir}/test_general_mix.en")
+print(f"{fairseq_dir}/test_mix.ht")
+print(f"{fairseq_dir}/test_mix.en")
+# print(f"{fairseq_dir}/test_general_mix.ht")
+# print(f"{fairseq_dir}/test_general_mix.en")
