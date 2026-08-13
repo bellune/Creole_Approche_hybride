@@ -237,10 +237,11 @@ def generate_attentions():
 if __name__ == "__main__":
     check_files()
 
-    if not (SPM_DIR / "ht_en_spm.model").exists():
-        train_sentencepiece()
-    else:
-        print("SentencePiece model already exists. Skipping training.")
+    # if not (SPM_DIR / "ht_en_spm.model").exists():
+    train_sentencepiece()
+    # else:
+        # print("SentencePiece model already exists. Skipping training.")
+        # pass
 
     # if not (RAW_DIR / f"train.spm.{SRC}").exists():
     apply_sentencepiece()
