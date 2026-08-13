@@ -3,13 +3,46 @@ from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 import torch
 import evaluate
 import pandas as pd
+from datasets import concatenate_datasets, load_dataset
+from datasets import load_from_disk
 
 BASE_MODEL = "facebook/nllb-200-distilled-600M"
 
-BASELINE_MODEL = "nllb200_baseline4/checkpoint-166260"
-CULTURAL_MODEL = "model/nllb_cultural_cr_en"
-CULTURAL_MODEL_TRI = "model/nllb_cultural_tri"
+BASELINE_MODEL = "backup_model/nllb200Baseline"
+CULTURAL_MODEL = "/backup_model/nllb_cultural_cr_en"
+CULTURAL_MODEL_CS = "/root/model/nllb_CS"
+
 TEST_FILE = "datasets/corpus_culturel/test/cr_en.jsonl"
+
+
+path_data = "datasets"
+save_path = path_data + "/kreyol-mt-hat-eng"
+
+ds = load_from_disk(save_path)
+print(ds)
+
+
+
+datasetest = load_dataset(
+    "json",
+    data_files={
+        "test": TEST_FILE    }
+)
+
+
+train_ds = concatenate_datasets([
+    ds["test"],
+    datasetest["test"],
+])
+    
+train_ds = train_ds.shuffle(seed=42)
+print("Train:", len(train_ds))
+
+
+# -------------------------------
+# Chargement du modèle et du tokenizer
+# -------------------------------
+
 
 SRC_LANG = "hat_Latn"
 TGT_LANG = "eng_Latn"
@@ -80,9 +113,9 @@ print("Testing cultural-adapted model...")
 cultural_model = load_model(CULTURAL_MODEL)
 _,_, cultural_preds, _, = translate_dataset(cultural_model, test_data)
 
-print("Testing tri-lingual model...")
-tri_model = load_model(CULTURAL_MODEL_TRI)
-_, _, tri_preds, _ = translate_dataset(tri_model, test_data)
+print("Testing Czech-Slovak model...")
+cs_model = load_model(CULTURAL_MODEL_CS)
+_, _, cs_preds, _ = translate_dataset(cs_model, test_data)
 
 # -------------------------------
 # Métriques
@@ -103,8 +136,8 @@ cultural_bleu = bleu.compute(
     references=[[r] for r in refs]
 )
 
-tri_bleu = bleu.compute(
-    predictions=tri_preds,
+cs_bleu = bleu.compute(
+    predictions=cs_preds,
     references=[[r] for r in refs]
 )
 
@@ -118,8 +151,8 @@ cultural_chrf = chrf.compute(
     references=refs
 )
 
-tri_chrf = chrf.compute(
-    predictions=tri_preds,
+cs_chrf = chrf.compute(
+    predictions=cs_preds,
     references=refs
 )
 
@@ -133,8 +166,8 @@ cultural_ter = ter.compute(
     references=refs
 )
 
-tri_ter = ter.compute(
-    predictions=tri_preds,
+cs_ter = ter.compute(
+    predictions=cs_preds,
     references=refs
 )
 
@@ -147,8 +180,8 @@ cultural_bleurt = bleurt.compute(
     predictions=cultural_preds,
     references=refs
 )
-tri_bleurt = bleurt.compute(
-    predictions=tri_preds,
+cs_bleurt = bleurt.compute(
+    predictions=cs_preds,
     references=refs
 )
 
@@ -165,32 +198,32 @@ tri_bleurt = bleurt.compute(
 print("\n===== RESULTS ON CULTURAL TEST SET =====")
 print("Baseline BLEU :", baseline_bleu["score"])
 print("Cultural BLEU :", cultural_bleu["score"])
-print("Tri-lingual BLEU :", tri_bleu["score"])
+print("Czech-Slovak BLEU :", cs_bleu["score"])
 
 print("Baseline chrF :", baseline_chrf["score"])
 print("Cultural chrF :", cultural_chrf["score"])
-print("Tri-lingual chrF :", tri_chrf["score"])
+print("Czech-Slovak chrF :", cs_chrf["score"])
 
 print("Baseline TER :", baseline_ter["score"])
 print("Cultural TER :", cultural_ter["score"])
-print("Tri-lingual TER :", tri_ter["score"])
+print("Czech-Slovak TER :", cs_ter["score"])
 
 print("Baseline BLEURT :", baseline_bleurt["scores"][0])
 print("Cultural BLEURT :", cultural_bleurt["scores"][0])
-print("Tri-lingual BLEURT :", tri_bleurt["scores"][0])
+print("Czech-Slovak BLEURT :", cs_bleurt["scores"][0])
 
 
 
 df_scores = pd.DataFrame({
-    "Model": ["Baseline", "Cultural", "Tri-lingual"],
-    "BLEU": [baseline_bleu["score"], cultural_bleu["score"], tri_bleu["score"]],
-    "chrF": [baseline_chrf["score"], cultural_chrf["score"], tri_chrf["score"]],
-    "TER": [baseline_ter["score"], cultural_ter["score"], tri_ter["score"]],
-    "BLEURT": [baseline_bleurt["scores"][0], cultural_bleurt["scores"][0], tri_bleurt["scores"][0]          ]
+    "Model": ["Baseline", "Cultural", "Czech-Slovak"],
+    "BLEU": [baseline_bleu["score"], cultural_bleu["score"], cs_bleu["score"]],
+    "chrF": [baseline_chrf["score"], cultural_chrf["score"], cs_chrf["score"]],
+    "TER": [baseline_ter["score"], cultural_ter["score"], cs_ter["score"]],
+    "BLEURT": [baseline_bleurt["scores"][0], cultural_bleurt["scores"][0], cs_bleurt["scores"][0]          ]
 })
 
 df_scores.to_csv(
-    "result/cultural_test_scores_all.csv",
+    "result/NLL20_test_scores_all.csv",
     index=False,
     encoding="utf-8-sig"
 )
@@ -204,13 +237,13 @@ df_results = pd.DataFrame({
     "reference_en": refs,
     "baseline_prediction": baseline_preds,
     "cultural_prediction": cultural_preds,
-    "tri_prediction": tri_preds
+    "CS_prediction": cs_preds
 })
 
 df_results.to_csv(
-    "result/cultural_test_comparison_all.csv",
+    "result/NLL20_test_comparison_all.csv",
     index=False,
     encoding="utf-8-sig"
 )
 
-print("\nComparaison sauvegardée : result/cultural_test_comparison_all.csv")
+print("\nComparaison sauvegardée : result/NLL20_test_comparison_all.csv")
