@@ -48,25 +48,22 @@ general_test  = general_ds["test"]
 # 3. Charger le corpus culturel
 # ============================================================
 
-sc_ds = load_dataset(
-    "json",
-    data_files={
-        "train": TRAIN_FILE_CS,
-        "train_cult_CS": TRAIN_FILE_CULT_CS
-    }
-)
 
-train_cs = sc_ds["train"]
-train_cult_cs = sc_ds["train_cult_CS"].shuffle(seed=42).select(range(int(0.50 * len(sc_ds["train_cult_CS"]))))
 
 culture_ds = load_dataset(
     "json",
     data_files={
         "train": TRAIN_FILE,
         "validation": DEV_FILE,
-        "test": TEST_FILE
+        "test": TEST_FILE,
+        "train_cs": TRAIN_FILE_CS,
+        "train_cult_CS": TRAIN_FILE_CULT_CS
+
     }
 )
+
+train_cs = culture_ds["train_cs"]
+train_cult_cs = culture_ds["train_cult_CS"].shuffle(seed=42).select(range(int(0.50 * len(culture_ds["train_cult_CS"]))))
 
 culture_train = culture_ds["train"]
 culture_val   = culture_ds["validation"]
