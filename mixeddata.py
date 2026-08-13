@@ -41,12 +41,6 @@ general_test  = general_ds["test"]
 
 
 
-
-print("Corpus général :")
-print(general_ds)
-print("Exemple général :")
-print(general_train[0])
-
 # ============================================================
 # 3. Charger le corpus culturel
 # ============================================================
@@ -72,6 +66,14 @@ general_ds = concatenate_datasets([
     
 general_ds = general_ds.shuffle(seed=42)
 print("Test:", len(general_ds))
+
+
+
+
+print("Corpus général :")
+print(general_ds)
+print("Exemple général :")
+print(general_train[0])
 
 print("\nCorpus culturel :")
 print(culture_ds)
@@ -179,7 +181,7 @@ def build_mixed_corpus(
     culture_sample = culture_pairs
     n_culture = len(culture_sample)
 
-    n_general = int((general_ratio / culture_ratio) * n_culture)
+    n_general = len(general_pairs)
 
     print(f"Culture : {n_culture} phrases utilisées")
     print(f"Général : {n_general} phrases demandées")
