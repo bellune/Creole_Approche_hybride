@@ -69,7 +69,7 @@ Les performances des systèmes sont évaluées à l’aide de plusieurs métriqu
 * TER ;
 * BLEURT ;
 * CSI-Match ;
-* évaluation qualitative à partir d’exemples de prédictions.
+* Evaluation humaine ;
 
 ## Prétraitement des données
 
