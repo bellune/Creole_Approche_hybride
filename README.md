@@ -14,7 +14,7 @@ Ce travail vise à :
 * comparer un modèle Transformer entraîné à partir de zéro avec le modèle multilingue préentraîné NLLB-200 ;
 * évaluer l’impact des données culturelles sur la qualité de traduction ;
 * étudier l’effet des données synthétiques avec alternance codique ;
-* analyser les performances des modèles à l’aide de métriques automatiques et d’une évaluation qualitative.
+* analyser les performances des modèles à l’aide de métriques;
 
 ## Structure du dépôt
 
