@@ -89,7 +89,3 @@ Les expériences sont organisées selon plusieurs configurations :
 * modèle enrichi avec des données culturelles et des données d’alternance codique.
 
 Les résultats sont ensuite comparés afin d’évaluer l’effet de chaque stratégie d’enrichissement des données.
-
-## Remarque
-
-Ce dépôt accompagne un travail de recherche universitaire. Les scripts, configurations et résultats sont fournis à des fins de reproductibilité, d’analyse et de documentation scientifique.
