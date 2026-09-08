@@ -53,9 +53,11 @@ Certaines données ne sont pas incluses directement dans ce dépôt pour des rai
 Deux principales approches sont comparées :
 
 1. **Transformer entraîné à partir de zéro avec Fairseq**
+   
    Ce modèle est entraîné directement sur les corpus préparés pour les différentes expérimentations.
 
 2. **NLLB-200**
+   
    Le modèle multilingue préentraîné NLLB-200 est adapté aux données du projet par fine-tuning.
 
 ## Métriques d’évaluation
