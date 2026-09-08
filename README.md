@@ -43,10 +43,10 @@ Les expérimentations reposent sur plusieurs types de données :
 
 * des données générales issues de corpus de traduction automatique ;
 * des données culturelles liées à la langue et à la culture haïtiennes ;
-* des données synthétiques contenant des phénomènes d’alternance codique ;
+* des données synthétiques d’alternance codique ;
 * des données utilisées dans le cadre du WMT 2026 Creole Machine Translation Shared Task.
 
-Certaines données ne sont pas incluses directement dans ce dépôt pour des raisons de taille, de licence ou de confidentialité.
+Certaines données ne sont pas incluses directement dans ce dépôt pour des raisons de taille.
 
 ## Modèles utilisés
 
