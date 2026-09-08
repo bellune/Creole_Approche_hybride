@@ -1,0 +1,4 @@
+prediction_column,number_examples,average_csi_match,success_rate_75,model,source_file,file_type
+baseline_prediction,3147,65.95,29.14,baseline,fairseq_test_comparison_all.csv,multi_column
+cultural_prediction,3147,69.61,36.99,cultural,fairseq_test_comparison_all.csv,multi_column
+CS_prediction,3147,69.88,37.08,CS,fairseq_test_comparison_all.csv,multi_column

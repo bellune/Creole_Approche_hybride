@@ -7,11 +7,20 @@ python cultural_nllb/csi_match_eval.py \
   --csi_col expected_translation
 
 
-  python cultural_nllb/csi_match_eval.py \
+python3 cultural_nllb/csi_match_eval.py \
   --csi_file datasets/corpus_culturel/cr_en_with_explain.csv \
-  --multi_file result/cultural/cultural_test_comparison_all.csv \
+  --multi_file result/cultural/All_NLL20_test_comparison_all.csv \
   --separate_dir result/cultural \
-  --output_dir result/csi_results \
+  --output_dir result/csi_new_results \
+  --id_col id \
+  --csi_col expected_translation \
+  --separate_prediction_col prediction
+
+  python3 cultural_nllb/csi_match_eval.py \
+  --csi_file datasets/corpus_culturel/cr_en_with_explain.csv \
+  --multi_file result/cultural/fairseq_test_comparison_all.csv \
+  --separate_dir result/cultural \
+  --output_dir result/csi_new_results \
   --id_col id \
   --csi_col expected_translation \
   --separate_prediction_col prediction

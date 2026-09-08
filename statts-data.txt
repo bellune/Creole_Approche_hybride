@@ -209,3 +209,133 @@ CS TER : 57.892027066784344
 Baseline BLEURT : -0.6544368863105774
 Cultural BLEURT : -0.5037409067153931
 CS BLEURT : 0.1646738350391388
+
+
+-----------------------------------------------------
+
+Nombre d'exemples Train : 665033
+Nombre d'exemples Val   : 646
+Nombre d'exemples Test  : 3143
+
+Tokens Train HT : 14947629
+Tokens Val HT   : 14924
+Tokens Test HT  : 46255
+------------------------------------------------------------
+Tokens Train EN : 13648756
+Tokens Val EN   : 13451
+Tokens Test EN  : 44458
+------------------------------------------------------------
+Total Tokens HT : 15008808
+Total Tokens EN : 13706665
+
+============================================================
+GLOBAL : MT-creole+Culture
+============================================================
+Nombre d'exemples Train : 680351
+Nombre d'exemples Val   : 2561
+Nombre d'exemples Test  : 3143
+
+Tokens Train HT : 15076966
+Tokens Val HT   : 31310
+Tokens Test HT  : 46255
+------------------------------------------------------------
+Tokens Train EN : 13787669
+Tokens Val EN   : 31008
+Tokens Test EN  : 44458
+------------------------------------------------------------
+Total Tokens HT : 15154531
+Total Tokens EN : 13863135
+
+============================================================
+GLOBAL : MT-creole+Culture+CS
+============================================================
+Nombre d'exemples Train : 754513
+Nombre d'exemples Val   : 2561
+Nombre d'exemples Test  : 3143
+
+Tokens Train HT : 16557918
+Tokens Val HT   : 31310
+Tokens Test HT  : 46255
+------------------------------------------------------------
+Tokens Train EN : 15223583
+Tokens Val EN   : 31008
+Tokens Test EN  : 44458
+------------------------------------------------------------
+Total Tokens HT : 16635483
+Total Tokens EN : 15299049
+
+
+--------------------------------------------------------------------
+
+
+DatasetDict({
+    test: Dataset({
+        features: ['translation'],
+        num_rows: 1228
+    })
+    train: Dataset({
+        features: ['translation'],
+        num_rows: 665033
+    })
+    validation: Dataset({
+        features: ['translation'],
+        num_rows: 646
+    })
+})
+
+=================================================================
+GLOBAL : MT-creole
+=================================================================
+Nombre de paires Train : 665033
+Nombre de paires Val   : 646
+Nombre de paires Test  : 3143
+Nombre total de paires : 668822
+
+Mots Train HT : 8477485
+Mots Val HT   : 9077
+Mots Test HT  : 32564
+-----------------------------------------------------------------
+Mots Train EN : 7839120
+Mots Val EN   : 8286
+Mots Test EN  : 32072
+-----------------------------------------------------------------
+Total mots créole HT : 8519126
+Total mots anglais EN : 7879478
+
+=================================================================
+GLOBAL : MT-creole+Culture
+=================================================================
+Nombre de paires Train : 680351
+Nombre de paires Val   : 2561
+Nombre de paires Test  : 3143
+Nombre total de paires : 686055
+
+Mots Train HT : 8580379
+Mots Val HT   : 22023
+Mots Test HT  : 32564
+-----------------------------------------------------------------
+Mots Train EN : 7948982
+Mots Val EN   : 22012
+Mots Test EN  : 32072
+-----------------------------------------------------------------
+Total mots créole HT : 8634966
+Total mots anglais EN : 8003066
+
+=================================================================
+GLOBAL : MT-creole+Culture+CS
+=================================================================
+Nombre de paires Train : 754513
+Nombre de paires Val   : 2561
+Nombre de paires Test  : 3143
+Nombre total de paires : 760217
+
+Mots Train HT : 9448435
+Mots Val HT   : 22023
+Mots Test HT  : 32564
+-----------------------------------------------------------------
+Mots Train EN : 8788070
+Mots Val EN   : 22012
+Mots Test EN  : 32072
+-----------------------------------------------------------------
+Total mots créole HT : 9503022
+Total mots anglais EN : 8842154

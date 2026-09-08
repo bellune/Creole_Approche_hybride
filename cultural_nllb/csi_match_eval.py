@@ -46,12 +46,12 @@ def main():
 
     parser.add_argument("--id_col", default="id")
     parser.add_argument("--csi_col", default="csi_translation")
-    parser.add_argument("--threshold", type=float, default=80.0)
+    parser.add_argument("--threshold", type=float, default=75.0)
 
     parser.add_argument(
         "--multi_prediction_cols",
         nargs="*",
-        default=["baseline_prediction", "cultural_prediction", "tri_prediction"]
+        default=["baseline_prediction", "cultural_prediction", "CS_prediction"]
     )
 
     parser.add_argument(

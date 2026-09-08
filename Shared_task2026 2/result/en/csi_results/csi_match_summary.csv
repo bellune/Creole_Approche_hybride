@@ -1,4 +1,0 @@
-prediction_column,number_examples,average_csi_match,success_rate_80,model,source_file,file_type
-prediction,1682,75.77,40.84,task2026_preds_MODCS01,task2026_preds_MODCS01.csv,separate_file
-prediction,1682,76.99,43.1,task2026_preds_MODELCSCULT01,task2026_preds_MODELCSCULT01.csv,separate_file
-prediction,1682,76.64,43.1,task2026_preds_BASELINE01,task2026_preds_BASELINE01.csv,separate_file

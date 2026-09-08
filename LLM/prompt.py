@@ -11,7 +11,7 @@ from datasets import load_dataset
 # FICHIERS
 # =========================
 
-TEST_FILE = "datasets/corpus_culturel/test/cr_en.jsonl"
+TEST_FILE = "datasets/corpus_culturel/test/cr_en_all.jsonl"
 OUTPUT_FILE = "datasets/corpus_culturel/cr_en_with_explain.csv"
 
 # =========================
