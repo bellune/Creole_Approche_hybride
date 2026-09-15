@@ -6,16 +6,6 @@ Ce dépôt contient les scripts, les configurations et les résultats expérimen
 
 L’objectif de ce projet est de développer et d’évaluer des systèmes de traduction automatique pour le créole haïtien, principalement vers l’anglais et le français. Le projet explore différentes stratégies d’amélioration des performances, notamment l’intégration de données culturelles et l’utilisation de données synthétiques avec alternance codique.
 
-## Objectifs du projet
-
-Ce travail vise à :
-
-* entraîner des modèles de traduction automatique pour le créole haïtien ;
-* comparer un modèle Transformer entraîné à partir de zéro avec le modèle multilingue préentraîné NLLB-200 ;
-* évaluer l’impact des données culturelles sur la qualité de traduction ;
-* étudier l’effet des données synthétiques avec alternance codique ;
-* analyser les performances des modèles à l’aide de métriques;
-
 ## Structure du dépôt
 
 ```text
@@ -31,7 +21,7 @@ Creole_Approche_hybride/
 ├── result/                # Résultats générés
 ├── results/               # Résultats d’évaluation
 ├── stats/                 # Statistiques sur les données et les expériences
-├── uqam_eval_srcs/        # Scripts d’évaluation utilisés dans le cadre du projet
+├── uqam_eval_srcs/        # Scripts d’évaluation utilisés dans le cadre du Shared Task
 ├── config.py              # Fichier de configuration
 ├── command.txt            # Commandes utilisées pour les expériences
 └── README.md              # Présentation du projet
@@ -41,7 +31,7 @@ Creole_Approche_hybride/
 
 Les expérimentations reposent sur plusieurs types de données :
 
-* des données générales issues de corpus de traduction automatique ;
+* des données générales issues de corpus de traduction automatique; 
 * des données culturelles liées à la langue et à la culture haïtiennes ;
 * des données synthétiques d’alternance codique ;
 * des données utilisées dans le cadre du WMT 2026 Creole Machine Translation Shared Task.
@@ -84,8 +74,8 @@ Les scripts de prétraitement permettent de nettoyer, segmenter, combiner et con
 
 Les expériences sont organisées selon plusieurs configurations :
 
-* modèle de référence entraîné sur les données générales ;
-* modèle enrichi avec des données culturelles ;
-* modèle enrichi avec des données culturelles et des données d’alternance codique.
+* modèle de référence entraîné sur les données générales de Kreyòl-MT ;
+* modèle enrichi avec des données culturelles : Kreyòl-MT + données culturelles ;
+* modèle enrichi avec des données culturelles et des données d’alternance codique : Kreyòl-MT + données culturelles + données d’alternance codique.
 
 Les résultats sont ensuite comparés afin d’évaluer l’effet de chaque stratégie d’enrichissement des données.
