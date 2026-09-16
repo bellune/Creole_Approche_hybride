@@ -1,0 +1,15 @@
+# NLLB-200
+torch
+transformers
+datasets
+evaluate
+accelerate
+sentencepiece
+sacrebleu
+bert-score
+numpy
+pandas
+scikit-learn
+tqdm
+pyyaml
+regex

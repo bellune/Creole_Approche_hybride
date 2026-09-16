@@ -1,13 +1,37 @@
 !pip install -q datasets
 !pip -q install transformers datasets evaluate sacrebleu sentencepiece accelerate
 
-nllb200/nllb200_train.py
-
-
 python -c "import sys; print(sys.executable)"
 python -m pip uninstall -y transformers accelerate torch torchvision
 python -m pip install transformers accelerate datasets evaluate sentencepiece sacrebleu
 
 python -c "from transformers import Seq2SeqTrainer; print('ok')"
 
- learning_rate=2e-5,
+python3  load_save_data.py
+
+python3  fairseq/prepareData.py
+
+python3  fairseq/train_eval.py
+
+
+python3 nllb200/nllb200_train.py
+
+tmux attach -t nllb
+
+python3 cultural_nllb/nllb_train.py
+
+
+python3 cultural_nllb/nllb_train_cultCS.py
+
+python3 cultural_nllb/nllb_all_test.py
+
+python3  mixeddata.py
+
+python3  fairseq/train_meval_mix.py
+
+
+python3 fairseq/train_CSEval_mix.py 
+
+python3 fairseq/jsontotext_filetest.py
+
+Python fairseq/eval_bleurt_mix.py

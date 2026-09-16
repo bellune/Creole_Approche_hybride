@@ -15,6 +15,7 @@ Creole_Approche_hybride/
 ├── fairseq/               # Scripts liés aux modèles Transformer avec Fairseq
 ├── nllb200/               # Scripts liés au fine-tuning du modèle NLLB-200
 ├── cultural_nllb/         # Expériences avec les données culturelles
+├── cultural_oral/         # Expériences avec le corpus de l’Atlas Linguistique d’Haïti(ALH)
 ├── code_switching/        # Données et scripts liés à l’alternance codique
 ├── mt5/                   # Expériences liées au modèle mT5
 ├── LLM/                   # Scripts liés à l’utilisation de modèles de langue
@@ -79,3 +80,103 @@ Les expériences sont organisées selon plusieurs configurations :
 * modèle enrichi avec des données culturelles et des données d’alternance codique : Kreyòl-MT + données culturelles + données d’alternance codique.
 
 Les résultats sont ensuite comparés afin d’évaluer l’effet de chaque stratégie d’enrichissement des données.
+
+
+## Installation
+
+1. Cloner le dépôt ou télécharger le fichier ZIP :
+
+```bash
+git clone https://github.com/<votre-utilisateur>/Creole_Approche_hybride.git
+```
+
+2. Accéder au dossier du projet :
+
+```bash
+cd Creole_Approche_hybride
+```
+
+3. Créer un environnement virtuel :
+
+```bash
+python -m venv env
+```
+
+4. Activer l’environnement virtuel.
+
+Sous Windows :
+
+```bash
+env\Scripts\activate
+```
+
+Sous Linux/macOS :
+
+```bash
+source env/bin/activate
+```
+
+5. Installer les dépendances nécessaires :
+
+## Pour les expériences avec Fairseq :
+
+```bash
+pip install -r fairseq_requirement.txt
+```
+
+## Pour les expériences avec NLLB-200 :
+
+```bash
+pip install -r nllb_requirement.txt
+```
+
+## Utilisation
+
+Les scripts du projet permettent de préparer les données, d’entraîner les modèles et d’évaluer les résultats obtenus.
+
+Avant d’exécuter les scripts, il faut s’assurer que :
+
+* l’environnement virtuel est activé ;
+* les données nécessaires sont placées dans le dossier `datasets/` ;
+* les chemins définis dans les scripts ou dans le fichier de configuration sont correctement adaptés à l’environnement local.
+
+Les principales étapes d’utilisation sont les suivantes :
+
+1. préparer les données au format requis ;
+2. lancer l’entraînement du modèle choisi ;
+3. générer les prédictions ;
+4. évaluer les traductions à l’aide des métriques automatiques.
+
+Les commandes exactes utilisées pour les expériences sont documentées dans le fichier `command.txt`.
+
+## Contribution
+
+Les contributions sont les bienvenues. Les utilisateurs peuvent proposer des améliorations, signaler des problèmes ou soumettre des corrections en ouvrant une issue ou une pull request sur le dépôt GitHub.
+
+## Licence
+
+Ce projet est fourni à des fins de recherche et de documentation scientifique.
+
+## Remerciements
+
+Ce projet a été réalisé dans le cadre d’un mémoire de maîtrise portant sur la traduction automatique du créole haïtien.
+
+Nous remercions les personnes et organismes ayant contribué à la collecte, à l’accès ou à la valorisation des ressources linguistiques et culturelles utilisées dans ce travail.
+
+
+
+## Citation
+
+Si vous utilisez les ressources dans vos travaux de recherche, veuillez citer cet article :
+
+```bibtex
+@inproceedings{bellune2026culturalawareness,
+  author    = {Bellune, Tabitha Megane and Le, Ngoc Tan and Sadat, Fatiha},
+  title     = {{Evaluating and Improving Cultural Awareness in Haitian Creole Machine Translation}},
+  booktitle = {Proceedings of the Eleventh Conference on Machine Translation (WMT 2026)},
+  year      = {2026},
+  address   = {Budapest, Hungary},
+  month     = oct,
+  note      = {Accepted}
+}
+```
