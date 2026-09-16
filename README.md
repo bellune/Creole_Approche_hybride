@@ -138,7 +138,6 @@ Avant d’exécuter les scripts, il faut s’assurer que :
 
 * l’environnement virtuel est activé ;
 * les données nécessaires sont placées dans le dossier `datasets/` ;
-* les chemins définis dans les scripts ou dans le fichier de configuration sont correctement adaptés à l’environnement local.
 
 Les principales étapes d’utilisation sont les suivantes :
 
